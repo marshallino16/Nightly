@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="blue_background_dark">#454f6d</color>
+    <color name="blue_aciton_bar">#7fbfd4</color>
+    <color name="separator_background_top_panel">#f0f0f0</color>
+    <color name="grey_item_color">#c7cad3</color>
+    <color name="blue_overlay_background_dark">#373f57</color>
+    <color name="action_bar_item_background">#598594</color>
+    
+    <!-- bulles -->
+    <color name="pink_circle">#f586a8</color>
+    <color name="green_circle">#80d490</color>
+    <color name="bleu_circle">#7fd1d4</color>
+    <color name="yellow_circle">#e8ca88</color>
+    <color name="violet_circle">#877fd4</color>
+    <color name="red_circle">#e88888</color>
+
+</resources>

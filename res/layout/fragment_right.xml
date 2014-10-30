@@ -39,7 +39,7 @@
                 android:paddingRight="5dp"
                 android:paddingTop="2dp"
                 android:text="@string/edit"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
         </RelativeLayout>
 
@@ -97,7 +97,7 @@
                 android:paddingRight="5dp"
                 android:paddingTop="2dp"
                 android:text="@string/edit"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
         </RelativeLayout>
 
@@ -154,7 +154,7 @@
                 android:paddingRight="5dp"
                 android:paddingTop="2dp"
                 android:text="@string/edit"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
         </RelativeLayout>
 
@@ -211,7 +211,7 @@
                 android:paddingRight="5dp"
                 android:paddingTop="2dp"
                 android:text="@string/edit"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
         </RelativeLayout>
 
@@ -268,7 +268,7 @@
                 android:paddingRight="5dp"
                 android:paddingTop="2dp"
                 android:text="@string/edit"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
         </RelativeLayout>
 
@@ -325,7 +325,7 @@
                 android:paddingRight="5dp"
                 android:paddingTop="2dp"
                 android:text="@string/edit"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
         </RelativeLayout>
 
@@ -381,7 +381,7 @@
                 android:paddingRight="5dp"
                 android:paddingTop="2dp"
                 android:text="@string/edit"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
         </RelativeLayout>
 

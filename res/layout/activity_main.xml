@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="16.6"
+        android:layout_weight="19"
         android:background="@android:color/white"
         android:orientation="horizontal" >
 
@@ -16,6 +16,33 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" >
+
+            <ImageView
+                android:id="@+id/moonIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/content_description"
+                android:src="@drawable/moon" />
+
+            <TextView
+                android:id="@+id/moonText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/moonIcon"
+                android:gravity="center"
+                android:text="@string/sleep_walker"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/blue_background_dark" />
+
+            <ImageView
+                android:id="@+id/selectorCurrent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@string/content_description"
+                android:src="@drawable/selector_current" />
         </RelativeLayout>
 
         <View
@@ -27,6 +54,34 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" >
+
+            <ImageView
+                android:id="@+id/alarmIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/content_description"
+                android:src="@drawable/alarm" />
+
+            <TextView
+                android:id="@+id/alarmText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/alarmIcon"
+                android:gravity="center"
+                android:text="@string/early_guy"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/unpress_grey" />
+
+            <ImageView
+                android:id="@+id/selectorCurrentAlarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@string/content_description"
+                android:src="@drawable/selector_current"
+                android:visibility="gone" />
         </RelativeLayout>
     </LinearLayout>
 

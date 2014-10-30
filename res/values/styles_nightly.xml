@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- File created by the Android Action Bar Style Generator
+<!--
+     File created by the Android Action Bar Style Generator
 
      Copyright (C) 2011 The Android Open Source Project
      Copyright (C) 2012 readyState Software Ltd
@@ -29,10 +30,9 @@
         <item name="actionModeBackground">@drawable/cab_background_top_nightly</item>
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_nightly</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Nightly</item>
-
-                <!-- Light.DarkActionBar specific -->
+        <item name="windowContentOverlay">@null</item>
+        <!-- Light.DarkActionBar specific -->
         <item name="actionBarWidgetTheme">@style/Theme.Nightly.Widget</item>
-
     </style>
 
     <style name="ActionBar.Solid.Nightly" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
@@ -44,11 +44,11 @@
         <item name="background">@drawable/ab_transparent_nightly</item>
         <item name="progressBarStyle">@style/ProgressBar.Nightly</item>
     </style>
-	
-    <style name="PopupMenu.Nightly" parent="@style/Widget.Sherlock.ListPopupWindow">	
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_nightly</item>	
+
+    <style name="PopupMenu.Nightly" parent="@style/Widget.Sherlock.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_nightly</item>
     </style>
-	
+
     <style name="DropDownListView.Nightly" parent="@style/Widget.Sherlock.ListView.DropDown">
         <item name="android:listSelector">@drawable/selectable_background_nightly</item>
     </style>
@@ -56,21 +56,21 @@
     <style name="ActionBarTabStyle.Nightly" parent="@style/Widget.Sherlock.ActionBar.TabView">
         <item name="android:background">@drawable/tab_indicator_ab_nightly</item>
     </style>
-	
+
     <style name="DropDownNav.Nightly" parent="@style/Widget.Sherlock.Spinner.DropDown.ActionBar">
         <item name="android:background">@drawable/spinner_background_ab_nightly</item>
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_nightly</item>
         <item name="android:dropDownSelector">@drawable/selectable_background_nightly</item>
     </style>
-    
+
     <style name="ProgressBar.Nightly" parent="@style/Widget.Sherlock.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_nightly</item>
     </style>
-    
+
     <style name="ActionButton.CloseMode.Nightly" parent="@style/Widget.Sherlock.ActionButton.CloseMode">
         <item name="android:background">@drawable/btn_cab_done_nightly</item>
     </style>
-    
+
     <!-- this style is only referenced in a Light.DarkActionBar based theme -->
     <style name="Theme.Nightly.Widget" parent="@style/Theme.Sherlock">
         <item name="popupMenuStyle">@style/PopupMenu.Nightly</item>

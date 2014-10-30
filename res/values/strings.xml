@@ -8,6 +8,10 @@
     
     <!-- actions -->
     <string name="edit">modifier</string>
+    <string name="good_night">“ bonne\nnuit ”</string>
+    <string name="categories">catégories</string>
+    <string name="account">profil</string>
+    <string name="conversations">conversations</string>
     
     <!-- days of week -->
     <string name="monday">Lundi</string>

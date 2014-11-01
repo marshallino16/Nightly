@@ -4,7 +4,7 @@
     <string name="app_name">Nightly</string>
     <string name="content_description">image</string>
     <string name="sleep_walker">somnambule</string>
-    <string name="early_guy">lève tôt</string>
+    <string name="early_guy">couche tard</string>
     
     <!-- actions -->
     <string name="edit">modifier</string>

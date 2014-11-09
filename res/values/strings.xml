@@ -5,14 +5,23 @@
     <string name="content_description">image</string>
     <string name="sleep_walker">somnambule</string>
     <string name="early_guy">couche tard</string>
-    
+
     <!-- actions -->
     <string name="edit">modifier</string>
     <string name="good_night">“ bonne\nnuit ”</string>
     <string name="categories">catégories</string>
     <string name="account">profil</string>
     <string name="conversations">conversations</string>
-    
+
+    <!-- login -->
+    <string name="email">email</string>
+    <string name="password">mot de passe</string>
+    <string name="error_bad_password">Erreur, l\'email ou le mot de passe est incorrect.</string>
+    <string name="login">connexion</string>
+    <string name="register">s\'enregistrer</string>
+    <string name="lost_password"> - mot de passe oublié -</string>
+    <string name="facebook_connect">connection Facebook</string>
+
     <!-- days of week -->
     <string name="monday">Lundi</string>
     <string name="tuesday">Mardi</string>
@@ -21,5 +30,8 @@
     <string name="friday">Vendredi</string>
     <string name="saturday">Samedi</string>
     <string name="sunday">Dimanche</string>
+    <string name="title_activity_conversation">ConversationActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_login">LoginActivity</string>
 
 </resources>

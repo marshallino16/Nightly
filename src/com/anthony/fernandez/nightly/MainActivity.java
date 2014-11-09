@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.Vector;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -38,6 +40,13 @@ public class MainActivity extends SherlockFragmentActivity {
 		getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		getSupportActionBar().setCustomView(R.layout.action_bar_menu);
 		getSupportActionBar().setHomeButtonEnabled(true);
+		getSupportActionBar().getCustomView().findViewById(R.id.settings).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				settings();
+			}
+		});
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			setTranslucentStatus(true); 
@@ -71,20 +80,45 @@ public class MainActivity extends SherlockFragmentActivity {
 		.setFragmentManager(getSupportFragmentManager())
 		.setStyleResId(R.style.BetterPickersDialogFragment);
 		btp.addTimeSetListener(new TimePickerDialogHandler() {
-			
+
 			@Override
 			public void onDialogTimeSet(int hourOfDay, int minute) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void onDialogCancel() {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});  
 		btp.show();
+	}
+
+	/*
+	 * Parameter view v
+	 * Slide to leftPanel 
+	 */
+	public void leftPanel(View v){
+		if(0 != pager.getCurrentItem()){
+			pager.setCurrentItem(0);
+		}
+	}
+
+	/*
+	 * Parameter view v
+	 * Slide to rightPanel 
+	 */
+	public void rightPanel(View v){
+		if(1 != pager.getCurrentItem()){
+			pager.setCurrentItem(1);
+		}
+	}
+	
+	private void settings(){
+		Intent intent = new Intent(this, LoginActivity.class);
+		startActivity(intent);
 	}
 
 	@TargetApi(19)  

@@ -16,7 +16,9 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:onClick="leftPanel"
+            android:background="@drawable/btn_panel_opening" >
 
             <ImageView
                 android:id="@+id/moonIcon"
@@ -54,7 +56,9 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:onClick="rightPanel"
+            android:background="@drawable/btn_panel_opening" >
 
             <ImageView
                 android:id="@+id/alarmIcon"

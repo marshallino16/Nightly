@@ -20,7 +20,7 @@
     <string name="login">connexion</string>
     <string name="register">s\'enregistrer</string>
     <string name="lost_password"> - mot de passe oublié -</string>
-    <string name="cluf"> <u>- conditions générales d\'utilisation -</u></string>
+    <string name="cluf"><u>- conditions générales d\'utilisation -</u></string>
     <string name="facebook_connect">connexion Facebook</string>
 
     <!-- days of week -->
@@ -35,5 +35,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_phone">PhoneActivity</string>
+    <string name="title_activity_list_conversation">ListConversationActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
 
 </resources>

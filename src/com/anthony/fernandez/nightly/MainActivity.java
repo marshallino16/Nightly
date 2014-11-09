@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Vector;
 
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,6 +33,7 @@ public class MainActivity extends SherlockFragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		overridePendingTransition(R.anim.pull_in_from_left, R.anim.hold);
 		setContentView(R.layout.activity_main);
 		//Project ID: animated-codex-750 Project Number: 926014171825
 		//API KEY = AIzaSyBod3FoppvHG6F8lXihLLwg433pJnkmscQ
@@ -73,6 +73,24 @@ public class MainActivity extends SherlockFragmentActivity {
 		indicator.setFillColor(getResources().getColor(R.color.pink_circle));
 		indicator.setStrokeColor(getResources().getColor(android.R.color.white));
 		indicator.setViewPager(pager);
+	}
+	
+	@Override
+	protected void onPause() {
+		overridePendingTransition(R.anim.hold, R.anim.pull_out_to_left);
+		super.onPause();
+	}
+
+	@Override
+	protected void onStop() {
+		overridePendingTransition(R.anim.hold, R.anim.pull_out_to_left);
+		super.onStop();
+	}
+
+	@Override
+	protected void onDestroy() {
+		overridePendingTransition(R.anim.hold, R.anim.pull_out_to_left);
+		super.onDestroy();
 	}
 
 	public void pickSleepingTime(View v){
@@ -117,8 +135,8 @@ public class MainActivity extends SherlockFragmentActivity {
 	}
 	
 	private void settings(){
-		Intent intent = new Intent(this, LoginActivity.class);
-		startActivity(intent);
+//		Intent intent = new Intent(this, LoginActivity.class);
+//		startActivity(intent);
 	}
 
 	@TargetApi(19)  

@@ -24,6 +24,7 @@ public class LoginActivity extends SherlockActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		overridePendingTransition(R.anim.pull_in_from_left, R.anim.hold);
 		setContentView(R.layout.activity_login);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -70,6 +71,24 @@ public class LoginActivity extends SherlockActivity {
 		findViewById(R.id.lostPassword).startAnimation(animationFromBottom);
 		findViewById(R.id.connection).startAnimation(animationFromBottom);
 		super.onResume();
+	}
+	
+	@Override
+	protected void onPause() {
+		overridePendingTransition(R.anim.hold, R.anim.pull_out_to_left);
+		super.onPause();
+	}
+
+	@Override
+	protected void onStop() {
+		overridePendingTransition(R.anim.hold, R.anim.pull_out_to_left);
+		super.onStop();
+	}
+
+	@Override
+	protected void onDestroy() {
+		overridePendingTransition(R.anim.hold, R.anim.pull_out_to_left);
+		super.onDestroy();
 	}
 
 	public void loginNightly(View v){

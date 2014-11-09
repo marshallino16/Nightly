@@ -16,5 +16,13 @@
     <color name="yellow_circle">#e8ca88</color>
     <color name="violet_circle">#877fd4</color>
     <color name="red_circle">#e88888</color>
+    
+    <!-- state pressed -->
+    <color name="pink_circle_pressed">#d9829d</color>
+    <color name="blue_circle_pressed">#71b2b4</color>
+    
+    <!-- facebook -->
+    <color name="facebook">#3B5998</color>
+    <color name="facebook_pressed">#4267b6</color>
 
 </resources>

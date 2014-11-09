@@ -1,13 +1,20 @@
 package com.anthony.fernandez.nightly;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -27,33 +34,51 @@ public class LoginActivity extends SherlockActivity {
 		tintManager.setStatusBarTintEnabled(true);
 		tintManager.setNavigationBarTintEnabled(true);
 		tintManager.setTintColor(getResources().getColor(R.color.pink_circle));
+
+		((TextView)findViewById(R.id.textCluf)).setText(Html.fromHtml("<u>"+getResources().getString(R.string.cluf)+"</u>"));
+		findViewById(R.id.lostPassword).setOnTouchListener(new OnTouchListener() {
+
+			@SuppressLint("ClickableViewAccessibility")
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if(event.getAction() == MotionEvent.ACTION_DOWN){
+
+				} else if (event.getAction() == MotionEvent.ACTION_UP){
+
+				} else if (event.getAction() == MotionEvent.ACTION_CANCEL){
+
+				}
+				return false;
+			}
+		});
+		findViewById(R.id.lostPassword).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+			}
+		});
 	}
-	
+
 	@Override
 	protected void onResume() {
-		Animation animApparitionFromBottom = AnimationUtils.loadAnimation(this, R.anim.fadein);
-		findViewById(R.id.textLogo).startAnimation(animApparitionFromBottom);
+		Animation animationFadein = AnimationUtils.loadAnimation(this, R.anim.fadein);
+		Animation animationFromBottom = AnimationUtils.loadAnimation(this, R.anim.push_down_in);
+		findViewById(R.id.textLogo).startAnimation(animationFadein);
+		findViewById(R.id.email).startAnimation(animationFromBottom);
+		findViewById(R.id.password).startAnimation(animationFromBottom);
+		findViewById(R.id.lostPassword).startAnimation(animationFromBottom);
+		findViewById(R.id.connection).startAnimation(animationFromBottom);
 		super.onResume();
 	}
-	
-	public void facebookLogin(View v){
-		getFacebookInfos();
-	}
-	
-	private void getFacebookInfos(){
-		
-	}
-	
+
 	public void loginNightly(View v){
-		
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
 	}
-	
+
 	public void passwordLost(View v){
-		
-	}
-	
-	public void registerAccount(View v){
-		
+
 	}
 
 	@TargetApi(19)  

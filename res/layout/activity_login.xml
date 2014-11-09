@@ -48,6 +48,7 @@
             android:textColorHighlight="@color/blue_background_dark" />
 
         <TextView
+            android:id="@+id/lostPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -59,6 +60,7 @@
             android:textColor="@android:color/white" />
 
         <Button
+            android:id="@+id/connection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -67,10 +69,24 @@
             android:alpha="0.8"
             android:background="@drawable/btn_login"
             android:gravity="center"
+            android:onClick="loginNightly"
             android:padding="8dp"
             android:text="@string/login"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@android:color/white" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textCluf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:text="@string/cluf"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>

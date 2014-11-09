@@ -32,11 +32,11 @@
             android:background="@drawable/btn_pink"
             android:gravity="center_vertical|left"
             android:onClick="loginNightly"
-            android:paddingBottom="8dp"
+            android:paddingBottom="12dp"
             android:paddingLeft="15dp"
-            android:paddingTop="8dp"
+            android:paddingTop="12dp"
             android:text="@string/login"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/white" />
 
         <Button
@@ -50,11 +50,11 @@
             android:background="@drawable/btn_blue_action_bar"
             android:gravity="center_vertical|left"
             android:onClick="registerAccount"
-            android:paddingBottom="8dp"
+            android:paddingBottom="12dp"
             android:paddingLeft="15dp"
-            android:paddingTop="8dp"
+            android:paddingTop="12dp"
             android:text="@string/register"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/white" />
 
         <Button
@@ -68,11 +68,11 @@
             android:background="@drawable/btn_facebook"
             android:gravity="center_vertical|left"
             android:onClick="facebookLogin"
-            android:paddingBottom="8dp"
+            android:paddingBottom="12dp"
             android:paddingLeft="15dp"
-            android:paddingTop="8dp"
+            android:paddingTop="12dp"
             android:text="@string/facebook_connect"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/white" />
     </LinearLayout>
 

@@ -256,10 +256,19 @@ public enum CountryPhoneCode {
 		return this.country + " (" + this.code + ")";
 	}
 	
-	public String getPhoneCode(String initials){
+	public static String getPhoneCode(String initials){
 		for(int i=0 ; i<CountryPhoneCode.values().length ; ++i){
 			if(CountryPhoneCode.values()[i].name().equalsIgnoreCase(initials)){
 				return CountryPhoneCode.values()[i].code;
+			}
+		}
+		return null;
+	}
+	
+	public static String getCountryName(String initials){
+		for(int i=0 ; i<CountryPhoneCode.values().length ; ++i){
+			if(CountryPhoneCode.values()[i].name().equalsIgnoreCase(initials)){
+				return CountryPhoneCode.values()[i].country;
 			}
 		}
 		return null;

@@ -13,6 +13,10 @@
     <string name="account">profil</string>
     <string name="conversations">conversations</string>
 
+    <!-- phone registration -->
+    <string name="phone_registration">Vérifier mon numéro</string>
+    <string name="country_default">sélectionnez votre pays</string>
+
     <!-- login -->
     <string name="email">email</string>
     <string name="password">mot de passe</string>
@@ -31,6 +35,8 @@
     <string name="friday">Vendredi</string>
     <string name="saturday">Samedi</string>
     <string name="sunday">Dimanche</string>
+    
+    <!-- titles -->
     <string name="title_activity_conversation">ConversationActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_login">LoginActivity</string>
@@ -38,5 +44,6 @@
     <string name="title_activity_phone">PhoneActivity</string>
     <string name="title_activity_list_conversation">ListConversationActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_country_selection">CountrySelectionActivity</string>
 
 </resources>

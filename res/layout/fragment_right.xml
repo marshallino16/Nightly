@@ -12,15 +12,17 @@
         android:layout_weight="1"
         android:orientation="horizontal" >
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:orientation="vertical" >
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:padding="2dp"
                 android:text="@string/monday"
@@ -29,9 +31,9 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
                 android:background="@drawable/btn_edit"
                 android:clickable="true"
                 android:focusable="true"
@@ -44,7 +46,7 @@
                 android:text="@string/edit"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -72,15 +74,17 @@
         android:layout_weight="1"
         android:orientation="horizontal" >
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:orientation="vertical" >
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:padding="2dp"
                 android:text="@string/tuesday"
@@ -89,9 +93,9 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
                 android:background="@drawable/btn_edit"
                 android:clickable="true"
                 android:focusable="true"
@@ -104,7 +108,7 @@
                 android:text="@string/edit"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -132,15 +136,17 @@
         android:layout_weight="1"
         android:orientation="horizontal" >
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:orientation="vertical" >
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:padding="2dp"
                 android:text="@string/wednesday"
@@ -149,9 +155,9 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
                 android:background="@drawable/btn_edit"
                 android:clickable="true"
                 android:focusable="true"
@@ -164,7 +170,7 @@
                 android:text="@string/edit"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -192,15 +198,17 @@
         android:layout_weight="1"
         android:orientation="horizontal" >
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:orientation="vertical" >
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:padding="2dp"
                 android:text="@string/thursday"
@@ -209,9 +217,9 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
                 android:background="@drawable/btn_edit"
                 android:clickable="true"
                 android:focusable="true"
@@ -224,7 +232,7 @@
                 android:text="@string/edit"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -252,15 +260,17 @@
         android:layout_weight="1"
         android:orientation="horizontal" >
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:orientation="vertical" >
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:padding="2dp"
                 android:text="@string/friday"
@@ -269,9 +279,9 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
                 android:background="@drawable/btn_edit"
                 android:clickable="true"
                 android:focusable="true"
@@ -284,7 +294,7 @@
                 android:text="@string/edit"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -312,15 +322,17 @@
         android:layout_weight="1"
         android:orientation="horizontal" >
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:orientation="vertical" >
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:padding="2dp"
                 android:text="@string/saturday"
@@ -329,9 +341,9 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
                 android:background="@drawable/btn_edit"
                 android:clickable="true"
                 android:focusable="true"
@@ -344,7 +356,7 @@
                 android:text="@string/edit"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -371,15 +383,17 @@
         android:layout_weight="1"
         android:orientation="horizontal" >
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            android:orientation="vertical" >
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:padding="2dp"
                 android:text="@string/sunday"
@@ -388,9 +402,9 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
                 android:background="@drawable/btn_edit"
                 android:clickable="true"
                 android:focusable="true"
@@ -403,7 +417,7 @@
                 android:text="@string/edit"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="0dp"

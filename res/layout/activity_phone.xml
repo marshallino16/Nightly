@@ -39,7 +39,6 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@string/content_description"
-                android:scaleType="fitXY"
                 android:src="@drawable/flag_country" />
 
             <TextView

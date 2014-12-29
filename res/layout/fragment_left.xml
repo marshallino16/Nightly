@@ -19,8 +19,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:contentDescription="@string/content_description"
-                android:background="@drawable/btn_circle_pink" />
+                android:background="@drawable/btn_circle_pink"
+                android:contentDescription="@string/content_description" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -29,7 +29,8 @@
                 android:gravity="center"
                 android:text="@string/good_night"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -41,8 +42,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:contentDescription="@string/content_description"
-                android:background="@drawable/btn_circle_green" />
+                android:background="@drawable/btn_circle_green"
+                android:contentDescription="@string/content_description" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -82,8 +83,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:contentDescription="@string/content_description"
-                android:background="@drawable/btn_circle_blue" />
+                android:background="@drawable/btn_circle_blue"
+                android:contentDescription="@string/content_description" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -103,8 +104,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:contentDescription="@string/content_description"
-                android:background="@drawable/btn_circle_yellow" />
+                android:background="@drawable/btn_circle_yellow"
+                android:contentDescription="@string/content_description" />
 
             <TextView
                 android:layout_width="wrap_content"

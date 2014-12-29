@@ -2,8 +2,6 @@ package com.anthony.fernandez.nightly;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 public class RegisterActivity extends Activity {
 

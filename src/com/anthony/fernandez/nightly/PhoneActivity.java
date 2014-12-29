@@ -107,7 +107,6 @@ public class PhoneActivity extends SherlockActivity {
 	}
 	
 	private int getResId(String drawableName) {
-
 		try {
 			Class<com.countrypicker.R.drawable> res = com.countrypicker.R.drawable.class;
 			Field field = res.getField(drawableName);

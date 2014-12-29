@@ -26,8 +26,8 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/imageContact"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/icone_unknown"
                 app:border_color="@color/blue_night_violet"
@@ -45,6 +45,18 @@
                 android:textColor="@color/green_circle" />
 
             <TextView
+                android:id="@+id/dateReceive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/textReceive"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_toLeftOf="@+id/imageContact"
+                android:text="il y a 2min."
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/grey_item_color" />
+
+            <TextView
                 android:id="@+id/textSend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,6 +66,18 @@
                 android:text="Envoyé"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/blue_aciton_bar" />
+            
+            <TextView
+                android:id="@+id/dateSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/textSend"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/imageContact"
+                android:text="il y a 2min."
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/grey_item_color" />
         </RelativeLayout>
     </LinearLayout>
 

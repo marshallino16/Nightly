@@ -44,7 +44,7 @@
                 android:paddingRight="5dp"
                 android:paddingTop="2dp"
                 android:text="@string/edit"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@android:color/white" />
         </LinearLayout>
 
@@ -62,7 +62,7 @@
                 android:text="11:40"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/blue_background_dark"
-                android:textSize="30sp" />
+                android:textSize="28sp" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -106,7 +106,7 @@
                 android:paddingRight="5dp"
                 android:paddingTop="2dp"
                 android:text="@string/edit"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@android:color/white" />
         </LinearLayout>
 
@@ -124,7 +124,7 @@
                 android:text="11:40"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/blue_background_dark"
-                android:textSize="30sp" />
+                android:textSize="28sp" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -168,7 +168,7 @@
                 android:paddingRight="5dp"
                 android:paddingTop="2dp"
                 android:text="@string/edit"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@android:color/white" />
         </LinearLayout>
 
@@ -186,7 +186,7 @@
                 android:text="11:40"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/blue_background_dark"
-                android:textSize="30sp" />
+                android:textSize="28sp" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -230,7 +230,7 @@
                 android:paddingRight="5dp"
                 android:paddingTop="2dp"
                 android:text="@string/edit"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@android:color/white" />
         </LinearLayout>
 
@@ -248,7 +248,7 @@
                 android:text="11:40"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/blue_background_dark"
-                android:textSize="30sp" />
+                android:textSize="28sp" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -292,7 +292,7 @@
                 android:paddingRight="5dp"
                 android:paddingTop="2dp"
                 android:text="@string/edit"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@android:color/white" />
         </LinearLayout>
 
@@ -310,7 +310,7 @@
                 android:text="11:40"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/blue_background_dark"
-                android:textSize="30sp" />
+                android:textSize="28sp" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -354,7 +354,7 @@
                 android:paddingRight="5dp"
                 android:paddingTop="2dp"
                 android:text="@string/edit"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@android:color/white" />
         </LinearLayout>
 
@@ -372,7 +372,7 @@
                 android:text="11:40"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/blue_background_dark"
-                android:textSize="30sp" />
+                android:textSize="28sp" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -415,7 +415,7 @@
                 android:paddingRight="5dp"
                 android:paddingTop="2dp"
                 android:text="@string/edit"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@android:color/white" />
         </LinearLayout>
 
@@ -433,7 +433,7 @@
                 android:text="11:40"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/blue_background_dark"
-                android:textSize="30sp" />
+                android:textSize="28sp" />
         </RelativeLayout>
     </LinearLayout>
 

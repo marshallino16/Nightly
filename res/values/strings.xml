@@ -10,8 +10,8 @@
     <string name="edit">modifier</string>
     <string name="good_night">“ bonne\nnuit ”</string>
     <string name="categories">catégories</string>
-    <string name="account">profil</string>
-    <string name="conversations">conversations</string>
+    <string name="account">mon\nprofil</string>
+    <string name="conversations">chats</string>
 
     <!-- phone registration -->
     <string name="phone_registration">Vérifier mon numéro</string>

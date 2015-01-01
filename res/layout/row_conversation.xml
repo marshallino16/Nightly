@@ -40,6 +40,7 @@
                 android:layout_alignTop="@+id/imageContact"
                 android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/imageContact"
+                android:lines="1"
                 android:text="Reçu"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/green_circle" />
@@ -54,7 +55,8 @@
                 android:layout_toLeftOf="@+id/imageContact"
                 android:text="il y a 2min."
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/grey_item_color" />
+                android:textColor="@color/grey_item_color"
+                android:textSize="11dp" />
 
             <TextView
                 android:id="@+id/textSend"
@@ -63,10 +65,11 @@
                 android:layout_alignBottom="@+id/imageContact"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/imageContact"
+                android:lines="1"
                 android:text="Envoyé"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/blue_aciton_bar" />
-            
+
             <TextView
                 android:id="@+id/dateSend"
                 android:layout_width="wrap_content"
@@ -77,7 +80,8 @@
                 android:layout_toRightOf="@+id/imageContact"
                 android:text="il y a 2min."
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/grey_item_color" />
+                android:textColor="@color/grey_item_color"
+                android:textSize="11dp" />
         </RelativeLayout>
     </LinearLayout>
 

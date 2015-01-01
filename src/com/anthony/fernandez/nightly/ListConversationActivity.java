@@ -59,6 +59,7 @@ public class ListConversationActivity extends SherlockActivity implements OnList
 		listConversations = new ArrayList<Conversation>();
 		conversationAdapter = new ConversationsAdapter(this, R.layout.row_conversation, listConversations);
 		listViewPullToRefresh = (PullToRefreshListView)findViewById(R.id.listConversation);
+		listViewPullToRefresh.setShowIndicator(false);
 		listViewPullToRefresh.setOnRefreshListener(this);
 		listViewPullToRefresh.setAdapter(conversationAdapter);
 

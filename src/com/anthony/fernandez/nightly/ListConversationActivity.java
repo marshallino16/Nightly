@@ -3,8 +3,10 @@ package com.anthony.fernandez.nightly;
 import java.util.ArrayList;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -15,6 +17,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.anthony.fernandez.nightly.adapter.ConversationsAdapter;
 import com.anthony.fernandez.nightly.model.Conversation;
+import com.anthony.fernandez.nightly.model.Message;
 import com.anthony.fernandez.nightly.task.listener.OnListConversationsGet;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
@@ -58,6 +61,8 @@ public class ListConversationActivity extends SherlockActivity implements OnList
 		listViewPullToRefresh = (PullToRefreshListView)findViewById(R.id.listConversation);
 		listViewPullToRefresh.setOnRefreshListener(this);
 		listViewPullToRefresh.setAdapter(conversationAdapter);
+
+		generateConversations(3);
 	}
 
 	@Override
@@ -79,8 +84,8 @@ public class ListConversationActivity extends SherlockActivity implements OnList
 	}
 
 	private void settings(){
-		//		Intent intent = new Intent(this, LoginActivity.class);
-		//		startActivity(intent);
+		Intent intent = new Intent(this, SettingsActivity.class);
+		startActivity(intent);
 	}
 
 	@TargetApi(19)  
@@ -105,6 +110,31 @@ public class ListConversationActivity extends SherlockActivity implements OnList
 
 	@Override
 	public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+		String label = DateUtils.formatDateTime(getApplicationContext(), System.currentTimeMillis(),
+				DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
 		
+		refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+
+		generateConversations(1);
+	}
+
+	private void generateConversations(int number) {
+		int i;
+		for(i=0 ; i<number ; ++i){
+			Message mess = new Message("Comment vas-tu ?");
+			Message mess2 = new Message("Bien et toi ?");
+			Conversation conv = new Conversation(i);
+			ArrayList<Message> listMess = new ArrayList<Message>();
+			listMess.add(mess);
+			
+			ArrayList<Message> listMessSent = new ArrayList<Message>();
+			listMessSent.add(mess2);
+			
+			conv.setListMessages(listMess);
+			conv.setListMessagesSent(listMessSent);
+
+			listConversations.add(conv);
+			conversationAdapter.notifyDataSetChanged();
+		}
 	}
 }

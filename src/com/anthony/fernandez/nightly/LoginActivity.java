@@ -34,7 +34,7 @@ public class LoginActivity extends SherlockActivity {
 		SystemBarTintManager tintManager = new SystemBarTintManager(this);
 		tintManager.setStatusBarTintEnabled(true);
 		tintManager.setNavigationBarTintEnabled(true);
-		tintManager.setTintColor(getResources().getColor(R.color.pink_circle));
+		tintManager.setTintColor(getResources().getColor(R.color.blue_crepuscule));
 
 		((TextView)findViewById(R.id.textCluf)).setText(Html.fromHtml("<u>"+getResources().getString(R.string.cluf)+"</u>"));
 		findViewById(R.id.lostPassword).setOnTouchListener(new OnTouchListener() {

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Vector;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -134,9 +135,14 @@ public class MainActivity extends SherlockFragmentActivity {
 		}
 	}
 	
+	public void conversationsView(View v){
+		Intent intent = new Intent(this, ListConversationActivity.class);
+		startActivity(intent);
+	}
+	
 	private void settings(){
-//		Intent intent = new Intent(this, LoginActivity.class);
-//		startActivity(intent);
+		Intent intent = new Intent(this, SettingsActivity.class);
+		startActivity(intent);
 	}
 
 	@TargetApi(19)  

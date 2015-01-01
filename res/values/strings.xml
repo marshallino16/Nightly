@@ -35,7 +35,7 @@
     <string name="friday">Vendredi</string>
     <string name="saturday">Samedi</string>
     <string name="sunday">Dimanche</string>
-    
+
     <!-- titles -->
     <string name="title_activity_conversation">ConversationActivity</string>
     <string name="hello_world">Hello world!</string>
@@ -45,5 +45,6 @@
     <string name="title_activity_list_conversation">ListConversationActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_country_selection">CountrySelectionActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
 
 </resources>

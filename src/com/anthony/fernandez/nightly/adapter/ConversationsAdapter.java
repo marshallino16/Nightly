@@ -52,8 +52,8 @@ public class ConversationsAdapter extends ArrayAdapter<Conversation> {
 
 		Conversation = listConversations.get(position);
 
-		int totalMessageReceive = Conversation.getListMessages().size();
-		int totalMessageSend = Conversation.getListMessagesSent().size();
+		int totalMessageReceive = Conversation.getListMessages().size()-1;
+		int totalMessageSend = Conversation.getListMessagesSent().size()-1;
 		
 		holder.textReceive.setText(Conversation.getListMessages().get(totalMessageReceive).getMessage());
 		holder.textSend.setText(Conversation.getListMessagesSent().get(totalMessageSend).getMessage());

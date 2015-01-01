@@ -2,16 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_login"
+    android:background="@drawable/background_login_second"
     android:fitsSystemWindows="true" >
 
     <ImageView
         android:id="@+id/textLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="30dp"
         android:contentDescription="@string/content_description"
         android:src="@drawable/text_logo" />
@@ -67,7 +67,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:alpha="0.8"
-            android:background="@drawable/btn_pink"
+            android:background="@drawable/btn_facebook"
             android:gravity="center"
             android:onClick="loginNightly"
             android:padding="10dp"

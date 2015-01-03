@@ -1,11 +1,14 @@
 package com.anthony.fernandez.nightly.model;
 
+import com.anthony.fernandez.nightly.enums.MessageDirection;
+
 public class Message {
 
 	private long _id;
 	private long dateSend;
 	private int numberLove;
 	private String message;
+	private MessageDirection direction;
 	
 	public Message(long _id, String message){
 		this._id = _id;
@@ -67,5 +70,13 @@ public class Message {
 	 */
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public MessageDirection getDirection() {
+		return direction;
+	}
+
+	public void setDirection(MessageDirection direction) {
+		this.direction = direction;
 	}
 }

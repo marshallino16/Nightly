@@ -9,8 +9,8 @@
     <color name="action_bar_item_background">#598594</color>
     <color name="unpress_grey">#c7cad3</color>
     <color name="blue_night_violet">#3449B2</color>
-    <color name="blue_crepuscule">#25358b</color>
-    
+    <color name="blue_crepuscule">#2f409b</color>
+
     <!-- bulles -->
     <color name="pink_circle">#f586a8</color>
     <color name="green_circle">#80d490</color>
@@ -18,13 +18,19 @@
     <color name="yellow_circle">#e8ca88</color>
     <color name="violet_circle">#877fd4</color>
     <color name="red_circle">#e88888</color>
-    
+
     <!-- state pressed -->
     <color name="pink_circle_pressed">#d9829d</color>
     <color name="blue_circle_pressed">#71b2b4</color>
-    
+
     <!-- facebook -->
     <color name="facebook">#3B5998</color>
     <color name="facebook_pressed">#4267b6</color>
+
+    <!-- chat part -->
+    <color name="sinch_purple">#ff63029d</color>
+    <color name="off_white">#fffafafa</color>
+    <color name="dark_gray">#ffb3b3b3</color>
+    <color name="very_dark_gray">#636363</color>
 
 </resources>

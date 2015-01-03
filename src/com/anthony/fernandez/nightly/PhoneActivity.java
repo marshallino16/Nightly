@@ -42,7 +42,7 @@ public class PhoneActivity extends SherlockActivity {
 		SystemBarTintManager tintManager = new SystemBarTintManager(this);
 		tintManager.setStatusBarTintEnabled(true);
 		tintManager.setNavigationBarTintEnabled(true);
-		tintManager.setTintColor(getResources().getColor(R.color.pink_circle));
+		tintManager.setTintColor(getResources().getColor(R.color.blue_crepuscule));
 		((TextView)findViewById(R.id.textCluf)).setText(Html.fromHtml("<u>"+getResources().getString(R.string.cluf)+"</u>"));
 		
 		countryName = (TextView)findViewById(R.id.row_title);

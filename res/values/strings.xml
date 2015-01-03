@@ -46,5 +46,9 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_country_selection">CountrySelectionActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    
+    <!-- chat -->
+    <string name="message_elipses">bonjour...</string>
+    <string name="send">envoyer</string>
 
 </resources>

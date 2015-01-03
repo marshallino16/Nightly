@@ -21,14 +21,13 @@ import com.anthony.fernandez.nightly.model.Message;
 import com.anthony.fernandez.nightly.task.listener.OnListConversationsGet;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class ListConversationActivity extends SherlockActivity implements OnListConversationsGet, OnRefreshListener<ListView>{
 
 	private ConversationsAdapter conversationAdapter;
 	private ArrayList<Conversation> listConversations;
-	private PullToRefreshListView listViewPullToRefresh;
+	private ListView listViewPullToRefresh;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +57,9 @@ public class ListConversationActivity extends SherlockActivity implements OnList
 
 		listConversations = new ArrayList<Conversation>();
 		conversationAdapter = new ConversationsAdapter(this, R.layout.row_conversation, listConversations);
-		listViewPullToRefresh = (PullToRefreshListView)findViewById(R.id.listConversation);
-		listViewPullToRefresh.setShowIndicator(false);
-		listViewPullToRefresh.setOnRefreshListener(this);
+		listViewPullToRefresh = (ListView)findViewById(R.id.listConversation);
+//		listViewPullToRefresh.setShowIndicator(false);
+//		listViewPullToRefresh.setOnRefreshListener(this);
 		listViewPullToRefresh.setAdapter(conversationAdapter);
 
 		generateConversations(3);
@@ -117,6 +116,11 @@ public class ListConversationActivity extends SherlockActivity implements OnList
 		refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
 
 		generateConversations(1);
+	}
+	
+	public void openConversation(View v){
+		Intent intent = new Intent(this, MessagingActivity.class);
+		startActivity(intent);
 	}
 
 	private void generateConversations(int number) {

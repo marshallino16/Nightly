@@ -17,8 +17,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="leftPanel"
-            android:background="@drawable/btn_panel_opening" >
+            android:background="@drawable/btn_panel_opening"
+            android:onClick="leftPanel" >
 
             <ImageView
                 android:id="@+id/moonIcon"
@@ -57,8 +57,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="rightPanel"
-            android:background="@drawable/btn_panel_opening" >
+            android:background="@drawable/btn_panel_opening"
+            android:onClick="rightPanel" >
 
             <ImageView
                 android:id="@+id/alarmIcon"

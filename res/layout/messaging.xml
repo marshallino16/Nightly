@@ -2,17 +2,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@android:color/white" >
+    android:background="@android:color/white"
+    android:fitsSystemWindows="true" >
 
     <ListView
         android:id="@+id/listMessages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/divider"
+        android:cacheColorHint="@android:color/transparent"
         android:divider="@null"
         android:dividerHeight="0dp"
+        android:drawSelectorOnTop="false"
+        android:fadingEdge="none"
+        android:listSelector="@android:color/transparent"
+        android:overScrollMode="never"
         android:padding="0dip"
+        android:scrollbars="none"
         android:stackFromBottom="true"
         android:transcriptMode="alwaysScroll"
         tools:listitem="@layout/message_left" />
@@ -51,9 +57,9 @@
             android:layout_width="72dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:text="@string/send"
             android:layout_margin="4dp"
             android:background="@drawable/btn_edit"
+            android:text="@string/send"
             android:textColor="@android:color/white" />
     </RelativeLayout>
 

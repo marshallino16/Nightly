@@ -135,6 +135,11 @@ public class MainActivity extends SherlockFragmentActivity {
 		}
 	}
 	
+	public void categories(View v){
+		Intent intent = new Intent(this, CategoriesActivity.class);
+		startActivity(intent);
+	}
+	
 	public void conversationsView(View v){
 		Intent intent = new Intent(this, ListConversationActivity.class);
 		startActivity(intent);

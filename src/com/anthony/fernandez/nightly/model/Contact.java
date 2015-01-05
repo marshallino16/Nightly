@@ -1,5 +1,7 @@
 package com.anthony.fernandez.nightly.model;
 
+import android.graphics.Bitmap;
+
 import com.anthony.fernandez.nightly.enums.CountryPhoneCode;
 
 public class Contact {
@@ -10,6 +12,8 @@ public class Contact {
 	private String firstname;
 	private String lastname;
 	private String phoneNumber;
+	private String imageUrl;
+	private Bitmap image;
 	private CountryPhoneCode countryCode;
 	/**
 	 * @return the _id
@@ -94,5 +98,17 @@ public class Contact {
 	 */
 	public void setCountryCode(CountryPhoneCode countryCode) {
 		this.countryCode = countryCode;
+	}
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	public Bitmap getImage() {
+		return image;
+	}
+	public void setImage(Bitmap image) {
+		this.image = image;
 	}
 }

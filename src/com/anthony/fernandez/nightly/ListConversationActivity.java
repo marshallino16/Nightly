@@ -21,13 +21,14 @@ import com.anthony.fernandez.nightly.model.Message;
 import com.anthony.fernandez.nightly.task.listener.OnListConversationsGet;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class ListConversationActivity extends SherlockActivity implements OnListConversationsGet, OnRefreshListener<ListView>{
 
 	private ConversationsAdapter conversationAdapter;
 	private ArrayList<Conversation> listConversations;
-	private ListView listViewPullToRefresh;
+	private PullToRefreshListView listViewPullToRefresh;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +58,9 @@ public class ListConversationActivity extends SherlockActivity implements OnList
 
 		listConversations = new ArrayList<Conversation>();
 		conversationAdapter = new ConversationsAdapter(this, R.layout.row_conversation, listConversations);
-		listViewPullToRefresh = (ListView)findViewById(R.id.listConversation);
-//		listViewPullToRefresh.setShowIndicator(false);
-//		listViewPullToRefresh.setOnRefreshListener(this);
+		listViewPullToRefresh = (PullToRefreshListView)findViewById(R.id.listConversation);
+		listViewPullToRefresh.setShowIndicator(false);
+		listViewPullToRefresh.setOnRefreshListener(this);
 		listViewPullToRefresh.setAdapter(conversationAdapter);
 
 		generateConversations(3);

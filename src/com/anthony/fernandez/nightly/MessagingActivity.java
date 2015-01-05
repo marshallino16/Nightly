@@ -1,5 +1,7 @@
 package com.anthony.fernandez.nightly;
 
+import java.util.Date;
+
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
@@ -22,7 +24,6 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 public class MessagingActivity extends SherlockActivity {
 
 	private EditText messageBodyField;
-	private String messageBody;
 	private MessageAdapter messageAdapter;
 	private ListView messagesList;
 
@@ -90,12 +91,16 @@ public class MessagingActivity extends SherlockActivity {
 	}
 
 	private void sendMessage() {
-		messageBody = messageBodyField.getText().toString();
+		String messageBody = messageBodyField.getText().toString();
 		if (messageBody.isEmpty()) {
 			Toast.makeText(this, "Please enter a message", Toast.LENGTH_LONG)
 			.show();
 			return;
 		}
+		Message message = new Message(messageBody);
+		message.setDateSend(new Date().getTime());
+		message.setDirection(MessageDirection.OUTCOMMING);
+		messageAdapter.addMessage(message);
 		// send message
 		messageBodyField.setText("");
 	}

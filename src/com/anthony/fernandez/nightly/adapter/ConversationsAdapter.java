@@ -59,7 +59,6 @@ public class ConversationsAdapter extends ArrayAdapter<Conversation> {
 		holder.textSend.setText(Conversation.getListMessagesSent().get(totalMessageSend).getMessage());
 		
 		String timeLaspeReceive = ""; //new Date().getTime(),Conversation.getListMessages().get(totalMessageReceive).getDateSend()
-		holder.dateReceive.setText("");
 
 		return row;
 	}

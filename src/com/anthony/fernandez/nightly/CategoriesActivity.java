@@ -8,12 +8,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class CategoriesActivity extends SherlockActivity {
+	
+	private ImageView category1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,9 @@ public class CategoriesActivity extends SherlockActivity {
 		tintManager.setStatusBarTintEnabled(true);
 		tintManager.setNavigationBarTintEnabled(true);
 		tintManager.setTintColor(getResources().getColor(R.color.blue_aciton_bar));
+		
+		category1 = (ImageView)findViewById(R.id.cat_1);
+		
 
 	}
 

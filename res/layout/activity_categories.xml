@@ -19,10 +19,20 @@
             android:layout_weight="1" >
 
             <ImageView
+                android:id="@+id/cat_1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/background_login_second" />
+                android:src="@drawable/laught_cat" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="Humour"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white" />
         </RelativeLayout>
 
         <RelativeLayout

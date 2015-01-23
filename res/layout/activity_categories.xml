@@ -17,7 +17,6 @@
             android:orientation="horizontal" >
 
             <RelativeLayout
-                android:id="@+id/containerHumour"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="1dp"
@@ -28,7 +27,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/laught_cat" />
+                    android:src="@drawable/cat_laught" />
 
                 <TextView
                     android:id="@+id/humour"
@@ -49,11 +48,22 @@
                 android:layout_weight="1" >
 
                 <ImageView
-                    android:id="@+id/cat_2"
+                    android:id="@+id/imagePoesie"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/background_login_second" />
+                    android:src="@drawable/cat_poesie" />
+                
+                <TextView
+                    android:id="@+id/poesie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="Poésie"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -63,10 +73,22 @@
                 android:layout_weight="1" >
 
                 <ImageView
+                    android:id="@+id/imageAmour"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/background_login_second" />
+                    android:src="@drawable/cat_love" />
+                
+                <TextView
+                    android:id="@+id/amour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="Romance"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold" />
             </RelativeLayout>
         </LinearLayout>
 

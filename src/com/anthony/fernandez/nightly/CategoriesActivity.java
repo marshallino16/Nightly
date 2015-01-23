@@ -27,7 +27,11 @@ public class CategoriesActivity extends SherlockActivity implements OnTouchListe
 	private ImageView imageHumour;
 	private TextView humour;
 	
-	private ImageView imageCat2;
+	private ImageView imagePoesie;
+	private TextView poesie;
+	
+	private ImageView imageAmour;
+	private TextView amour;
 	
 	//animation
 	private Animation zoomIn;
@@ -67,12 +71,20 @@ public class CategoriesActivity extends SherlockActivity implements OnTouchListe
 		
 		humour = (TextView)findViewById(R.id.humour);
 		humour.setTypeface(tf);
+		poesie = (TextView)findViewById(R.id.poesie);
+		poesie.setTypeface(tf);
+		amour = (TextView)findViewById(R.id.amour);
+		amour.setTypeface(tf);
+		
 		
 		imageHumour = (ImageView)findViewById(R.id.imageHumour);
 		imageHumour.setOnTouchListener(this);
 		
-		imageCat2 = (ImageView)findViewById(R.id.cat_2);
-		imageCat2.setOnTouchListener(this);
+		imagePoesie = (ImageView)findViewById(R.id.imagePoesie);
+		imagePoesie.setOnTouchListener(this);
+		
+		imageAmour = (ImageView)findViewById(R.id.imageAmour);
+		imageAmour.setOnTouchListener(this);
 	}
 
 	@Override

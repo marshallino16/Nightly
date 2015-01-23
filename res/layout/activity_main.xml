@@ -1,120 +1,133 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
     tools:context="${relativePackage}.${activityClass}" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="19"
-        android:background="@android:color/white"
-        android:orientation="horizontal" >
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="19"
+            android:background="@android:color/white"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/btn_panel_opening"
+                android:onClick="leftPanel" >
+
+                <ImageView
+                    android:id="@+id/moonIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:contentDescription="@string/content_description"
+                    android:src="@drawable/moon" />
+
+                <TextView
+                    android:id="@+id/moonText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/moonIcon"
+                    android:gravity="center"
+                    android:text="@string/sleep_walker"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/blue_background_dark" />
+
+                <ImageView
+                    android:id="@+id/selectorCurrent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="@string/content_description"
+                    android:src="@drawable/selector_current" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/separator_background_top_panel" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/btn_panel_opening"
+                android:onClick="rightPanel" >
+
+                <ImageView
+                    android:id="@+id/alarmIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:contentDescription="@string/content_description"
+                    android:src="@drawable/alarm" />
+
+                <TextView
+                    android:id="@+id/alarmText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/alarmIcon"
+                    android:gravity="center"
+                    android:text="@string/early_guy"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/unpress_grey" />
+
+                <ImageView
+                    android:id="@+id/selectorCurrentAlarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="@string/content_description"
+                    android:src="@drawable/selector_current"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/btn_panel_opening"
-            android:onClick="leftPanel" >
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="83"
+            android:background="@color/blue_background_dark" >
 
-            <ImageView
-                android:id="@+id/moonIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:contentDescription="@string/content_description"
-                android:src="@drawable/moon" />
+            <android.support.v4.view.ViewPager
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@android:color/transparent"
+                android:drawSelectorOnTop="false"
+                android:fadingEdge="none"
+                android:listSelector="@android:color/transparent"
+                android:overScrollMode="never"
+                android:scrollbars="none" >
+            </android.support.v4.view.ViewPager>
 
-            <TextView
-                android:id="@+id/moonText"
+            <com.viewpagerindicator.CirclePageIndicator
+                android:id="@+id/indicator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/moonIcon"
-                android:gravity="center"
-                android:text="@string/sleep_walker"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/blue_background_dark" />
-
-            <ImageView
-                android:id="@+id/selectorCurrent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:contentDescription="@string/content_description"
-                android:src="@drawable/selector_current" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/separator_background_top_panel" />
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/btn_panel_opening"
-            android:onClick="rightPanel" >
-
-            <ImageView
-                android:id="@+id/alarmIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:contentDescription="@string/content_description"
-                android:src="@drawable/alarm" />
-
-            <TextView
-                android:id="@+id/alarmText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/alarmIcon"
-                android:gravity="center"
-                android:text="@string/early_guy"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/unpress_grey" />
-
-            <ImageView
-                android:id="@+id/selectorCurrentAlarm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:contentDescription="@string/content_description"
-                android:src="@drawable/selector_current"
-                android:visibility="gone" />
+                android:padding="5dp" />
         </RelativeLayout>
     </LinearLayout>
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/imageCloud"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="83"
-        android:background="@color/blue_background_dark" >
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/content_description"
+        android:scaleType="centerCrop"
+        android:src="@drawable/clouds_above" />
 
-        <android.support.v4.view.ViewPager
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@android:color/transparent"
-            android:drawSelectorOnTop="false"
-            android:fadingEdge="none"
-            android:listSelector="@android:color/transparent"
-            android:overScrollMode="never"
-            android:scrollbars="none" >
-        </android.support.v4.view.ViewPager>
-
-        <com.viewpagerindicator.CirclePageIndicator
-            android:id="@+id/indicator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:padding="5dp" />
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

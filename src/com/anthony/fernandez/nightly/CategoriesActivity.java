@@ -1,23 +1,38 @@
 package com.anthony.fernandez.nightly;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-
+import android.widget.TextView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-public class CategoriesActivity extends SherlockActivity {
+public class CategoriesActivity extends SherlockActivity implements OnTouchListener{
 	
-	private ImageView category1;
-
+	//views
+	private ImageView imageHumour;
+	private TextView humour;
+	
+	private ImageView imageCat2;
+	
+	//animation
+	private Animation zoomIn;
+	
+	private ImageView[] gallery;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,9 +59,19 @@ public class CategoriesActivity extends SherlockActivity {
 		tintManager.setNavigationBarTintEnabled(true);
 		tintManager.setTintColor(getResources().getColor(R.color.blue_aciton_bar));
 		
-		category1 = (ImageView)findViewById(R.id.cat_1);
+		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/FlexDisplay-Thin.otf");
+		zoomIn = AnimationUtils.loadAnimation(this, R.anim.zoomin);
 		
-
+		humour = (TextView)findViewById(R.id.humour);
+		humour.setTypeface(tf);
+		
+		imageHumour = (ImageView)findViewById(R.id.imageHumour);
+		imageHumour.setOnTouchListener(this);
+		
+		imageCat2 = (ImageView)findViewById(R.id.cat_2);
+		imageCat2.setOnTouchListener(this);
+		
+		gallery = new ImageView[] {imageHumour, imageCat2};
 	}
 
 	@Override
@@ -83,5 +108,25 @@ public class CategoriesActivity extends SherlockActivity {
 			winParams.flags &= ~bits;
 		} 
 		win.setAttributes(winParams);
+	}
+
+	@SuppressLint("ClickableViewAccessibility")
+	@Override
+	public boolean onTouch(final View v, MotionEvent event) {
+		resetAllImagesAnimation();
+		if(event.getAction() == MotionEvent.ACTION_DOWN){
+			v.startAnimation(zoomIn);
+		} else {
+			v.clearAnimation();
+			v.invalidate();
+		}
+		return false;
+	}
+	
+	private void resetAllImagesAnimation(){
+		for (ImageView image : gallery) {
+			image.clearAnimation();
+			image.invalidate();
+		}
 	}
 }

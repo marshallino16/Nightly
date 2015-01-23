@@ -32,7 +32,8 @@
             android:hint="@string/email"
             android:padding="10dp"
             android:textColor="@color/blue_background_dark"
-            android:textColorHighlight="@color/blue_background_dark" />
+            android:textColorHighlight="@color/blue_background_dark"
+            android:textColorHint="@color/blue_background_dark" />
 
         <EditText
             android:id="@+id/password"
@@ -45,7 +46,8 @@
             android:hint="@string/password"
             android:padding="10dp"
             android:textColor="@color/blue_background_dark"
-            android:textColorHighlight="@color/blue_background_dark" />
+            android:textColorHighlight="@color/blue_background_dark"
+            android:textColorHint="@color/blue_background_dark" />
 
         <TextView
             android:id="@+id/lostPassword"

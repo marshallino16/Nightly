@@ -26,7 +26,7 @@
                 android:gravity="center"
                 android:padding="2dp"
                 android:text="@string/monday"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -88,7 +88,7 @@
                 android:gravity="center"
                 android:padding="2dp"
                 android:text="@string/tuesday"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -150,7 +150,7 @@
                 android:gravity="center"
                 android:padding="2dp"
                 android:text="@string/wednesday"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -212,7 +212,7 @@
                 android:gravity="center"
                 android:padding="2dp"
                 android:text="@string/thursday"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -274,7 +274,7 @@
                 android:gravity="center"
                 android:padding="2dp"
                 android:text="@string/friday"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -336,7 +336,7 @@
                 android:gravity="center"
                 android:padding="2dp"
                 android:text="@string/saturday"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -397,7 +397,7 @@
                 android:gravity="center"
                 android:padding="2dp"
                 android:text="@string/sunday"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
 
             <TextView

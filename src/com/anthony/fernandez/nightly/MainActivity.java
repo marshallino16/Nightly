@@ -4,16 +4,19 @@ import java.util.List;
 import java.util.Vector;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -27,9 +30,12 @@ import com.viewpagerindicator.CirclePageIndicator;
 
 public class MainActivity extends SherlockFragmentActivity {
 
+	private RelativeLayout mainContainer;
 	private PagerAdapter pagerAdapter;
 	public static ViewPager pager;
 	private List<Object> fragments;
+	private LayoutInflater inflater;
+	private View splashScreen;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +71,10 @@ public class MainActivity extends SherlockFragmentActivity {
 		fragments.add(Fragment.instantiate(this,RightPanel.class.getName()));
 
 		this.pagerAdapter = new InitPagerAdapter(super.getSupportFragmentManager(), fragments);
-
+		this.inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		splashScreen = inflater.inflate(R.layout.splashscreen_wait, null);
+		
+		mainContainer = (RelativeLayout)findViewById(R.id.containerMain);
 		pager = (ViewPager) findViewById(R.id.viewpager);
 		// Affectation de l'adapter au ViewPager
 		pager.setAdapter(this.pagerAdapter);
@@ -135,6 +144,12 @@ public class MainActivity extends SherlockFragmentActivity {
 		}
 	}
 	
+	public void pickUpSomeone(View v){
+		if(mainContainer.findViewById(R.id.splashContainer) == null){
+			mainContainer.addView(splashScreen, mainContainer.getChildCount()-1);
+		}
+	}
+	
 	public void categories(View v){
 		Intent intent = new Intent(this, CategoriesActivity.class);
 		startActivity(intent);
@@ -162,4 +177,11 @@ public class MainActivity extends SherlockFragmentActivity {
 		} 
 		win.setAttributes(winParams);
 	} 
+	
+	@Override
+	public void onBackPressed() {
+		if(mainContainer.findViewById(R.id.splashContainer) != null){
+			mainContainer.removeView(splashScreen);
+		}
+	}
 }

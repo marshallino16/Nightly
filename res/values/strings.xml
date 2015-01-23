@@ -5,6 +5,12 @@
     <string name="content_description">image</string>
     <string name="sleep_walker">somnambule</string>
     <string name="early_guy">couche tard</string>
+    
+    <!-- splashscreen -->
+    <string name="wait_please">Merci de patienter</string>
+    <string name="picking_up">Recherche d\'une personne en cours...</string>
+    <string name="saving">Application en cours...</string>
+    <string name="sending">envoi en cours</string>
 
     <!-- actions -->
     <string name="edit">modifier</string>

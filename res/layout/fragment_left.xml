@@ -20,6 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="@drawable/btn_circle_pink"
+                android:onClick="pickUpSomeone"
                 android:contentDescription="@string/content_description" />
 
             <TextView

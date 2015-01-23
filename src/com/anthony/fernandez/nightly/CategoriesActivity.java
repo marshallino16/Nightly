@@ -16,6 +16,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -30,8 +31,9 @@ public class CategoriesActivity extends SherlockActivity implements OnTouchListe
 	
 	//animation
 	private Animation zoomIn;
+	private Animation zoomOut;
 	
-	private ImageView[] gallery;
+	private ImageView previousTouch = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class CategoriesActivity extends SherlockActivity implements OnTouchListe
 		
 		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/FlexDisplay-Thin.otf");
 		zoomIn = AnimationUtils.loadAnimation(this, R.anim.zoomin);
+		zoomOut = AnimationUtils.loadAnimation(this, R.anim.zoomout);
 		
 		humour = (TextView)findViewById(R.id.humour);
 		humour.setTypeface(tf);
@@ -70,8 +73,6 @@ public class CategoriesActivity extends SherlockActivity implements OnTouchListe
 		
 		imageCat2 = (ImageView)findViewById(R.id.cat_2);
 		imageCat2.setOnTouchListener(this);
-		
-		gallery = new ImageView[] {imageHumour, imageCat2};
 	}
 
 	@Override
@@ -116,17 +117,15 @@ public class CategoriesActivity extends SherlockActivity implements OnTouchListe
 		resetAllImagesAnimation();
 		if(event.getAction() == MotionEvent.ACTION_DOWN){
 			v.startAnimation(zoomIn);
-		} else {
-			v.clearAnimation();
-			v.invalidate();
 		}
+		previousTouch = (ImageView) v;
 		return false;
 	}
 	
 	private void resetAllImagesAnimation(){
-		for (ImageView image : gallery) {
-			image.clearAnimation();
-			image.invalidate();
+		if(null != previousTouch){
+			previousTouch.startAnimation(zoomOut);
+			previousTouch = null;
 		}
 	}
 }

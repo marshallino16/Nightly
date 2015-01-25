@@ -18,10 +18,15 @@
     <string name="categories">catégories</string>
     <string name="account">mon\nprofil</string>
     <string name="conversations">chats</string>
+    <string name="cancel">annuler</string>
 
+    <!-- params -->
+    <string name="create_shortcut">Raccourcis créé avec succès.</string>
+    
     <!-- phone registration -->
     <string name="phone_registration">Vérifier mon numéro</string>
     <string name="country_default">sélectionnez votre pays</string>
+    <string name="phone_number">numéro de téléphone</string>
 
     <!-- login -->
     <string name="email">email</string>

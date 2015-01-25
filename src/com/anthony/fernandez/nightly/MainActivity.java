@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
@@ -48,7 +49,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		getSupportActionBar().setCustomView(R.layout.action_bar_menu);
 		getSupportActionBar().setHomeButtonEnabled(true);
 		getSupportActionBar().getCustomView().findViewById(R.id.settings).setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				settings();
@@ -73,7 +74,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		this.pagerAdapter = new InitPagerAdapter(super.getSupportFragmentManager(), fragments);
 		this.inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		splashScreen = inflater.inflate(R.layout.splashscreen_wait, null);
-		
+
 		mainContainer = (RelativeLayout)findViewById(R.id.containerMain);
 		pager = (ViewPager) findViewById(R.id.viewpager);
 		// Affectation de l'adapter au ViewPager
@@ -84,7 +85,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		indicator.setStrokeColor(getResources().getColor(android.R.color.white));
 		indicator.setViewPager(pager);
 	}
-	
+
 	@Override
 	protected void onPause() {
 		overridePendingTransition(R.anim.hold, R.anim.pull_out_to_left);
@@ -124,8 +125,8 @@ public class MainActivity extends SherlockFragmentActivity {
 		btp.show();
 	}
 
-	/*
-	 * Parameter view v
+	/**
+	 * @param view v
 	 * Slide to leftPanel 
 	 */
 	public void leftPanel(View v){
@@ -134,8 +135,8 @@ public class MainActivity extends SherlockFragmentActivity {
 		}
 	}
 
-	/*
-	 * Parameter view v
+	/**
+	 * @param view v
 	 * Slide to rightPanel 
 	 */
 	public void rightPanel(View v){
@@ -143,23 +144,46 @@ public class MainActivity extends SherlockFragmentActivity {
 			pager.setCurrentItem(1);
 		}
 	}
-	
+
+	/**
+	 * @param view representing owner of all child views
+	 * @param enabled ?
+	 */
+	public static void enableDisableView(View view, boolean enabled) {
+		view.setEnabled(enabled);
+		if ( view instanceof ViewGroup ) {
+			ViewGroup group = (ViewGroup)view;
+
+			for ( int idx = 0 ; idx < group.getChildCount() ; idx++ ) {
+				enableDisableView(group.getChildAt(idx), enabled);
+			}
+		}
+	}
+
 	public void pickUpSomeone(View v){
 		if(mainContainer.findViewById(R.id.splashContainer) == null){
+			enableDisableView(mainContainer, false);
 			mainContainer.addView(splashScreen, mainContainer.getChildCount()-1);
 		}
 	}
-	
+
+	public void stopPickingUpSomeone(View v){
+		if(mainContainer.findViewById(R.id.splashContainer) != null){
+			mainContainer.removeView(splashScreen);
+			enableDisableView(mainContainer, true);
+		}
+	}
+
 	public void categories(View v){
 		Intent intent = new Intent(this, CategoriesActivity.class);
 		startActivity(intent);
 	}
-	
+
 	public void conversationsView(View v){
 		Intent intent = new Intent(this, ListConversationActivity.class);
 		startActivity(intent);
 	}
-	
+
 	private void settings(){
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);
@@ -177,11 +201,9 @@ public class MainActivity extends SherlockFragmentActivity {
 		} 
 		win.setAttributes(winParams);
 	} 
-	
+
 	@Override
 	public void onBackPressed() {
-		if(mainContainer.findViewById(R.id.splashContainer) != null){
-			mainContainer.removeView(splashScreen);
-		}
+		stopPickingUpSomeone(null);
 	}
 }

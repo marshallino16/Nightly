@@ -1,20 +1,15 @@
 package com.anthony.fernandez.nightly;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.MalformedURLException;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,22 +17,22 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.anthony.fernandez.nightly.util.FacebookConfig;
-import com.facebook.android.AsyncFacebookRunner;
-import com.facebook.android.AsyncFacebookRunner.RequestListener;
-import com.facebook.android.DialogError;
-import com.facebook.android.Facebook;
-import com.facebook.android.Facebook.DialogListener;
-import com.facebook.android.FacebookError;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.Session.Builder;
+import com.facebook.Session.OpenRequest;
+import com.facebook.SessionLoginBehavior;
+import com.facebook.SessionState;
+import com.facebook.model.GraphUser;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-@SuppressWarnings("deprecation")
-public class HomeActivity extends SherlockActivity {
+public class HomeActivity extends SherlockFragmentActivity implements android.view.View.OnClickListener{
 
 	//views 
 	private RelativeLayout mainContainer;
@@ -45,10 +40,7 @@ public class HomeActivity extends SherlockActivity {
 	private View splashScreen;
 
 	//facebook components
-	private Facebook facebook;
-	private AsyncFacebookRunner mAsyncRunner;
-	String FILENAME = "AndroidSSO_data";
-	private SharedPreferences mPrefs;
+	private Button loginBtn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +61,8 @@ public class HomeActivity extends SherlockActivity {
 		splashScreen = inflater.inflate(R.layout.splashscreen_wait, null);
 
 		mainContainer = (RelativeLayout)findViewById(R.id.containerMain);
-
-		facebook = new Facebook(FacebookConfig.FACEBOOK_APP_ID);
-		mAsyncRunner = new AsyncFacebookRunner(facebook);
+		loginBtn = (Button) findViewById(R.id.connectionFb);
+		loginBtn.setOnClickListener(this);
 	}
 
 	@Override
@@ -84,24 +75,14 @@ public class HomeActivity extends SherlockActivity {
 		findViewById(R.id.registerUser).startAnimation(animationFromBottom);
 		super.onResume();
 	}
-	
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		Log.w("nightly", "activity result code = " + resultCode);
-		facebook.authorizeCallback(requestCode, resultCode, data);
-		if(resultCode == RESULT_OK){
-			getFacebookInfos();
-		}
-	}
 
 	public void registerAccount(View v){
 
 	}
 
-	public void facebookLogin(View v){
-		enableSplashScreen();
-		loginToFacebook();
+	public void loginNightly(View v){
+		Intent intent = new Intent(this, LoginActivity.class);
+		startActivity(intent);
 	}
 
 	public void enableSplashScreen(){
@@ -113,7 +94,7 @@ public class HomeActivity extends SherlockActivity {
 
 	public void disableSplashScreen(View v){
 		runOnUiThread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				if(mainContainer.findViewById(R.id.splashContainer) != null){
@@ -139,147 +120,6 @@ public class HomeActivity extends SherlockActivity {
 		}
 	}
 
-	private void getFacebookInfos(){
-		mAsyncRunner.request("me", new RequestListener() {
-			@Override
-			public void onComplete(String response, Object state) {
-				Log.d("Profile", response);
-				String json = response;
-				try {
-					JSONObject profile = new JSONObject(json);
-					// getting name of the user
-					final String name = profile.getString("name");
-					Log.w("nightly", "name = " + name);
-					// getting email of the user
-					final String email = profile.getString("email");
-					Log.w("nightly", "email = " + email);
-
-					runOnUiThread(new Runnable() {
-
-						@Override
-						public void run() {
-							disableSplashScreen(null);
-							Toast.makeText(getApplicationContext(), "Name: " + name + "\nEmail: " + email, Toast.LENGTH_LONG).show();
-						}
-
-					});
-				} catch (JSONException e) {
-					e.printStackTrace();
-					disableSplashScreen(null);
-				}
-			}
-
-			@Override
-			public void onIOException(IOException e, Object state) {
-				disableSplashScreen(null);
-			}
-
-			@Override
-			public void onFileNotFoundException(FileNotFoundException e,
-					Object state) {
-				disableSplashScreen(null);
-			}
-
-			@Override
-			public void onMalformedURLException(MalformedURLException e,
-					Object state) {
-				disableSplashScreen(null);
-			}
-
-			@Override
-			public void onFacebookError(FacebookError e, Object state) {
-				disableSplashScreen(null);
-			}
-		});
-	}
-
-	private void loginToFacebook(){
-		mPrefs = getPreferences(MODE_PRIVATE);
-		String access_token = mPrefs.getString("access_token", null);
-		long expires = mPrefs.getLong("access_expires", 0);
-
-		if (access_token != null) {
-			facebook.setAccessToken(access_token);
-		}
-
-		if (expires != 0) {
-			facebook.setAccessExpires(expires);
-		}
-
-		if (!facebook.isSessionValid()) {
-			facebook.authorize(this,
-					new String[] { "email", "publish_stream" },
-					new DialogListener() {
-
-				@Override
-				public void onCancel() {
-					// Function to handle cancel event
-					disableSplashScreen(null);
-				}
-
-				@Override
-				public void onComplete(Bundle values) {
-					// Function to handle complete event
-					// Edit Preferences and update facebook acess_token
-					SharedPreferences.Editor editor = mPrefs.edit();
-					editor.putString("access_token",
-							facebook.getAccessToken());
-					editor.putLong("access_expires",
-							facebook.getAccessExpires());
-					editor.commit();
-				}
-
-				@Override
-				public void onError(DialogError error) {
-					// Function to handle error
-					disableSplashScreen(null);
-				}
-
-				@Override
-				public void onFacebookError(FacebookError fberror) {
-					// Function to handle Facebook errors
-					disableSplashScreen(null);
-				}
-
-			});
-		}
-	}
-
-	public void logoutFromFacebook() {
-		mAsyncRunner.logout(this, new RequestListener() {
-			@Override
-			public void onComplete(String response, Object state) {
-				Log.d("Logout from Facebook", response);
-				if (Boolean.parseBoolean(response) == true) {
-					// User successfully Logged out
-				}
-			}
-
-			@Override
-			public void onIOException(IOException e, Object state) {
-			}
-
-			@Override
-			public void onFileNotFoundException(FileNotFoundException e,
-					Object state) {
-			}
-
-			@Override
-			public void onMalformedURLException(MalformedURLException e,
-					Object state) {
-			}
-
-			@Override
-			public void onFacebookError(FacebookError e, Object state) {
-			}
-		});
-	}
-
-	public void loginNightly(View v){
-		Intent intent = new Intent(this, LoginActivity.class);
-		startActivity(intent);
-	}
-
 	@TargetApi(19)  
 	private void setTranslucentStatus(boolean on) {
 		Window win = getWindow();
@@ -291,5 +131,93 @@ public class HomeActivity extends SherlockActivity {
 			winParams.flags &= ~bits;
 		} 
 		win.setAttributes(winParams);
-	} 
+	}
+
+	@Override
+	public void onClick(View v) {
+		Session currentSession = Session.getActiveSession();
+		if (currentSession == null || currentSession.getState().isClosed()) {
+			Session session = new Session.Builder(HomeActivity.this).build();
+			Session.setActiveSession(session);
+			currentSession = session;
+		}
+
+		if (currentSession.isOpened()) {
+			// Do whatever u want. User has logged in
+
+		} else if (!currentSession.isOpened()) {
+			// Ask for username and password
+			OpenRequest op = new Session.OpenRequest((Activity) HomeActivity.this);
+
+			op.setLoginBehavior(SessionLoginBehavior.SUPPRESS_SSO);
+			op.setCallback(null);
+
+			List<String> permissions = new ArrayList<String>();
+			permissions.add("publish_actions");
+			permissions.add("user_friends");
+			permissions.add("email");
+			permissions.add("user_birthday");
+			op.setPermissions(permissions);
+
+			Session session = new Builder(HomeActivity.this).build();
+			Session.setActiveSession(session);
+			session.openForPublish(op);
+		}
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (Session.getActiveSession() != null)
+			Session.getActiveSession().onActivityResult(this, requestCode,
+					resultCode, data);
+
+		Session currentSession = Session.getActiveSession();
+		if (currentSession == null || currentSession.getState().isClosed()) {
+			Session session = new Session.Builder(HomeActivity.this).build();
+			Session.setActiveSession(session);
+			currentSession = session;
+		}
+
+		if (currentSession.isOpened()) {
+			Session.openActiveSession(this, true, new Session.StatusCallback() {
+
+				@SuppressWarnings("deprecation")
+				@Override
+				public void call(final Session session, SessionState state,
+						Exception exception) {
+
+					if (session.isOpened()) {
+
+						Request.executeMeRequestAsync(session,
+								new Request.GraphUserCallback() {
+
+							@Override
+							public void onCompleted(GraphUser user,
+									Response response) {
+								if (user != null) {
+
+									String access_token = session
+											.getAccessToken();
+									String firstName = user.getFirstName();
+									String fb_user_id = user.getId();
+
+									System.out
+									.println("Facebook Access token: "
+											+ access_token);
+									System.out.println("First Name:"
+											+ firstName);
+									System.out.println("FB USER ID: "
+											+ fb_user_id);
+
+								}
+							}
+						});
+					}
+				}
+			});
+		}
+	}
+
+
 }

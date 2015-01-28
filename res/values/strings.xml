@@ -6,6 +6,9 @@
     <string name="sleep_walker">somnambule</string>
     <string name="early_guy">couche tard</string>
     
+    <!-- facebook -->
+    <string name="app_id">363635917129853</string>
+    
     <!-- splashscreen -->
     <string name="wait_please">Merci de patienter</string>
     <string name="picking_up">Recherche d\'une personne en cours...</string>

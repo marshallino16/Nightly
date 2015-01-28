@@ -52,7 +52,7 @@
         android:alpha="0.8"
         android:background="@drawable/btn_facebook"
         android:gravity="center"
-        android:onClick="stopPickingUpSomeone"
+        android:onClick="disableSplashScreen"
         android:padding="10dp"
         android:text="@string/cancel"
         android:textAppearance="?android:attr/textAppearanceMedium"

@@ -167,7 +167,7 @@ public class MainActivity extends SherlockFragmentActivity {
 		}
 	}
 
-	public void stopPickingUpSomeone(View v){
+	public void disableSplashScreen(View v){
 		if(mainContainer.findViewById(R.id.splashContainer) != null){
 			mainContainer.removeView(splashScreen);
 			enableDisableView(mainContainer, true);
@@ -204,6 +204,6 @@ public class MainActivity extends SherlockFragmentActivity {
 
 	@Override
 	public void onBackPressed() {
-		stopPickingUpSomeone(null);
+		disableSplashScreen(null);
 	}
 }

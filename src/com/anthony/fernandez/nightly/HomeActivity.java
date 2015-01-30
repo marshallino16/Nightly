@@ -149,7 +149,7 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 			// Ask for username and password
 			OpenRequest op = new Session.OpenRequest((Activity) HomeActivity.this);
 
-			op.setLoginBehavior(SessionLoginBehavior.SUPPRESS_SSO);
+			op.setLoginBehavior(SessionLoginBehavior.SSO_WITH_FALLBACK);//changement 0.1
 			op.setCallback(null);
 
 			List<String> permissions = new ArrayList<String>();

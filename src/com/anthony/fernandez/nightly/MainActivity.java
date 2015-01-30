@@ -183,12 +183,17 @@ public class MainActivity extends SherlockFragmentActivity {
 		Intent intent = new Intent(this, ListConversationActivity.class);
 		startActivity(intent);
 	}
+	
+	public void profil(View v){
+		Intent intent = new Intent(this, MessageReceivedActivity.class);
+		startActivity(intent);
+	}
 
 	private void settings(){
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);
 	}
-
+	
 	@TargetApi(19)  
 	private void setTranslucentStatus(boolean on) {
 		Window win = getWindow();

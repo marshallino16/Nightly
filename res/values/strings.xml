@@ -5,10 +5,10 @@
     <string name="content_description">image</string>
     <string name="sleep_walker">somnambule</string>
     <string name="early_guy">couche tard</string>
-    
+
     <!-- facebook -->
     <string name="app_id">363635917129853</string>
-    
+
     <!-- splashscreen -->
     <string name="wait_please">Merci de patienter</string>
     <string name="picking_up">Recherche d\'une personne en cours...</string>
@@ -25,7 +25,7 @@
 
     <!-- params -->
     <string name="create_shortcut">Raccourcis créé avec succès.</string>
-    
+
     <!-- phone registration -->
     <string name="phone_registration">Vérifier mon numéro</string>
     <string name="country_default">sélectionnez votre pays</string>
@@ -65,5 +65,6 @@
     <string name="message_elipses">bonjour...</string>
     <string name="send">envoyer</string>
     <string name="title_activity_categories">CategoriesActivity</string>
+    <string name="title_activity_message_received">MessageReceivedActivity</string>
 
 </resources>

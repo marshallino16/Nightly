@@ -15,19 +15,19 @@ public class MessageReceivedActivity extends SherlockActivity {
 
 	@Override
 	protected void onPause() {
-		overridePendingTransition(R.anim.hold, R.anim.zoom_exit);
+		overridePendingTransition(R.anim.hold, R.anim.push_down_out);
 		super.onPause();
 	}
 
 	@Override
 	protected void onStop() {
-		overridePendingTransition(R.anim.hold, R.anim.zoom_exit);
+		overridePendingTransition(R.anim.hold, R.anim.push_down_out);
 		super.onStop();
 	}
 
 	@Override
 	protected void onDestroy() {
-		overridePendingTransition(R.anim.hold, R.anim.zoom_exit);
+		overridePendingTransition(R.anim.hold, R.anim.push_down_out);
 		super.onDestroy();
 	}
 }

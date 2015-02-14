@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.anthony.fernandez.nightly.gcm.GCMUtils;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
@@ -30,6 +32,8 @@ import com.facebook.Session.OpenRequest;
 import com.facebook.SessionLoginBehavior;
 import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class HomeActivity extends SherlockFragmentActivity implements android.view.View.OnClickListener{
@@ -63,6 +67,11 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 		mainContainer = (RelativeLayout)findViewById(R.id.containerMain);
 		loginBtn = (Button) findViewById(R.id.connectionFb);
 		loginBtn.setOnClickListener(this);
+		
+		if (GCMUtils.checkPlayServices(this)) {
+	        // If this check succeeds, proceed with normal processing.
+	        // Otherwise, prompt user to get valid Play Services APK.
+	    }
 	}
 
 	@Override
@@ -73,6 +82,7 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 		findViewById(R.id.connection).startAnimation(animationFromBottom);
 		findViewById(R.id.connectionFb).startAnimation(animationFromBottom);
 		findViewById(R.id.registerUser).startAnimation(animationFromBottom);
+		GCMUtils.checkPlayServices(this);
 		super.onResume();
 	}
 

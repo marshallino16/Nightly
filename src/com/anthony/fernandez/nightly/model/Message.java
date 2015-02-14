@@ -7,6 +7,7 @@ public class Message {
 	private long _id;
 	private long dateSend;
 	private int numberLove;
+	private boolean isPending = false;
 	private String message;
 	private MessageDirection direction;
 	
@@ -78,5 +79,13 @@ public class Message {
 
 	public void setDirection(MessageDirection direction) {
 		this.direction = direction;
+	}
+
+	public boolean isPending() {
+		return isPending;
+	}
+
+	public void setPending(boolean isPending) {
+		this.isPending = isPending;
 	}
 }

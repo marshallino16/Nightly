@@ -101,6 +101,16 @@
             android:layout_weight="83"
             android:background="@color/blue_background_dark" >
 
+            <EditText
+                android:id="@+id/dddd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:background="@color/grey_item_color"
+                android:padding="10dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000" />
+
             <android.support.v4.view.ViewPager
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/viewpager"
@@ -111,7 +121,8 @@
                 android:fadingEdge="none"
                 android:listSelector="@android:color/transparent"
                 android:overScrollMode="never"
-                android:scrollbars="none" >
+                android:scrollbars="none"
+                android:visibility="gone" >
             </android.support.v4.view.ViewPager>
 
             <com.viewpagerindicator.CirclePageIndicator

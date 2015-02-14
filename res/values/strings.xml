@@ -67,4 +67,11 @@
     <string name="title_activity_categories">CategoriesActivity</string>
     <string name="title_activity_message_received">MessageReceivedActivity</string>
 
+    <!-- conversation -->
+    <string-array name="conversation_menu">
+        <item>Ouvrir</item>
+        <item>Supprimer</item>
+        <item>Signaler le participant</item>
+    </string-array>
+
 </resources>

@@ -99,6 +99,7 @@ public class MessagingActivity extends SherlockActivity {
 		}
 		Message message = new Message(messageBody);
 		message.setDateSend(new Date().getTime());
+		message.setPending(true);
 		message.setDirection(MessageDirection.OUTCOMMING);
 		messageAdapter.addMessage(message);
 		// send message

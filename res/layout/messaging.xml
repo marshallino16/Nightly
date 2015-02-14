@@ -36,6 +36,7 @@
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:background="@android:color/white"
+        android:paddingBottom="4dp"
         android:paddingLeft="10dp" >
 
         <EditText
@@ -44,7 +45,6 @@
             android:layout_height="match_parent"
             android:layout_alignBottom="@+id/sendButton"
             android:layout_alignTop="@+id/sendButton"
-            android:layout_marginBottom="-4dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/sendButton"
             android:background="@android:color/white"
@@ -57,7 +57,9 @@
             android:layout_width="72dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:layout_margin="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="4dp"
             android:background="@drawable/btn_edit"
             android:text="@string/send"
             android:textColor="@android:color/white" />

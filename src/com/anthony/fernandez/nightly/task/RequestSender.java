@@ -20,7 +20,7 @@ import android.os.AsyncTask;
 
 public class RequestSender {
 
-	public void sendRequest(final String url, final String apiPoint, final String[] params, final ArrayList<NameValuePair> nameValuePairs){
+	public synchronized void sendRequest(final String url, final String apiPoint, final String[] params, final ArrayList<NameValuePair> nameValuePairs){
 		new AsyncTask<String, Void, String>() {
 			@Override
 			protected void onPreExecute() {

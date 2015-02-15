@@ -35,5 +35,8 @@
     
     <!-- transparent -->
     <color name="overlay_splashscreen">#E6333333</color>
+    
+    <!-- black -->
+    <color name="black">#4a4949</color>
 
 </resources>

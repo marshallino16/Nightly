@@ -109,7 +109,8 @@
                 android:background="@color/grey_item_color"
                 android:padding="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#000" />
+                android:textColor="#000"
+                android:visibility="gone" />
 
             <android.support.v4.view.ViewPager
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -121,8 +122,7 @@
                 android:fadingEdge="none"
                 android:listSelector="@android:color/transparent"
                 android:overScrollMode="never"
-                android:scrollbars="none"
-                android:visibility="gone" >
+                android:scrollbars="none">
             </android.support.v4.view.ViewPager>
 
             <com.viewpagerindicator.CirclePageIndicator

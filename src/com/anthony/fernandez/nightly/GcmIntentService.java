@@ -10,11 +10,12 @@ import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.anthony.fernandez.nightly.api.GCMParams;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 public class GcmIntentService extends IntentService {
 	
-	public static final int NOTIFICATION_ID = 9273;
+	private static int NOTIFICATION_ID = (int) System.currentTimeMillis();
 	private NotificationManager mNotificationManager;
 	NotificationCompat.Builder builder;
 
@@ -39,11 +40,13 @@ public class GcmIntentService extends IntentService {
 			 */
 			if (GoogleCloudMessaging.
 					MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
-				sendNotification("Send error: " + extras.toString());
+				//TODO
+//				sendNotification("Send error: " + extras.toString());
 			} else if (GoogleCloudMessaging.
 					MESSAGE_TYPE_DELETED.equals(messageType)) {
-				sendNotification("Deleted messages on server: " +
-						extras.toString());
+				//TODO
+//				sendNotification("Deleted messages on server: " +
+//						extras.toString());
 				// If it's a regular GCM message, do some work.
 			} else if (GoogleCloudMessaging.
 					MESSAGE_TYPE_MESSAGE.equals(messageType)) {
@@ -58,7 +61,7 @@ public class GcmIntentService extends IntentService {
 				}
 				Log.i("Nightly", "Completed work @ " + SystemClock.elapsedRealtime());
 				// Post notification of received message.
-				sendNotification("Received: " + extras.toString());
+				sendNotification(extras.getString(GCMParams.CATEGORY) + " \n" + extras.getString(GCMParams.MESSAGE));//"Received: " + extras.toString()
 				Log.i("Nightly", "Received: " + extras.toString());
 			}
 		}
@@ -78,8 +81,8 @@ public class GcmIntentService extends IntentService {
 
 		NotificationCompat.Builder mBuilder =
 				new NotificationCompat.Builder(this)
-		.setSmallIcon(R.drawable.ic_launcher)
-		.setContentTitle("GCM Notification")
+		.setSmallIcon(R.drawable.icone_notification)
+		.setContentTitle(this.getResources().getString(R.string.title_good_night))
 		.setStyle(new NotificationCompat.BigTextStyle()
 		.bigText(msg))
 		.setContentText(msg);

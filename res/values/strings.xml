@@ -66,6 +66,9 @@
     <string name="send">envoyer</string>
     <string name="title_activity_categories">CategoriesActivity</string>
     <string name="title_activity_message_received">MessageReceivedActivity</string>
+    
+    <!-- notifications -->
+    <string name="title_good_night">Bonne nuit !</string>
 
     <!-- conversation -->
     <string-array name="conversation_menu">
@@ -73,5 +76,8 @@
         <item>Supprimer</item>
         <item>Signaler le participant</item>
     </string-array>
+
+    <string name="title_activity_profil">ProfilActivity</string>
+    <string name="title_activity_cgu">CGUActivity</string>
 
 </resources>

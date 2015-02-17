@@ -2,6 +2,7 @@ package com.anthony.fernandez.nightly.task.listener;
 
 public interface OnGoodNightSend {
 	
-	public void OnGoodNightSent(String message, int categorieID);
+	public void OnGoodNightSendSucced();
+	public void OnGoodNightSendFailed(String reason);
 
 }

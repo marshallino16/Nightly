@@ -23,7 +23,6 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.anthony.fernandez.nightly.permission.C2D_MESSAGE" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
         android:allowBackup="true"
@@ -130,6 +129,15 @@
         </receiver>
 
         <service android:name=".GcmIntentService" />
+
+        <activity
+            android:name=".ProfilActivity"
+            android:label="@string/title_activity_profil" >
+        </activity>
+        <activity
+            android:name=".CGUActivity"
+            android:label="@string/title_activity_cgu" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,7 +1,10 @@
 package com.anthony.fernandez.nightly.task;
 
+import com.anthony.fernandez.nightly.enums.DaysOfWeek;
+
 import android.content.Context;
 
+@SuppressWarnings("unused")
 public class TaskManager {
 	
 	private RequestSender requestSender;
@@ -12,39 +15,47 @@ public class TaskManager {
 		this.context = ctx;
 	}
 	
-	public void sendMessage(){
-		
+	public boolean sendMessage(String message, int conversationID){
+		return false;
 	}
 
-	public void pickUpSomebody(){
-		
+	public boolean pickUpSomebody(long datetimeUTC){
+		return false;
 	}
 	
-	public void getListConversations(){
-		
+	public boolean getListConversations(){
+		return false;
 	}
 	
-	public void sendGoodNight(){
-		
+	public boolean sendGoodNight(String message, int categorieID, int remoteUserID){
+		return false;
 	}
 	
-	public void connectFacebook(){
-		
+	public boolean connectFacebook(String tokenFacebook){
+		return false;
 	}
 	
-	public void connectNightly(){
-		
+	public boolean connectNightly(String username, String password){
+		return false;
 	}
 	
-	public void register(){
-		
+	public boolean register(String firstname, String lastname, String email, String password, byte[] profilPhoto, long birthDate, boolean sexe, String country, String phoneNumber){
+		return false;
 	}
 	
-	public void updateProfil(){
-		
+	public boolean updateProfil(String firstname, String lastname, String email, String password, byte[] profilPhoto, long birthDate, boolean sexe, String country, String phoneNumber){
+		return false;
 	}
 	
-	public void updateClockAlarm(){
-		
+	public boolean updateClockAlarm(int hours, int minutes, DaysOfWeek dayOfWeek){
+		return false;
+	}
+	
+	public boolean sendRegistrationID(String regID){
+		return false;
+	}
+	
+	public boolean updateRegistrationID(String regID){
+		return false;
 	}
 }

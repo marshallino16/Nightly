@@ -36,6 +36,7 @@ import com.anthony.fernandez.nightly.fragment.RightPanel;
 import com.anthony.fernandez.nightly.gcm.GCMUtils;
 import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
 import com.doomonafireball.betterpickers.timepicker.TimePickerDialogFragment.TimePickerDialogHandler;
+import com.facebook.Session;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -85,6 +86,7 @@ public class MainActivity extends SherlockFragmentActivity {
 			@Override
 			public void onClick(View v) {
 				//logout
+				callFacebookLogout(getApplicationContext());
 			}
 		});
 		getSupportActionBar().getCustomView().findViewById(R.id.logout).setVisibility(View.VISIBLE);
@@ -434,6 +436,24 @@ public class MainActivity extends SherlockFragmentActivity {
 	public void addText(String msg){
 		if(msg != null && registrationID != null){
 			registrationID.setText(registrationID.getText() + "\n" + msg);
+		}
+	}
+
+	/**
+	 * Logout From Facebook 
+	 */
+	public static void callFacebookLogout(Context context) {
+		Session session = Session.getActiveSession();
+		if (session != null) {
+			if (!session.isClosed()) {
+				session.closeAndClearTokenInformation();
+				//clear your preferences if saved
+			}
+		} else {
+			session = new Session(context);
+			Session.setActiveSession(session);
+			session.closeAndClearTokenInformation();
+			//clear your preferences if saved
 		}
 	}
 }

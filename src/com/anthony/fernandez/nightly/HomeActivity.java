@@ -32,8 +32,6 @@ import com.facebook.Session.OpenRequest;
 import com.facebook.SessionLoginBehavior;
 import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class HomeActivity extends SherlockFragmentActivity implements android.view.View.OnClickListener{
@@ -147,15 +145,18 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 	public void onClick(View v) {
 		Session currentSession = Session.getActiveSession();
 		if (currentSession == null || currentSession.getState().isClosed()) {
+			Log.w("Nightly", "Fb session closed");
 			Session session = new Session.Builder(HomeActivity.this).build();
 			Session.setActiveSession(session);
 			currentSession = session;
 		}
 
 		if (currentSession.isOpened()) {
+			Log.w("Nightly", "Fb session opened");
 			// Do whatever u want. User has logged in
 
 		} else if (!currentSession.isOpened()) {
+			Log.w("Nightly", "Fb session not opened obviusly");
 			// Ask for username and password
 			OpenRequest op = new Session.OpenRequest((Activity) HomeActivity.this);
 

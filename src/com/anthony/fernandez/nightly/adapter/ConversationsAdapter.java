@@ -49,7 +49,8 @@ public class ConversationsAdapter extends ArrayAdapter<Conversation> {
 			holder.imageContact = (CircleImageView) row.findViewById(R.id.imageContact);
 			holder.container = (LinearLayout) row.findViewById(R.id.containerConversation);
 			holder.menu = (Spinner) row.findViewById(R.id.conversationMenu);
-			
+			holder.isRead = (View) row.findViewById(R.id.hasBeenRead);
+
 			row.setTag(holder);
 		} else {
 			holder = (RowHolder) row.getTag();
@@ -59,18 +60,23 @@ public class ConversationsAdapter extends ArrayAdapter<Conversation> {
 
 		int totalMessageReceive = Conversation.getListMessages().size()-1;
 		int totalMessageSend = Conversation.getListMessagesSent().size()-1;
-		
+
+		if(Conversation.isRead()){
+			holder.isRead.setVisibility(View.GONE);
+		}else{
+			holder.isRead.setVisibility(View.VISIBLE);
+		}
 		holder.textReceive.setText(Conversation.getListMessages().get(totalMessageReceive).getMessage());
 		holder.textSend.setText(Conversation.getListMessagesSent().get(totalMessageSend).getMessage());
 		holder.container.setOnLongClickListener(new OnLongClickListener() {
-			
+
 			@Override
 			public boolean onLongClick(View v) {
 				holder.menu.performClick();
 				return false;
 			}
 		});
-		
+
 		@SuppressWarnings("unused")
 		String timeLaspeReceive = ""; //new Date().getTime(),Conversation.getListMessages().get(totalMessageReceive).getDateSend()
 
@@ -78,6 +84,7 @@ public class ConversationsAdapter extends ArrayAdapter<Conversation> {
 	}
 
 	static class RowHolder {
+		View isRead;
 		LinearLayout container;
 		Spinner menu;
 		TextView textReceive;

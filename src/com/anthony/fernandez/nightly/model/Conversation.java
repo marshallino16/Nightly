@@ -10,6 +10,7 @@ public class Conversation {
 	private Contact participant;
 	private boolean isBlackListed;
 	private boolean isModerated;
+	private boolean isRead = false;
 	private ArrayList<Message> listMessagesReceived;
 	private ArrayList<Message> listMessagesSent;
 
@@ -119,6 +120,14 @@ public class Conversation {
 
 	public void setListMessagesSent(ArrayList<Message> listMessagesSent) {
 		this.listMessagesSent = listMessagesSent;
+	}
+
+	public boolean isRead() {
+		return isRead;
+	}
+
+	public void setRead(boolean isRead) {
+		this.isRead = isRead;
 	}
 
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -64,6 +65,14 @@ public class ListConversationActivity extends SherlockActivity implements OnList
 		listViewPullToRefresh.setAdapter(conversationAdapter);
 
 		generateConversations(3);
+
+		Bundle bundle = getIntent().getExtras();
+		if(bundle != null && bundle.containsKey("unread")){
+			if(bundle.getBoolean("unread")){
+				//do not display read conversations
+
+			}
+		}
 	}
 
 	@Override
@@ -113,12 +122,11 @@ public class ListConversationActivity extends SherlockActivity implements OnList
 	public void onRefresh(PullToRefreshBase<ListView> refreshView) {
 		String label = DateUtils.formatDateTime(getApplicationContext(), System.currentTimeMillis(),
 				DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
-		
-		refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
 
-		generateConversations(1);
+		refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
+		new RefreshConversation().execute();
 	}
-	
+
 	public void openConversation(View v){
 		Intent intent = new Intent(this, MessagingActivity.class);
 		startActivity(intent);
@@ -132,15 +140,42 @@ public class ListConversationActivity extends SherlockActivity implements OnList
 			Conversation conv = new Conversation(i);
 			ArrayList<Message> listMess = new ArrayList<Message>();
 			listMess.add(mess);
-			
+
 			ArrayList<Message> listMessSent = new ArrayList<Message>();
 			listMessSent.add(mess2);
-			
+
 			conv.setListMessages(listMess);
 			conv.setListMessagesSent(listMessSent);
+			if((i & 1) == 0){
+				conv.setRead(true);
+			}
 
 			listConversations.add(conv);
 			conversationAdapter.notifyDataSetChanged();
+		}
+	}
+
+	private class RefreshConversation extends AsyncTask<Void, Void, Void> {
+		@Override
+		protected Void doInBackground(Void... params) {
+			// Simulates a background job.
+			try {
+				Thread.sleep(2000);
+				runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						generateConversations(1);
+					}
+				});
+			} catch (InterruptedException e) {
+			}
+			return null;
+		}
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			listViewPullToRefresh.onRefreshComplete();
 		}
 	}
 }

@@ -11,7 +11,13 @@
         android:layout_height="120dp"
         android:background="@drawable/btn_panel_opening"
         android:onClick="openConversation"
-        android:orientation="vertical" >
+        android:orientation="horizontal" >
+
+        <View
+            android:id="@+id/hasBeenRead"
+            android:layout_width="10dp"
+            android:layout_height="120dp"
+            android:background="@color/unread_counter" />
 
         <RelativeLayout
             android:layout_width="match_parent"

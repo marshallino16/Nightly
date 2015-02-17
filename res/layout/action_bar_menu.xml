@@ -8,14 +8,30 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-        
+
+        <ImageView
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/content_description"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingnTop="10dp"
+            android:src="@drawable/logout"
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/content_description"
-            android:layout_margin="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
             android:src="@drawable/settings" />
 
         <ImageView

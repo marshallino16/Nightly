@@ -81,6 +81,15 @@ public class MainActivity extends SherlockFragmentActivity {
 				settings();
 			}
 		});
+		getSupportActionBar().getCustomView().findViewById(R.id.logout).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
+		getSupportActionBar().getCustomView().findViewById(R.id.logout).setVisibility(View.VISIBLE);
+		
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			setTranslucentStatus(true); 

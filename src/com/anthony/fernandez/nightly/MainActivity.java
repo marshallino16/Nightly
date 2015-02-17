@@ -30,6 +30,7 @@ import android.widget.RelativeLayout;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.anthony.fernandez.nightly.adapter.InitPagerAdapter;
+import com.anthony.fernandez.nightly.api.GCMParams;
 import com.anthony.fernandez.nightly.fragment.LeftPanel;
 import com.anthony.fernandez.nightly.fragment.RightPanel;
 import com.anthony.fernandez.nightly.gcm.GCMUtils;
@@ -69,8 +70,6 @@ public class MainActivity extends SherlockFragmentActivity {
 		super.onCreate(savedInstanceState);
 		overridePendingTransition(R.anim.pull_in_from_left, R.anim.hold);
 		setContentView(R.layout.activity_main);
-		//Project ID: animated-codex-750 Project Number: 926014171825
-		//API KEY = AIzaSyBod3FoppvHG6F8lXihLLwg433pJnkmscQ
 		getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		getSupportActionBar().setCustomView(R.layout.action_bar_menu);
 		getSupportActionBar().setHomeButtonEnabled(true);
@@ -135,6 +134,39 @@ public class MainActivity extends SherlockFragmentActivity {
 	    } else {
 	    	Log.i("NIghtly", "No valid Google Play Services APK found.");
 	    }
+		
+		final Bundle bundle = getIntent().getExtras();
+		if(bundle != null && bundle.containsKey(GCMParams.CATEGORY) && bundle.containsKey(GCMParams.MESSAGE)){
+			new AsyncTask<Void, Void, Void>(){
+
+				@Override
+				protected Void doInBackground(Void... params) {
+					try {
+						Thread.sleep(2000);
+						runOnUiThread(new Runnable() {
+							
+							@Override
+							public void run() {
+								Intent intentMessage = new Intent(MainActivity.this, MessageReceivedActivity.class);
+								intentMessage.putExtra(GCMParams.CATEGORY, bundle.getString(GCMParams.CATEGORY));
+								intentMessage.putExtra(GCMParams.MESSAGE, bundle.getString(GCMParams.MESSAGE));
+								startActivity(intentMessage);
+							}
+						});
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					return null;
+				}
+				
+			}.execute();
+		}
+	}
+	
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		this.setIntent(intent);
 	}
 
 	@Override
@@ -236,8 +268,6 @@ public class MainActivity extends SherlockFragmentActivity {
 	}
 	
 	public void profil(View v){
-		Intent intent = new Intent(this, MessageReceivedActivity.class);
-		startActivity(intent);
 	}
 
 	private void settings(){

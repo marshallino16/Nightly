@@ -22,6 +22,19 @@
         android:layout_centerInParent="true"
         android:orientation="vertical" >
 
+        <TextView
+            android:id="@+id/connectionState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/progress"
+            android:padding="5dp"
+            android:text="connexion en cours"
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
+
         <AutoCompleteTextView
             android:id="@+id/email"
             android:layout_width="match_parent"

@@ -40,5 +40,10 @@
     
     <!-- black -->
     <color name="black">#4a4949</color>
+    
+    <!-- connection -->
+    <color name="progress">#EDE82C</color>
+    <color name="connected">#2DE35A</color>
+    <color name="not_connected">#E3472D</color>
 
 </resources>

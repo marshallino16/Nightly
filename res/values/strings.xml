@@ -30,6 +30,7 @@
     <string name="phone_registration">Vérifier mon numéro</string>
     <string name="country_default">sélectionnez votre pays</string>
     <string name="phone_number">numéro de téléphone</string>
+    <string name="indicatif">33</string>
 
     <!-- login -->
     <string name="email">email</string>
@@ -40,6 +41,16 @@
     <string name="lost_password"> - mot de passe oublié -</string>
     <string name="cluf"><u>- conditions générales d\'utilisation -</u></string>
     <string name="facebook_connect">connexion Facebook</string>
+    
+    <!-- register -->
+    <string name="next">suivant</string>
+    <string name="previous">précédent</string>
+    <string name="lastname">nom</string>
+    <string name="firstname">prénom</string>
+    <string name="gender">sexe</string>
+    <string name="language">langue</string>
+    <string name="french">Français</string>
+    <string name="english">English</string>
 
     <!-- days of week -->
     <string name="monday">Lundi</string>

@@ -2,6 +2,7 @@ package com.anthony.fernandez.nightly.api;
 
 public interface UrlApi {
 
+	public final static String URL_API_BASE = "https://nightly-api-dev.cheezecake.ovh";
 	public final static String GET_CATEGORIES = "/api/categories";
 	public final static String ADD_USER_CLOCK = "/api/clock";
 	public final static String GET_USER_CLOCKS = "/api/clock";
@@ -13,7 +14,7 @@ public interface UrlApi {
 	public final static String SET_FACEBOOK_TOKEN = "/auth/facebook/token";
 	public final static String GET_OAUTH_TOKEN = "/oauth/token";
 	public final static String CREATE_USER = "/api/signup";
-	public final static String GET_USER_INFOS = "/api/userInfo";
+	public final static String GET_USER_INFOS = "/api/user_info";
 	public final static String SET_USER_LANGUAGE = "/api/language";
 	
 }

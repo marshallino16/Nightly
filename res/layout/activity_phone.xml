@@ -67,7 +67,23 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:contentDescription="@string/content_description"
-                android:src="@drawable/ic_action_phone" />
+                android:src="@drawable/ic_action_new"
+                android:visibility="visible" />
+
+            <EditText
+                android:id="@+id/indicatif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="@string/indicatif"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:nextFocusRight="@+id/phone_number"
+                android:padding="10dp"
+                android:textColor="@color/blue_background_dark"
+                android:textColorHighlight="@color/wallet_hint_foreground_holo_light"
+                android:textColorHint="@color/wallet_hint_foreground_holo_light" />
 
             <EditText
                 android:id="@+id/phone_number"

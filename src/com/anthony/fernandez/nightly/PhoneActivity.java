@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -27,6 +28,7 @@ public class PhoneActivity extends SherlockActivity {
 	private String countryCode;
 	
 	private TextView countryName;
+	private TextView indicatif;
 	private ImageView countryFlag;
 
 	@Override
@@ -47,6 +49,7 @@ public class PhoneActivity extends SherlockActivity {
 		
 		countryName = (TextView)findViewById(R.id.row_title);
 		countryFlag = (ImageView)findViewById(R.id.row_icon);
+		indicatif = (TextView)findViewById(R.id.indicatif);
 	}
 
 	@Override
@@ -97,8 +100,11 @@ public class PhoneActivity extends SherlockActivity {
 		if(null != data && COUNTRY_SELECTOR == requestCode && RESULT_OK == resultCode){
 			if(null != data.getExtras() && data.getExtras().containsKey(EXTRA_KEY)){
 				countryCode = data.getExtras().getString(EXTRA_KEY);
+				Log.w("Nightly", "countryCode = " + countryCode);
 				String name = CountryPhoneCode.getCountryName(countryCode);
 				countryName.setText(name);
+				String phoneCode = CountryPhoneCode.getPhoneCode(countryCode);
+				indicatif.setText(phoneCode.substring(1));
 				String drawableName = "flag_"+ countryCode.toLowerCase(Locale.ENGLISH);
 				countryFlag.setImageResource(getResId(drawableName));
 			}

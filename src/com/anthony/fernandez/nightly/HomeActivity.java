@@ -85,7 +85,8 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 	}
 
 	public void registerAccount(View v){
-
+		Intent intent = new Intent(this, RegisterActivity.class);
+		startActivity(intent);
 	}
 
 	public void loginNightly(View v){

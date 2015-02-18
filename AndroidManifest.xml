@@ -132,11 +132,15 @@
 
         <activity
             android:name=".ProfilActivity"
-            android:label="@string/title_activity_profil" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Nightly" >
         </activity>
         <activity
             android:name=".CGUActivity"
-            android:label="@string/title_activity_cgu" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Nightly" >
         </activity>
     </application>
 

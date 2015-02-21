@@ -120,7 +120,7 @@
         </activity>
 
         <receiver
-            android:name="com.anthony.fernandez.nightly.gcm.GcmBroadcastReceiver"
+            android:name=".gcm.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -129,7 +129,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.anthony.fernandez.nightly.gcm.GcmIntentService" />
+        <service android:name=".gcm.GcmIntentService" />
 
         <activity
             android:name=".ProfilActivity"
@@ -142,6 +142,12 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Nightly" >
+        </activity>
+        <activity
+            android:name=".RegisterPartTwoActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
     </application>
 

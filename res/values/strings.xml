@@ -35,13 +35,14 @@
     <!-- login -->
     <string name="email">email</string>
     <string name="password">mot de passe</string>
+    <string name="repassword">resaisir le mot de passe</string>
     <string name="error_bad_password">Erreur, l\'email ou le mot de passe est incorrect.</string>
     <string name="login">connexion</string>
     <string name="register">s\'enregistrer</string>
     <string name="lost_password"> - mot de passe oublié -</string>
     <string name="cluf"><u>- conditions générales d\'utilisation -</u></string>
     <string name="facebook_connect">connexion Facebook</string>
-    
+
     <!-- register -->
     <string name="next">suivant</string>
     <string name="previous">précédent</string>
@@ -53,6 +54,7 @@
     <string name="english">English</string>
     <string name="birthddayate">date de naissance</string>
     <string name="need_intel">Nous avons besoin de quelques informations</string>
+    <string name="few_more">Encore quelques informations, vous y êtes presque</string>
 
     <!-- days of week -->
     <string name="monday">Lundi</string>
@@ -79,7 +81,7 @@
     <string name="send">envoyer</string>
     <string name="title_activity_categories">CategoriesActivity</string>
     <string name="title_activity_message_received">MessageReceivedActivity</string>
-    
+
     <!-- notifications -->
     <string name="title_good_night">Bonne nuit !</string>
 
@@ -89,13 +91,9 @@
         <item>Supprimer</item>
         <item>Signaler le participant</item>
     </string-array>
-    
     <string-array name="langues">
         <item>Français</item>
         <item>English</item>
     </string-array>
-
-    <string name="title_activity_profil">ProfilActivity</string>
-    <string name="title_activity_cgu">CGUActivity</string>
 
 </resources>

@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
@@ -18,7 +18,6 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -82,6 +81,7 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 		}
 	}
 
+	@SuppressLint("SimpleDateFormat")
 	public void next(View v){
 		if(!male.isSelected() && !female.isSelected()){
 			return;
@@ -110,7 +110,7 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 			e.printStackTrace();
 		}
 
-		Intent intent = new Intent(this, PhoneActivity.class);
+		Intent intent = new Intent(this, RegisterPartTwoActivity.class);
 		startActivity(intent);
 	}
 

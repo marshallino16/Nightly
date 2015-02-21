@@ -93,6 +93,7 @@
                 android:orientation="horizontal" >
 
                 <ImageButton
+                    android:id="@+id/male"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -107,6 +108,7 @@
                     android:background="@color/separator_background_top_panel" />
 
                 <ImageButton
+                    android:id="@+id/female"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

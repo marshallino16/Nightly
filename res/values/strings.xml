@@ -51,6 +51,7 @@
     <string name="language">langue</string>
     <string name="french">Français</string>
     <string name="english">English</string>
+    <string name="birthddayate">date de naissance</string>
     <string name="need_intel">Nous avons besoin de quelques informations</string>
 
     <!-- days of week -->

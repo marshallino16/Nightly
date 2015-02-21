@@ -7,6 +7,8 @@ public interface ParametersApi {
 	public final static String HOUR = "hour";
 	public final static String MINUTE = "minute";
 	public final static String DAY = "day";
+	public final static String ACTIVE = "active";
+	public final static String GENRE = "genre";
 	public final static String ID_CLOCK = "id_clock";
 	public final static String CONTENT = "content";
 	public final static String ID_GOODNIGHT = "id_goodnight";
@@ -29,4 +31,15 @@ public interface ParametersApi {
 	 */
 	public final static String LANGUAGE = "language";
 
+	public final static String SKIP = "skip";
+	public final static String LIMIT = "limit";
+	public final static String SENDED_GOODNIGHT = "sended_goodnight";
+	public final static String RECEIVED_GOODNIGHT = "received_goodnight";
+	public final static String SORT_LIKE = "sort_like";
+	public final static String SORT_CREATED = "sort_created";
+	
+	public final static String FIRSTNAME = "firstname";
+	public final static String LASTNAME = "lastname";
+	public final static String PHONE = "phone";
+	public final static String BORN = "born";
 }

@@ -1,4 +1,4 @@
-package com.anthony.fernandez.nightly;
+package com.anthony.fernandez.nightly.gcm;
 
 import android.app.Activity;
 import android.content.ComponentName;

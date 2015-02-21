@@ -45,5 +45,8 @@
     <color name="progress">#EDE82C</color>
     <color name="connected">#2DE35A</color>
     <color name="not_connected">#E3472D</color>
+    
+    <!-- update color -->
+    <color name="light_grey_white">#E1E1E1</color>
 
 </resources>

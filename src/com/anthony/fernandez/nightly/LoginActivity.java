@@ -92,7 +92,7 @@ public class LoginActivity extends SherlockActivity {
 	}
 
 	public void loginNightly(View v){
-		Intent intent = new Intent(this, PhoneActivity.class);
+		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 	}
 

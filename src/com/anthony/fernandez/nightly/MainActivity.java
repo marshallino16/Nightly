@@ -35,13 +35,14 @@ import com.anthony.fernandez.nightly.fragment.LeftPanel;
 import com.anthony.fernandez.nightly.fragment.RightPanel;
 import com.anthony.fernandez.nightly.gcm.GCMUtils;
 import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
-import com.doomonafireball.betterpickers.timepicker.TimePickerDialogFragment.TimePickerDialogHandler;
+import com.doomonafireball.betterpickers.timepicker.TimePickerDialogFragment;
 import com.facebook.Session;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.viewpagerindicator.CirclePageIndicator;
 
-public class MainActivity extends SherlockFragmentActivity {
+public class MainActivity extends SherlockFragmentActivity implements TimePickerDialogFragment.TimePickerDialogHandler {
+
 
 	//GCM
 	public static final String EXTRA_MESSAGE = "message";
@@ -198,25 +199,16 @@ public class MainActivity extends SherlockFragmentActivity {
 		super.onDestroy();
 	}
 
+	@Override
+	public void onDialogTimeSet(int reference, int hourOfDay, int minute) {
+		Log.w("Nightly" , "" + hourOfDay + ":" + minute);
+	}
+
 	public void pickSleepingTime(View v){
-		TimePickerBuilder btp = new TimePickerBuilder()
+		TimePickerBuilder tpb = new TimePickerBuilder()
 		.setFragmentManager(getSupportFragmentManager())
-		.setStyleResId(R.style.BetterPickersDialogFragment);
-		btp.addTimeSetListener(new TimePickerDialogHandler() {
-
-			@Override
-			public void onDialogTimeSet(int hourOfDay, int minute) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onDialogCancel() {
-				// TODO Auto-generated method stub
-
-			}
-		});  
-		btp.show();
+		.setStyleResId(R.style.BetterPickersDialogFragment_Light);
+		tpb.show();
 	}
 
 	/**

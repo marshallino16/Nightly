@@ -1,4 +1,4 @@
-package com.anthony.fernandez.nightly;
+package com.anthony.fernandez.nightly.gcm;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.anthony.fernandez.nightly.MainActivity;
+import com.anthony.fernandez.nightly.R;
+import com.anthony.fernandez.nightly.R.drawable;
+import com.anthony.fernandez.nightly.R.string;
 import com.anthony.fernandez.nightly.api.GCMParams;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 

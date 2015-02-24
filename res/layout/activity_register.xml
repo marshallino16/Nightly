@@ -99,6 +99,7 @@
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/content_description"
+                    android:onClick="male"
                     android:scaleType="centerInside"
                     android:src="@drawable/btn_male" />
 
@@ -114,6 +115,7 @@
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/content_description"
+                    android:onClick="female"
                     android:src="@drawable/btn_female" />
             </LinearLayout>
 

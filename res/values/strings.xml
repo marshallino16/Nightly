@@ -95,5 +95,9 @@
         <item>Français</item>
         <item>English</item>
     </string-array>
+    <string-array name="picture">
+        <item>Choisir existante</item>
+        <item>Prendre une photo</item>
+    </string-array>
 
 </resources>

@@ -5,8 +5,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -67,18 +71,28 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 		calendarDatePickerDialog.show(fm, FRAG_TAG_DATE_PICKER);
 	}
 
+	public void choicePicture(View v){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setItems(getResources().getStringArray(R.array.picture), new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int item) {
+			}
+		});
+		AlertDialog alert = builder.create();
+		alert.show();
+	}
+
 	public void male(View v){
 		if(female.isSelected()){
 			female.setSelected(false);
-			male.setSelected(true);
 		}
+		male.setSelected(true);
 	}
 
 	public void female(View v){
 		if(male.isSelected()){
 			male.setSelected(false);
-			female.setSelected(true);
 		}
+		female.setSelected(true);
 	}
 
 	@SuppressLint("SimpleDateFormat")
@@ -98,7 +112,7 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 		if(day == 0 || month == 0 || year == 0){
 			return;
 		}
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
 		String dateInString = day+"-"+month+"-"+year;
 		try {
@@ -144,6 +158,9 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 	@Override
 	public void onDateSet(CalendarDatePickerDialog dialog, int year, int monthOfYear, int dayOfMonth) {
 		String birthday = dayOfMonth + " " + getMonth(monthOfYear+1) + " " + year;
+		this.day = dayOfMonth;
+		this.month = monthOfYear+1;
+		this.year = year;
 		Log.w("Nightly", birthday);
 		((TextView)findViewById(R.id.birthday)).setText(birthday);
 	}

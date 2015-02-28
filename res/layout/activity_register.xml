@@ -14,18 +14,47 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="30dp" >
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/profile_image"
+        <RelativeLayout
             android:layout_width="130dp"
             android:layout_height="130dp"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/cat_laught"
-            app:border_color="@color/green_circle"
-            app:border_width="2dp" />
+            android:layout_alignParentRight="true" >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="definePhoto"
+                android:src="@drawable/cat_laught"
+                app:border_color="@color/green_circle"
+                app:border_width="2dp" />
+
+            <RelativeLayout
+                android:id="@+id/statesBg"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:background="@color/violet_circle"
+                android:padding="5dp" >
+
+                <ProgressBar
+                    android:id="@+id/uploading"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/content_description"
+                    android:src="@drawable/ic_action_accept" />
+            </RelativeLayout>
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
@@ -34,6 +63,19 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/connectionState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/progress"
+                android:padding="5dp"
+                android:text="connexion en cours"
+                android:textColor="@android:color/white"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -61,6 +103,7 @@
                     android:background="@android:color/white"
                     android:hint="@string/firstname"
                     android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
                     android:lines="1"
                     android:maxLines="1"
                     android:nextFocusDown="@+id/lastname"
@@ -78,6 +121,7 @@
                     android:layout_weight="1"
                     android:background="@android:color/white"
                     android:hint="@string/lastname"
+                    android:inputType="textPersonName"
                     android:lines="1"
                     android:maxLines="1"
                     android:padding="10dp"
@@ -175,6 +219,49 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
         </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/actionsPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/violet_circle"
+                    android:text="Choisir existante"
+                    android:textAppearance="?android:attr/textAppearanceLargeInverse"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/red_circle"
+                    android:text="Prendre une photo"
+                    android:textAppearance="?android:attr/textAppearanceLargeInverse"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:contentDescription="@string/content_description"
+                android:onClick="quit"
+                android:padding="4dp"
+                android:src="@drawable/ic_action_remove" />
+        </RelativeLayout>
     </RelativeLayout>
 
 </LinearLayout>

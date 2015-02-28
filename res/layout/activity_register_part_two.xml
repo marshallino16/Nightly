@@ -28,6 +28,19 @@
             android:layout_centerInParent="true"
             android:orientation="vertical" >
 
+            <TextView
+                android:id="@+id/connectionState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/progress"
+                android:padding="5dp"
+                android:text="connexion en cours"
+                android:textColor="@android:color/white"
+                android:visibility="gone" />
+
             <AutoCompleteTextView
                 android:id="@+id/email"
                 android:layout_width="match_parent"
@@ -78,13 +91,14 @@
                     android:layout_height="fill_parent"
                     android:background="@color/separator_background_top_panel" />
 
-                <ImageButton
+                <ImageView
+                    android:id="@+id/seenClear"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
                     android:background="@drawable/btn_update"
+                    android:clickable="true"
                     android:contentDescription="@string/content_description"
-                    android:onClick="pickBirthDay"
                     android:src="@drawable/ic_see" />
             </LinearLayout>
 
@@ -119,31 +133,61 @@
                     android:layout_height="fill_parent"
                     android:background="@color/separator_background_top_panel" />
 
-                <ImageButton
+                <ImageView
+                    android:id="@+id/reSeenClear"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.2"
                     android:background="@drawable/btn_update"
+                    android:clickable="true"
                     android:contentDescription="@string/content_description"
-                    android:onClick="pickBirthDay"
                     android:src="@drawable/ic_see" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/next"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
-                android:alpha="0.8"
-                android:background="@drawable/btn_facebook"
-                android:gravity="center"
-                android:onClick="next"
-                android:padding="10dp"
-                android:text="@string/next"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/white" />
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/previous"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="1"
+                    android:alpha="0.8"
+                    android:background="@drawable/btn_facebook"
+                    android:gravity="center"
+                    android:onClick="previous"
+                    android:padding="10dp"
+                    android:text="@string/previous"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/white" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="fill_parent"
+                    android:alpha="0.8"
+                    android:background="@android:color/white" />
+
+                <Button
+                    android:id="@+id/next"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="1"
+                    android:alpha="0.8"
+                    android:background="@drawable/btn_facebook"
+                    android:gravity="center"
+                    android:onClick="next"
+                    android:padding="10dp"
+                    android:text="@string/next"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 

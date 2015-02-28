@@ -18,8 +18,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -30,6 +34,8 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 
 	private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
 
+	private RelativeLayout actions;
+	private RelativeLayout container;
 	private EditText lastname;
 	private EditText firstname;
 	private TextView birthday;
@@ -53,7 +59,9 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 		tintManager.setStatusBarTintEnabled(true);
 		tintManager.setNavigationBarTintEnabled(true);
 		tintManager.setTintColor(getResources().getColor(R.color.blue_crepuscule));
-
+		
+		actions = (RelativeLayout)findViewById(R.id.actionsPhoto);
+		container = (RelativeLayout)findViewById(R.id.container);
 		male = (ImageButton)findViewById(R.id.male);
 		female = (ImageButton)findViewById(R.id.female);
 		lastname = (EditText)findViewById(R.id.lastname);
@@ -93,6 +101,58 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 			male.setSelected(false);
 		}
 		female.setSelected(true);
+	}
+
+	public void definePhoto(View v){
+		if(actions.getVisibility() == View.GONE){
+			actions.setVisibility(View.GONE);
+			Animation animation=new TranslateAnimation(0, 0, -container.getHeight(), 0);
+
+            animation.setDuration(1000);
+            animation.setAnimationListener(new AnimationListener() {
+
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animatiofillAftern) {
+                    actions.setVisibility(View.VISIBLE);
+                }
+            });
+
+            actions.startAnimation(animation);
+		}
+	}
+
+	public void quit(View v){
+		if(actions.getVisibility() == View.VISIBLE){
+			actions.setVisibility(View.VISIBLE);
+			Animation animation=new TranslateAnimation(0, 0, 0, -container.getHeight());
+
+            animation.setDuration(1000);
+            animation.setAnimationListener(new AnimationListener() {
+
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animatiofillAftern) {
+                    actions.setVisibility(View.GONE);
+                }
+            });
+
+            actions.startAnimation(animation);
+		}
 	}
 
 	@SuppressLint("SimpleDateFormat")

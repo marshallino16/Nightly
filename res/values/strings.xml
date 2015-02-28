@@ -23,6 +23,19 @@
     <string name="conversations">chats</string>
     <string name="cancel">annuler</string>
 
+    <!-- connection / register -->
+    <string name="not_connected">non connecté</string>
+    <string name="connecting">connexion en cours...</string>
+    <string name="connected">connecté</string>
+    
+    <!-- errors -->
+    <string name="bad_email">adresse email invalide</string>
+    <string name="bad_login">identifiants incorrects</string>
+    <string name="under_14">vous devez avoir minimum 14 ans minimum</string>
+    <string name="fill_all_fields">renseignez tous les champs</string>
+    <string name="not_deletable_mail">merci de ne pas utiliser d\'emails jetables</string>
+    <string name="upload_failed">une erreur est survenue, merci de réessayer</string>
+    
     <!-- params -->
     <string name="create_shortcut">Raccourcis créé avec succès.</string>
 
@@ -75,12 +88,12 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_country_selection">CountrySelectionActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_categories">CategoriesActivity</string>
+    <string name="title_activity_message_received">MessageReceivedActivity</string>
 
     <!-- chat -->
     <string name="message_elipses">bonjour...</string>
     <string name="send">envoyer</string>
-    <string name="title_activity_categories">CategoriesActivity</string>
-    <string name="title_activity_message_received">MessageReceivedActivity</string>
 
     <!-- notifications -->
     <string name="title_good_night">Bonne nuit !</string>

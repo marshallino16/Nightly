@@ -19,7 +19,9 @@
     <color name="bleu_circle">#7fd1d4</color>
     <color name="yellow_circle">#e8ca88</color>
     <color name="violet_circle">#877fd4</color>
+    <color name="violet_circle_touch">#7e76c4</color>
     <color name="red_circle">#e88888</color>
+    <color name="red_circle_touch">#d57d7d</color>
 
     <!-- state pressed -->
     <color name="pink_circle_pressed">#d9829d</color>

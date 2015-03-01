@@ -39,6 +39,7 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 	private EditText lastname;
 	private EditText firstname;
 	private TextView birthday;
+	private TextView connectionState;
 	private ImageButton male;
 	private ImageButton female;
 	private int day = 0;
@@ -67,6 +68,7 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 		lastname = (EditText)findViewById(R.id.lastname);
 		firstname = (EditText)findViewById(R.id.firstname);
 		birthday = (TextView)findViewById(R.id.birthday);
+		connectionState = (TextView)findViewById(R.id.connectionState);
 	}
 
 	public void pickBirthDay(View v){
@@ -158,18 +160,23 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 	@SuppressLint("SimpleDateFormat")
 	public void next(View v){
 		if(!male.isSelected() && !female.isSelected()){
+			displayError(R.string.fill_all_fields);
 			return;
 		}
 		if(firstname.getText().toString().isEmpty()){
+			displayError(R.string.fill_all_fields);
 			return;
 		}
 		if(lastname.getText().toString().isEmpty()){
+			displayError(R.string.fill_all_fields);
 			return;
 		}
 		if(birthday.toString().isEmpty()){
+			displayError(R.string.fill_all_fields);
 			return;
 		}
 		if(day == 0 || month == 0 || year == 0){
+			displayError(R.string.age_not_fill);
 			return;
 		}
 
@@ -177,7 +184,8 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 		String dateInString = day+"-"+month+"-"+year;
 		try {
 			Date date = sdf.parse(dateInString);
-			if(getAge(date) < 18){
+			if(getAge(date) < 14){
+				displayError(R.string.under_14);
 				return;
 			}
 		} catch (ParseException e) {
@@ -268,5 +276,13 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 
 	public String getMonth(int month) {
 		return new DateFormatSymbols().getMonths()[month-1];
+	}
+	
+	public void displayError(int errorID){
+		if(View.GONE == connectionState.getVisibility()){
+			connectionState.setVisibility(View.VISIBLE);
+			connectionState.setBackgroundColor(getResources().getColor(R.color.not_connected));
+			connectionState.setText(getResources().getString(errorID));
+		}
 	}
 }

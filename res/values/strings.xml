@@ -32,6 +32,10 @@
     <string name="bad_email">adresse email invalide</string>
     <string name="bad_login">identifiants incorrects</string>
     <string name="under_14">vous devez avoir minimum 14 ans minimum</string>
+    <string name="age_not_fill">âge non renseigné</string>
+    <string name="email_invalid">email invalide</string>
+    <string name="password_to_short">mot de passe trop court (min. 6 caractères)</string>
+    <string name="password_different">mot de passe différents</string>
     <string name="fill_all_fields">renseignez tous les champs</string>
     <string name="not_deletable_mail">merci de ne pas utiliser d\'emails jetables</string>
     <string name="upload_failed">une erreur est survenue, merci de réessayer</string>

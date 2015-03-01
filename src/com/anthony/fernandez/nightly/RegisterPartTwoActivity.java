@@ -14,13 +14,16 @@ import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.anthony.fernandez.nightly.util.Utils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class RegisterPartTwoActivity extends SherlockFragmentActivity{
 
 	private AutoCompleteTextView email;
+	private TextView connectionState;
 	private EditText password;
 	private EditText repassword;
 	private ImageView seenClear;
@@ -42,6 +45,7 @@ public class RegisterPartTwoActivity extends SherlockFragmentActivity{
 		tintManager.setTintColor(getResources().getColor(R.color.blue_crepuscule));
 
 		email = (AutoCompleteTextView)findViewById(R.id.email);
+		connectionState = (TextView)findViewById(R.id.connectionState);
 		password = (EditText)findViewById(R.id.password);
 		seenClear = (ImageView)findViewById(R.id.seenClear);
 		seenClear.setOnTouchListener(new OnTouchListener() {
@@ -74,16 +78,27 @@ public class RegisterPartTwoActivity extends SherlockFragmentActivity{
 
 	public void next(View v){
 		if(email.getText().toString().isEmpty()){
+			displayError(R.string.fill_all_fields);
+			return;
+		}
+		if(!Utils.isValidEmail(email.getText())){
+			displayError(R.string.email_invalid);
 			return;
 		}
 		if(password.toString().isEmpty()){
+			displayError(R.string.fill_all_fields);
 			return;
 		}
 		if(repassword.toString().isEmpty()){
+			displayError(R.string.fill_all_fields);
 			return;
+		}
+		if(password.toString().length() < 6 || repassword.toString().length() < 6){
+			displayError(R.string.password_to_short);
 		}
 		if(!password.toString().equals(repassword.toString())){
 			Log.w("Nightly", "different : pass = "+password.toString()+"& repass = "+repassword.toString()+"");
+			displayError(R.string.password_different);
 			return;
 		}
 
@@ -124,5 +139,13 @@ public class RegisterPartTwoActivity extends SherlockFragmentActivity{
 			winParams.flags &= ~bits;
 		} 
 		win.setAttributes(winParams);
+	}
+	
+	public void displayError(int errorID){
+		if(View.GONE == connectionState.getVisibility()){
+			connectionState.setVisibility(View.VISIBLE);
+			connectionState.setBackgroundColor(getResources().getColor(R.color.not_connected));
+			connectionState.setText(getResources().getString(errorID));
+		}
 	}
 }

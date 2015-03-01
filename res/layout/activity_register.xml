@@ -48,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:contentDescription="@string/content_description"
-                    android:src="@drawable/ic_action_accept" />
+                    android:src="@drawable/ic_action_new_blank" />
             </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
@@ -236,7 +236,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:background="@color/violet_circle"
+                    android:background="@drawable/btn_violet"
                     android:text="Choisir existante"
                     android:textAppearance="?android:attr/textAppearanceLargeInverse"
                     android:textColor="@android:color/white" />
@@ -245,7 +245,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:background="@color/red_circle"
+                    android:background="@drawable/btn_red"
                     android:text="Prendre une photo"
                     android:textAppearance="?android:attr/textAppearanceLargeInverse"
                     android:textColor="@android:color/white" />

@@ -33,22 +33,6 @@
             android:summary="Oui/Non"
             android:title="Activer le son pour la notification ?" />
     </PreferenceCategory>
-    <PreferenceCategory
-        android:summary="Paramètres avancés"
-        android:title="Avancé" >
-        <Preference
-            android:key="button_cache"
-            android:summary="Supprimer toutes les images sauvegardées."
-            android:title="Vider le cache" />
-        <Preference
-            android:key="button_shortcut"
-            android:summary="Créer un raccourcis de l&apos;application sur la page d&apos;accueil."
-            android:title="Ajouter un raccourcis" />
-        <Preference
-            android:key="button_signal"
-            android:summary="Signalez les problèmes de connexion, de design, ou autres."
-            android:title="Signaler un problème" />
-    </PreferenceCategory>
     <PreferenceCategory android:title="Aide" >
         <Preference
             android:key="button_faq"

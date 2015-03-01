@@ -27,7 +27,7 @@
     <string name="not_connected">non connecté</string>
     <string name="connecting">connexion en cours...</string>
     <string name="connected">connecté</string>
-    
+
     <!-- errors -->
     <string name="bad_email">adresse email invalide</string>
     <string name="bad_login">identifiants incorrects</string>
@@ -39,7 +39,7 @@
     <string name="fill_all_fields">renseignez tous les champs</string>
     <string name="not_deletable_mail">merci de ne pas utiliser d\'emails jetables</string>
     <string name="upload_failed">une erreur est survenue, merci de réessayer</string>
-    
+
     <!-- params -->
     <string name="create_shortcut">Raccourcis créé avec succès.</string>
 
@@ -116,5 +116,7 @@
         <item>Choisir existante</item>
         <item>Prendre une photo</item>
     </string-array>
+
+    <string name="title_activity_tutorial">TutorialActivity</string>
 
 </resources>

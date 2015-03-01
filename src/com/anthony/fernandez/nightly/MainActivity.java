@@ -43,7 +43,7 @@ import com.viewpagerindicator.CirclePageIndicator;
 
 public class MainActivity extends SherlockFragmentActivity implements TimePickerDialogFragment.TimePickerDialogHandler {
 
-
+	private SharedPreferences prefsRun = null;
 	//GCM
 	public static final String EXTRA_MESSAGE = "message";
 	public static final String PROPERTY_REG_ID = "registration_id";
@@ -87,7 +87,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 			@Override
 			public void onClick(View v) {
 				//logout
-				callFacebookLogout(getApplicationContext());
+				logoutAllServices(getApplicationContext());
 			}
 		});
 		getSupportActionBar().getCustomView().findViewById(R.id.logout).setVisibility(View.VISIBLE);
@@ -209,6 +209,15 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 		.setFragmentManager(getSupportFragmentManager())
 		.setStyleResId(R.style.BetterPickersDialogFragment_Light);
 		tpb.show();
+	}
+	
+	private void logoutAllServices(Context context){
+		prefs = getSharedPreferences("com.nightly", MODE_PRIVATE);
+		if (!prefs.getBoolean("firstrun", true)) {
+			prefs.edit().putBoolean("firstrun", true).commit();
+		}
+		callFacebookLogout(context);
+		callGCMLogout();
 	}
 
 	/**
@@ -434,7 +443,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	/**
 	 * Logout From Facebook 
 	 */
-	public static void callFacebookLogout(Context context) {
+	private static void callFacebookLogout(Context context) {
 		Session session = Session.getActiveSession();
 		if (session != null) {
 			if (!session.isClosed()) {
@@ -447,5 +456,9 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 			session.closeAndClearTokenInformation();
 			//clear your preferences if saved
 		}
+	}
+	
+	private static void callGCMLogout(){
+		
 	}
 }

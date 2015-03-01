@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -22,11 +23,13 @@ import com.anthony.fernandez.nightly.enums.CountryPhoneCode;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class PhoneActivity extends SherlockActivity {
-	
+
+	private SharedPreferences prefs = null;
+
 	private final static int COUNTRY_SELECTOR = 1;
 	private final static String EXTRA_KEY = "code";
 	private String countryCode;
-	
+
 	private TextView countryName;
 	private TextView indicatif;
 	private ImageView countryFlag;
@@ -46,10 +49,12 @@ public class PhoneActivity extends SherlockActivity {
 		tintManager.setNavigationBarTintEnabled(true);
 		tintManager.setTintColor(getResources().getColor(R.color.blue_crepuscule));
 		((TextView)findViewById(R.id.textCluf)).setText(Html.fromHtml("<u>"+getResources().getString(R.string.cluf)+"</u>"));
-		
+
 		countryName = (TextView)findViewById(R.id.row_title);
 		countryFlag = (ImageView)findViewById(R.id.row_icon);
 		indicatif = (TextView)findViewById(R.id.indicatif);
+
+		prefs = getSharedPreferences("com.nightly", MODE_PRIVATE);
 	}
 
 	@Override
@@ -76,25 +81,31 @@ public class PhoneActivity extends SherlockActivity {
 		overridePendingTransition(R.anim.hold, R.anim.pull_out_to_left);
 		super.onDestroy();
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		this.finish();
 		super.onBackPressed();
 	}
-	
+
 	public void openCountrySelection(View v){
 		Intent intent = new Intent(this, CountrySelectionActivity.class);
 		startActivityForResult(intent, COUNTRY_SELECTOR);
 	}
-	
+
 	public void registerPhone(View v){
 		//TODO webservices
 		this.finish();
-		Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);
+		if (prefs.getBoolean("firstrun", true)) {
+			Intent intent = new Intent(this, TutorialActivity.class);
+			startActivity(intent);
+			prefs.edit().putBoolean("firstrun", false).commit();
+		} else {
+			Intent intent = new Intent(this, MainActivity.class);
+			startActivity(intent);
+		}
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(null != data && COUNTRY_SELECTOR == requestCode && RESULT_OK == resultCode){
@@ -111,7 +122,7 @@ public class PhoneActivity extends SherlockActivity {
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
-	
+
 	private int getResId(String drawableName) {
 		try {
 			Class<com.countrypicker.R.drawable> res = com.countrypicker.R.drawable.class;

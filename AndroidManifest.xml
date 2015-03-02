@@ -130,6 +130,7 @@
         </receiver>
 
         <service android:name=".gcm.GcmIntentService" />
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
 
         <activity
             android:name=".ProfilActivity"

@@ -77,7 +77,7 @@ public class RegisterPartTwoActivity extends SherlockFragmentActivity{
 	}
 
 	public void next(View v){
-		if(email.getText().toString().isEmpty()){
+		if(0 == email.getText().toString().length()){
 			displayError(R.string.fill_all_fields);
 			return;
 		}
@@ -85,18 +85,18 @@ public class RegisterPartTwoActivity extends SherlockFragmentActivity{
 			displayError(R.string.email_invalid);
 			return;
 		}
-		if(password.toString().isEmpty()){
+		if(0 == password.toString().length()){
 			displayError(R.string.fill_all_fields);
 			return;
 		}
-		if(repassword.toString().isEmpty()){
+		if(0 == repassword.toString().length()){
 			displayError(R.string.fill_all_fields);
 			return;
 		}
 		if(password.toString().length() < 6 || repassword.toString().length() < 6){
 			displayError(R.string.password_to_short);
 		}
-		if(!password.toString().equals(repassword.toString())){
+		if(password.getText().toString().equals(repassword.getText().toString())){
 			Log.w("Nightly", "different : pass = "+password.toString()+"& repass = "+repassword.toString()+"");
 			displayError(R.string.password_different);
 			return;
@@ -144,8 +144,9 @@ public class RegisterPartTwoActivity extends SherlockFragmentActivity{
 	public void displayError(int errorID){
 		if(View.GONE == connectionState.getVisibility()){
 			connectionState.setVisibility(View.VISIBLE);
-			connectionState.setBackgroundColor(getResources().getColor(R.color.not_connected));
-			connectionState.setText(getResources().getString(errorID));
 		}
+		connectionState.setBackgroundColor(getResources().getColor(R.color.not_connected));
+		Log.w("Nightly", "Msg = " + getResources().getString(errorID));
+		connectionState.setText(getResources().getString(errorID));
 	}
 }

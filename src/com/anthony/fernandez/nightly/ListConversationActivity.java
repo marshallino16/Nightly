@@ -70,7 +70,18 @@ public class ListConversationActivity extends SherlockActivity implements OnList
 		if(bundle != null && bundle.containsKey("unread")){
 			if(bundle.getBoolean("unread")){
 				//do not display read conversations
-
+				ArrayList<Conversation> listeBackup = (ArrayList<Conversation>)listConversations.clone();
+				ArrayList<Conversation> liste = new ArrayList<Conversation>();
+				int size = listConversations.size();
+				for(int i=0 ; i< size; ++i){
+					Conversation conv = listConversations.get(i);
+					if(!conv.isRead()){
+						liste.add(conv);
+					}
+				}
+				listConversations.clear();
+				listConversations.addAll(liste);
+				conversationAdapter.notifyDataSetChanged();
 			}
 		}
 	}

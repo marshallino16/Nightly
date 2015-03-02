@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.anthony.fernandez.nightly.gcm.GCMUtils;
+import com.anthony.fernandez.nightly.util.Utils;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
@@ -65,11 +66,11 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 		mainContainer = (RelativeLayout)findViewById(R.id.containerMain);
 		loginBtn = (Button) findViewById(R.id.connectionFb);
 		loginBtn.setOnClickListener(this);
-		
+
 		if (GCMUtils.checkPlayServices(this)) {
-	        // If this check succeeds, proceed with normal processing.
-	        // Otherwise, prompt user to get valid Play Services APK.
-	    }
+			// If this check succeeds, proceed with normal processing.
+			// Otherwise, prompt user to get valid Play Services APK.
+		}
 	}
 
 	@Override
@@ -209,19 +210,15 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 									Response response) {
 								if (user != null) {
 
-									String access_token = session
-											.getAccessToken();
+									String access_token = session.getAccessToken();
 									String firstName = user.getFirstName();
 									String fb_user_id = user.getId();
 
-									System.out
-									.println("Facebook Access token: "
-											+ access_token);
-									System.out.println("First Name:"
-											+ firstName);
-									System.out.println("FB USER ID: "
-											+ fb_user_id);
-
+									System.out.println("Facebook Access token: "+ access_token);
+									System.out.println("First Name:"+ firstName);
+									System.out.println("FB USER ID: "+ fb_user_id);
+									
+									Utils.createToast(getApplicationContext(), "Firstname is " + firstName);
 								}
 							}
 						});

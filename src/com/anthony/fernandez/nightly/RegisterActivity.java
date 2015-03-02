@@ -1,5 +1,11 @@
 package com.anthony.fernandez.nightly;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,6 +17,9 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -25,15 +34,20 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.soundcloud.android.crop.Crop;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RegisterActivity extends SherlockFragmentActivity implements CalendarDatePickerDialog.OnDateSetListener {
 
 	private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
 
+	private CircleImageView profilPicture;
 	private RelativeLayout actions;
 	private RelativeLayout container;
 	private EditText lastname;
@@ -61,6 +75,7 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 		tintManager.setNavigationBarTintEnabled(true);
 		tintManager.setTintColor(getResources().getColor(R.color.blue_crepuscule));
 		
+		profilPicture = (CircleImageView)findViewById(R.id.profile_image);
 		actions = (RelativeLayout)findViewById(R.id.actionsPhoto);
 		container = (RelativeLayout)findViewById(R.id.container);
 		male = (ImageButton)findViewById(R.id.male);
@@ -104,12 +119,22 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 		}
 		female.setSelected(true);
 	}
+	
+	public void pickPhoto(View v){
+		Crop.pickImage(this);
+	}
+	
+	public void takePhoto(View v){
+		
+	}
 
 	public void definePhoto(View v){
 		if(actions.getVisibility() == View.GONE){
 			actions.setVisibility(View.GONE);
 			Animation animation=new TranslateAnimation(0, 0, -container.getHeight(), 0);
-
+			animation.setStartOffset(0L);
+			animation.setFillAfter(true);
+			animation.setFillBefore(true);
             animation.setDuration(1000);
             animation.setAnimationListener(new AnimationListener() {
 
@@ -135,7 +160,7 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 		if(actions.getVisibility() == View.VISIBLE){
 			actions.setVisibility(View.VISIBLE);
 			Animation animation=new TranslateAnimation(0, 0, 0, -container.getHeight());
-
+			animation.setStartOffset(0L);
             animation.setDuration(1000);
             animation.setAnimationListener(new AnimationListener() {
 
@@ -163,15 +188,15 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 			displayError(R.string.fill_all_fields);
 			return;
 		}
-		if(firstname.getText().toString().isEmpty()){
+		if(0 == firstname.getText().toString().length()){
 			displayError(R.string.fill_all_fields);
 			return;
 		}
-		if(lastname.getText().toString().isEmpty()){
+		if(0 == lastname.getText().toString().length()){
 			displayError(R.string.fill_all_fields);
 			return;
 		}
-		if(birthday.toString().isEmpty()){
+		if(0 == birthday.toString().length()){
 			displayError(R.string.fill_all_fields);
 			return;
 		}
@@ -281,8 +306,49 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 	public void displayError(int errorID){
 		if(View.GONE == connectionState.getVisibility()){
 			connectionState.setVisibility(View.VISIBLE);
-			connectionState.setBackgroundColor(getResources().getColor(R.color.not_connected));
-			connectionState.setText(getResources().getString(errorID));
 		}
+		connectionState.setBackgroundColor(getResources().getColor(R.color.not_connected));
+		Log.w("Nightly", "Msg = " + getResources().getString(errorID));
+		connectionState.setText(getResources().getString(errorID));
 	}
+	
+	@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent result) {
+        if (requestCode == Crop.REQUEST_PICK && resultCode == RESULT_OK) {
+            beginCrop(result.getData());
+        } else if (requestCode == Crop.REQUEST_CROP) {
+            handleCrop(resultCode, result);
+        }
+    }
+
+    private void beginCrop(Uri source) {
+        Uri outputUri = Uri.fromFile(new File(getCacheDir(), "cropped"));
+        new Crop(source).output(outputUri).asSquare().start(this);
+    }
+
+    private void handleCrop(int resultCode, Intent result) {
+        if (resultCode == RESULT_OK) {
+            profilPicture.setImageBitmap(getImageBitmap(Crop.getOutput(result).toString()));
+            quit(null);
+        } else if (resultCode == Crop.RESULT_ERROR) {
+            Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+    
+    private Bitmap getImageBitmap(String url) {
+        Bitmap bm = null;
+        try {
+            URL aURL = new URL(url);
+            URLConnection conn = aURL.openConnection();
+            conn.connect();
+            InputStream is = conn.getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(is);
+            bm = BitmapFactory.decodeStream(bis);
+            bis.close();
+            is.close();
+       } catch (IOException e) {
+           Log.e("Nightly", "Error getting bitmap", e);
+       }
+       return bm;
+    } 
 }

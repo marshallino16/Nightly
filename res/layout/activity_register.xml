@@ -237,7 +237,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:background="@drawable/btn_violet"
-                    android:text="Choisir existante"
+                    android:text="@string/pick_photo"
+                    android:onClick="pickPhoto"
                     android:textAppearance="?android:attr/textAppearanceLargeInverse"
                     android:textColor="@android:color/white" />
 
@@ -246,7 +247,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:background="@drawable/btn_red"
-                    android:text="Prendre une photo"
+                    android:text="@string/take_photo"
+                    android:onClick="takePhoto"
                     android:textAppearance="?android:attr/textAppearanceLargeInverse"
                     android:textColor="@android:color/white" />
             </LinearLayout>

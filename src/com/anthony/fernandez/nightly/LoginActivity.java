@@ -92,8 +92,11 @@ public class LoginActivity extends SherlockActivity {
 	}
 
 	public void loginNightly(View v){
+		
+		
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
+		this.finish();
 	}
 
 	public void passwordLost(View v){

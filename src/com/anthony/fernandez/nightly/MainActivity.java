@@ -44,7 +44,6 @@ import com.viewpagerindicator.CirclePageIndicator;
 
 public class MainActivity extends SherlockFragmentActivity implements TimePickerDialogFragment.TimePickerDialogHandler {
 
-	private SharedPreferences prefsRun = null;
 	//GCM
 	public static final String EXTRA_MESSAGE = "message";
 	public static final String PROPERTY_REG_ID = "registration_id";
@@ -221,6 +220,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 		}
 		callFacebookLogout(context);
 		callGCMLogout();
+		this.finish();
 	}
 
 	/**

@@ -96,14 +96,14 @@ public class PhoneActivity extends SherlockActivity {
 	public void registerPhone(View v){
 		//TODO webservices
 		this.finish();
-		if (prefs.getBoolean("firstrun", true)) {
-			Intent intent = new Intent(this, TutorialActivity.class);
-			startActivity(intent);
-			prefs.edit().putBoolean("firstrun", false).commit();
-		} else {
+//		if (prefs.getBoolean("firstrun", true)) {
+//			Intent intent = new Intent(this, TutorialActivity.class);
+//			startActivity(intent);
+//			prefs.edit().putBoolean("firstrun", false).commit();
+//		} else {
 			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
-		}
+//		}
 	}
 
 	@Override

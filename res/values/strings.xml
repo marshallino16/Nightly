@@ -39,6 +39,7 @@
     <string name="fill_all_fields">renseignez tous les champs</string>
     <string name="not_deletable_mail">merci de ne pas utiliser d\'emails jetables</string>
     <string name="upload_failed">une erreur est survenue, merci de réessayer</string>
+    <string name="all_good">tous les champs sont valides</string>
 
     <!-- params -->
     <string name="create_shortcut">Raccourcis créé avec succès.</string>

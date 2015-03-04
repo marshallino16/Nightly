@@ -342,6 +342,7 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
     private void handleCrop(int resultCode, Intent result) {
         if (resultCode == RESULT_OK) {
         	((RegisterPartOne)((InitPagerAdapter) pagerAdapter).getItem(0)).profilPicture.setImageBitmap(getImageBitmap(Crop.getOutput(result).toString()));
+        	((RegisterPartOne)((InitPagerAdapter) pagerAdapter).getItem(0)).stateProfil.setImageResource(R.drawable.ic_action_accept);
             quit(null);
         } else if (resultCode == Crop.RESULT_ERROR) {
             Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();

@@ -17,6 +17,14 @@ public class RightPanel extends SherlockFragment{
 	
 	private Typeface candyFont;
 	
+	public TextView lundi;
+	public TextView mardi;
+	public TextView mercredi;
+	public TextView jeudi;
+	public TextView vendredi;
+	public TextView samedi;
+	public TextView dimanche;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

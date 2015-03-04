@@ -38,7 +38,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:onClick="pickSleepingTime"
+                android:onClick="lundi"
                 android:paddingBottom="2dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -54,6 +54,7 @@
             android:layout_weight="1" >
 
             <TextView
+                android:id="@+id/pillowLundi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -100,7 +101,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:onClick="pickSleepingTime"
+                android:onClick="mardi"
                 android:paddingBottom="2dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -116,6 +117,7 @@
             android:layout_weight="1" >
 
             <TextView
+                android:id="@+id/pillowMardi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -162,7 +164,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:onClick="pickSleepingTime"
+                android:onClick="mercredi"
                 android:paddingBottom="2dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -178,6 +180,7 @@
             android:layout_weight="1" >
 
             <TextView
+                android:id="@+id/pillowMercredi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -224,7 +227,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:onClick="pickSleepingTime"
+                android:onClick="jeudi"
                 android:paddingBottom="2dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -240,6 +243,7 @@
             android:layout_weight="1" >
 
             <TextView
+                android:id="@+id/pillowJeudi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -286,7 +290,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:onClick="pickSleepingTime"
+                android:onClick="vendredi"
                 android:paddingBottom="2dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -302,6 +306,7 @@
             android:layout_weight="1" >
 
             <TextView
+                android:id="@+id/pillowVendredi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -348,7 +353,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:onClick="pickSleepingTime"
+                android:onClick="samedi"
                 android:paddingBottom="2dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -364,6 +369,7 @@
             android:layout_weight="1" >
 
             <TextView
+                android:id="@+id/pillowSamedi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -409,7 +415,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:onClick="pickSleepingTime"
+                android:onClick="dimanche"
                 android:paddingBottom="2dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -425,6 +431,7 @@
             android:layout_weight="1" >
 
             <TextView
+                android:id="@+id/pillowDimanche"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

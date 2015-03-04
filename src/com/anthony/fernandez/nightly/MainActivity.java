@@ -31,6 +31,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.anthony.fernandez.nightly.adapter.InitPagerAdapter;
 import com.anthony.fernandez.nightly.api.GCMParams;
+import com.anthony.fernandez.nightly.enums.DaysOfWeek;
 import com.anthony.fernandez.nightly.fragment.LeftPanel;
 import com.anthony.fernandez.nightly.fragment.RightPanel;
 import com.anthony.fernandez.nightly.gcm.GCMUtils;
@@ -66,6 +67,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	private View splashScreen;
 
 	private EditText registrationID;
+	private DaysOfWeek currentDay = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -202,9 +204,10 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	@Override
 	public void onDialogTimeSet(int reference, int hourOfDay, int minute) {
 		Log.w("Nightly" , "" + hourOfDay + ":" + minute);
+		currentDay = null;
 	}
 
-	public void pickSleepingTime(View v){
+	private void pickSleepingTime(){
 		TimePickerBuilder tpb = new TimePickerBuilder()
 		.setFragmentManager(getSupportFragmentManager())
 		.setStyleResId(R.style.BetterPickersDialogFragment_Light);
@@ -285,6 +288,41 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	private void settings(){
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);
+	}
+	
+	public void lundi(View v){
+		currentDay = DaysOfWeek.LUNDI;
+		pickSleepingTime();
+	}
+	
+	public void mardi(View v){
+		currentDay = DaysOfWeek.MARDI;
+		pickSleepingTime();
+	}
+	
+	public void mercredi(View v){
+		currentDay = DaysOfWeek.MERCREDI;
+		pickSleepingTime();
+	}
+	
+	public void jeudi(View v){
+		currentDay = DaysOfWeek.JEUDI;
+		pickSleepingTime();
+	}
+	
+	public void vendredi(View v){
+		currentDay = DaysOfWeek.VENDREDI;
+		pickSleepingTime();
+	}
+	
+	public void samedi(View v){
+		currentDay = DaysOfWeek.SAMEDI;
+		pickSleepingTime();
+	}
+	
+	public void dimanche(View v){
+		currentDay = DaysOfWeek.DIMANCHE;
+		pickSleepingTime();
 	}
 
 	@TargetApi(19)  

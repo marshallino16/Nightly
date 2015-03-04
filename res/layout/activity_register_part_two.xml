@@ -49,6 +49,7 @@
                 android:background="@android:color/white"
                 android:hint="@string/email"
                 android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
                 android:lines="1"
                 android:maxLines="1"
                 android:nextFocusDown="@+id/password"

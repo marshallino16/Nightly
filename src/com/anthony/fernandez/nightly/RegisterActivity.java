@@ -81,7 +81,7 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 
 		this.pagerAdapter = new InitPagerAdapter(super.getSupportFragmentManager(), fragments);
 		pager = (ScrollViewPager) findViewById(R.id.viewpager);
-		pager.setEnabled(false);
+		pager.setPagingEnabled(false);
 		pager.setAdapter(this.pagerAdapter);
 	}
 	
@@ -369,7 +369,7 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
     
     //PART TWO
     public void nextTwo(View v){
-		if(0 == ((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).email.getText().toString().length()){
+		if(((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).email.getText().toString().isEmpty()){
 			displayErrorTwo(R.string.fill_all_fields);
 			return;
 		}
@@ -377,28 +377,32 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 			displayErrorTwo(R.string.email_invalid);
 			return;
 		}
-		if(0 == ((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).password.toString().length()){
+		if(((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).password.getText().toString().isEmpty()){
 			displayErrorTwo(R.string.fill_all_fields);
 			return;
 		}
-		if(0 == ((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).repassword.toString().length()){
+		if(((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).repassword.getText().toString().isEmpty()){
 			displayErrorTwo(R.string.fill_all_fields);
 			return;
 		}
-		if(((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).password.toString().length() < 6 || ((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).repassword.toString().length() < 6){
+		if(((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).password.getText().toString().length() < 6 || ((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).repassword.getText().toString().length() < 6){
 			displayErrorTwo(R.string.password_to_short);
+			return;
 		}
 		
-		if(((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).password.toString().length() < 6 && ((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).repassword.toString().length() < 6){
+		if(((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).password.getText().toString().length() < 6 && ((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).repassword.getText().toString().length() < 6){
 			displayErrorTwo(R.string.password_to_short);
+			return;
 		}
 		if(!((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).password.getText().toString().equals(((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).repassword.getText().toString())){
 			displayErrorTwo(R.string.password_different);
 			return;
 		}
 
+		alllGoodTwo(R.string.all_good);
 		Intent intent = new Intent(this, PhoneActivity.class);
 		startActivity(intent);
+		this.finish();
 	}
     
     public void previousTwo(View v){
@@ -411,6 +415,14 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 		}
 		((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).connectionState.setBackgroundColor(getResources().getColor(R.color.not_connected));
 		Log.w("Nightly", "Msg = " + getResources().getString(errorID));
+		((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).connectionState.setText(getResources().getString(errorID));
+	}
+    
+    public void alllGoodTwo(int errorID){
+		if(View.GONE == ((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).connectionState.getVisibility()){
+			((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).connectionState.setVisibility(View.VISIBLE);
+		}
+		((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).connectionState.setBackgroundColor(getResources().getColor(R.color.connected));
 		((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).connectionState.setText(getResources().getString(errorID));
 	}
 }

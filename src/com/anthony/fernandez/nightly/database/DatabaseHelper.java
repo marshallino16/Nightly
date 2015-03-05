@@ -15,6 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String TABLE_CUSTOMER = "USERS";
 	private static final String TABLE_CONVERSATION = "CONVERSATIONS";
 	private static final String TABLE_MESSAGE = "MESSAGES";
+	private static final String TABLE_ALARM = "ALARMS";
 	
 	//USER
 	private static final String KEY_ID_USER_LOCAL = "_ID_USER_LOCAL";
@@ -38,6 +39,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String KEY_TIME = "TIME"; //long - timestamp
 	private static final String KEY_NUMBER_LOVE = "LOVE_COUNTER"; //int
 	private static final String KEY_PENDING_SENDING = "PENDING_SENDING";
+	
+	//ALARM
+	private static final String KEY_REFERENCE_USER = "_REF_USER";
+	private static final String KEY_ID_ALARM_LOCAL = "_ID_ALARM_LOCAL";
+	private static final String KEY_ID_ALARM_SERVER = "_ID_ALAMR_SERVER";
+	private static final String KEY_TIME_LUNDI = "TIME_LUNDI";
+	private static final String KEY_TIME_MARDI = "TIME_MARDI";
+	private static final String KEY_TIME_MERCREDI = "TIME_MERCREDI";
+	private static final String KEY_TIME_JEUDI = "TIME_JEUDI";
+	private static final String KEY_TIME_VENDREDI = "TIME_VENDREDI";
+	private static final String KEY_TIME_SAMEDI = "TIME_SAMEDI";
+	private static final String KEY_TIME_DIMANCHE = "TIME_DIMANCHE";
 
 	public static DatabaseHelper getInstance(Context ctx) {
 		if (mInstance == null) {
@@ -66,6 +79,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		onCreate(db);
 		
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_MESSAGE);
+		onCreate(db);
+		
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_ALARM);
 		onCreate(db);
 	}
 }

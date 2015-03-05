@@ -26,6 +26,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -33,6 +34,7 @@ import com.anthony.fernandez.nightly.adapter.InitPagerAdapter;
 import com.anthony.fernandez.nightly.api.GCMParams;
 import com.anthony.fernandez.nightly.enums.DaysOfWeek;
 import com.anthony.fernandez.nightly.fragment.LeftPanel;
+import com.anthony.fernandez.nightly.fragment.RegisterPartOne;
 import com.anthony.fernandez.nightly.fragment.RightPanel;
 import com.anthony.fernandez.nightly.gcm.GCMUtils;
 import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
@@ -66,7 +68,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	private View splashScreen;
 
 	private EditText registrationID;
-	private DaysOfWeek currentDay = null;
+	private TextView currentDay = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -203,6 +205,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	@Override
 	public void onDialogTimeSet(int reference, int hourOfDay, int minute) {
 		Log.w("Nightly" , "" + hourOfDay + ":" + minute);
+		currentDay.setText(""+hourOfDay+":"+minute);
 		currentDay = null;
 	}
 
@@ -291,37 +294,37 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	}
 	
 	public void lundi(View v){
-		currentDay = DaysOfWeek.LUNDI;
+		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).lundi;
 		pickSleepingTime();
 	}
 	
 	public void mardi(View v){
-		currentDay = DaysOfWeek.MARDI;
+		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).mardi;
 		pickSleepingTime();
 	}
 	
 	public void mercredi(View v){
-		currentDay = DaysOfWeek.MERCREDI;
+		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).mercredi;
 		pickSleepingTime();
 	}
 	
 	public void jeudi(View v){
-		currentDay = DaysOfWeek.JEUDI;
+		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).jeudi;
 		pickSleepingTime();
 	}
 	
 	public void vendredi(View v){
-		currentDay = DaysOfWeek.VENDREDI;
+		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).vendredi;
 		pickSleepingTime();
 	}
 	
 	public void samedi(View v){
-		currentDay = DaysOfWeek.SAMEDI;
+		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).samedi;
 		pickSleepingTime();
 	}
 	
 	public void dimanche(View v){
-		currentDay = DaysOfWeek.DIMANCHE;
+		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).dimanche;
 		pickSleepingTime();
 	}
 

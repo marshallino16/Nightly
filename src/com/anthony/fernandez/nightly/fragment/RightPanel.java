@@ -31,6 +31,15 @@ public class RightPanel extends SherlockFragment{
 		v = (ViewGroup) inflater.inflate(R.layout.fragment_right, container, false);
 		
 		candyFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/CandyColouredClown.otf");
+		
+		lundi = (TextView)v.findViewById(R.id.pillowLundi);
+		mardi = (TextView)v.findViewById(R.id.pillowMardi);
+		mercredi = (TextView)v.findViewById(R.id.pillowMercredi);
+		jeudi = (TextView)v.findViewById(R.id.pillowJeudi);
+		vendredi = (TextView)v.findViewById(R.id.pillowVendredi);
+		samedi = (TextView)v.findViewById(R.id.pillowSamedi);
+		dimanche = (TextView)v.findViewById(R.id.pillowDimanche);
+		
 		return v;
 	}
 	

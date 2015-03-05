@@ -7,7 +7,7 @@ public class Message {
 	private long _id;
 	private long dateSend;
 	private int numberLove;
-	private boolean isPending = false;
+	private boolean isPending = false; //0 = false, 1 = true IF true MUST BE RESENT
 	private String message;
 	private MessageDirection direction;
 	

@@ -6,10 +6,9 @@ public class Conversation {
 
 	private long _id;
 	private long dateCreation;
-	private Contact owner;
-	private Contact participant;
+	private int owner;
+	private int participant;
 	private boolean isBlackListed;
-	private boolean isModerated;
 	private boolean isRead = false;
 	private ArrayList<Message> listMessagesReceived;
 	private ArrayList<Message> listMessagesSent;
@@ -56,25 +55,25 @@ public class Conversation {
 	/**
 	 * @return the owner
 	 */
-	public Contact getOwner() {
+	public int getOwner() {
 		return owner;
 	}
 	/**
 	 * @param owner the owner to set
 	 */
-	public void setOwner(Contact owner) {
+	public void setOwner(int owner) {
 		this.owner = owner;
 	}
 	/**
 	 * @return the participant
 	 */
-	public Contact getParticipant() {
+	public int getParticipant() {
 		return participant;
 	}
 	/**
 	 * @param participant the participant to set
 	 */
-	public void setParticipant(Contact participant) {
+	public void setParticipant(int participant) {
 		this.participant = participant;
 	}
 	/**
@@ -88,18 +87,6 @@ public class Conversation {
 	 */
 	public void setBlackListed(boolean isBlackListed) {
 		this.isBlackListed = isBlackListed;
-	}
-	/**
-	 * @return the isModerated
-	 */
-	public boolean isModerated() {
-		return isModerated;
-	}
-	/**
-	 * @param isModerated the isModerated to set
-	 */
-	public void setModerated(boolean isModerated) {
-		this.isModerated = isModerated;
 	}
 	/**
 	 * @return the listMessages

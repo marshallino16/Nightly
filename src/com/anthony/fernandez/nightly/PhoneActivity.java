@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,7 +32,8 @@ public class PhoneActivity extends SherlockActivity {
 	private String countryCode;
 
 	private TextView countryName;
-	private TextView indicatif;
+	private EditText indicatif;
+	private EditText phoneNumber;
 	private ImageView countryFlag;
 
 	@Override
@@ -52,8 +54,9 @@ public class PhoneActivity extends SherlockActivity {
 
 		countryName = (TextView)findViewById(R.id.row_title);
 		countryFlag = (ImageView)findViewById(R.id.row_icon);
-		indicatif = (TextView)findViewById(R.id.indicatif);
-
+		indicatif = (EditText)findViewById(R.id.indicatif);
+		phoneNumber = (EditText)findViewById(R.id.phone_number);
+		
 		prefs = getSharedPreferences("com.nightly", MODE_PRIVATE);
 	}
 
@@ -94,16 +97,29 @@ public class PhoneActivity extends SherlockActivity {
 	}
 
 	public void registerPhone(View v){
+		if(null == countryCode){
+			return;
+		}
+		if(countryName.getText().toString().isEmpty()){
+			return;
+		}
+		if(indicatif.getText().toString().isEmpty()){
+			return;
+		}
+		if(phoneNumber.getText().toString().isEmpty()){
+			return;
+		}
+		
 		//TODO webservices
 		this.finish();
-//		if (prefs.getBoolean("firstrun", true)) {
-//			Intent intent = new Intent(this, TutorialActivity.class);
-//			startActivity(intent);
-//			prefs.edit().putBoolean("firstrun", false).commit();
-//		} else {
+		if (prefs.getBoolean("firstrun", true)) {
+			Intent intent = new Intent(this, TutorialActivity.class);
+			startActivity(intent);
+			prefs.edit().putBoolean("firstrun", false).commit();
+		} else {
 			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
-//		}
+		}
 	}
 
 	@Override

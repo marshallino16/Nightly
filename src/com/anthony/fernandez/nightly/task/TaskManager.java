@@ -55,7 +55,7 @@ public class TaskManager {
 		nameValuePairs.add(new BasicNameValuePair(ParametersApi.CLIENT_SECRET, "android"));
 		
 		if(null != requestSender){
-			String result = requestSender.sendRequestPost(UrlApi.URL_API_BASE, UrlApi.GET_OAUTH_TOKEN, nameValuePairs);
+			String result = requestSender.sendRequestPost(UrlApi.URL_API_BASE, UrlApi.GET_OAUTH_TOKEN, nameValuePairs, null);
 			Log.d("Nightly", "result = " +result);
 			try {
 				JSONObject jsonData = new JSONObject(result);

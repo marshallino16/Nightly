@@ -17,6 +17,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -28,7 +30,10 @@ public class LoginActivity extends SherlockActivity implements OnConnectListener
 
 	private AutoCompleteTextView email;
 	private EditText password;
+
 	private TextView connectionState;
+	private ProgressBar progressBar;
+	private LinearLayout containerConnection;
 
 	private TaskManager taskManager = null;
 
@@ -52,6 +57,8 @@ public class LoginActivity extends SherlockActivity implements OnConnectListener
 		email = (AutoCompleteTextView)findViewById(R.id.email);
 		password = (EditText)findViewById(R.id.password);
 		connectionState = (TextView)findViewById(R.id.connectionState);
+		progressBar = (ProgressBar)findViewById(R.id.progressBar);
+		containerConnection = (LinearLayout)findViewById(R.id.connectionContainer);
 
 		((TextView)findViewById(R.id.textCluf)).setText(Html.fromHtml("<u>"+getResources().getString(R.string.cluf)+"</u>"));
 		findViewById(R.id.lostPassword).setOnTouchListener(new OnTouchListener() {
@@ -143,32 +150,44 @@ public class LoginActivity extends SherlockActivity implements OnConnectListener
 	}
 
 	public void displayError(int errorID){
-		if(View.GONE == connectionState.getVisibility()){
-			connectionState.setVisibility(View.VISIBLE);
+		if(View.GONE == containerConnection.getVisibility()){
+			containerConnection.setVisibility(View.VISIBLE);
+		}
+		if(View.VISIBLE == progressBar.getVisibility()){
+			progressBar.setVisibility(View.GONE);
 		}
 		connectionState.setBackgroundColor(getResources().getColor(R.color.not_connected));
 		connectionState.setText(getResources().getString(errorID));
 	}
 
 	public void displayError(String reason){
-		if(View.GONE == connectionState.getVisibility()){
-			connectionState.setVisibility(View.VISIBLE);
+		if(View.GONE == containerConnection.getVisibility()){
+			containerConnection.setVisibility(View.VISIBLE);
+		}
+		if(View.VISIBLE == progressBar.getVisibility()){
+			progressBar.setVisibility(View.GONE);
 		}
 		connectionState.setBackgroundColor(getResources().getColor(R.color.not_connected));
 		connectionState.setText(reason);
 	}
 
 	public void connecting(){
-		if(View.GONE == connectionState.getVisibility()){
-			connectionState.setVisibility(View.VISIBLE);
+		if(View.GONE == containerConnection.getVisibility()){
+			containerConnection.setVisibility(View.VISIBLE);
+		}
+		if(View.GONE == progressBar.getVisibility()){
+			progressBar.setVisibility(View.VISIBLE);
 		}
 		connectionState.setBackgroundColor(getResources().getColor(R.color.progress));
 		connectionState.setText(getResources().getString(R.string.connecting));
 	}
 
 	public void connected(){
-		if(View.GONE == connectionState.getVisibility()){
-			connectionState.setVisibility(View.VISIBLE);
+		if(View.GONE == containerConnection.getVisibility()){
+			containerConnection.setVisibility(View.VISIBLE);
+		}
+		if(View.VISIBLE == progressBar.getVisibility()){
+			progressBar.setVisibility(View.GONE);
 		}
 		connectionState.setBackgroundColor(getResources().getColor(R.color.connected));
 		connectionState.setText(getResources().getString(R.string.connected));

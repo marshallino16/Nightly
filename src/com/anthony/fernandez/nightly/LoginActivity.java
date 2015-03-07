@@ -24,9 +24,10 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.anthony.fernandez.nightly.task.TaskManager;
 import com.anthony.fernandez.nightly.task.listener.OnConnectListener;
+import com.anthony.fernandez.nightly.task.listener.OnGettingUserInfo;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-public class LoginActivity extends SherlockActivity implements OnConnectListener {
+public class LoginActivity extends SherlockActivity implements OnConnectListener, OnGettingUserInfo {
 
 	private AutoCompleteTextView email;
 	private EditText password;
@@ -208,6 +209,22 @@ public class LoginActivity extends SherlockActivity implements OnConnectListener
 
 	@Override
 	public void onConnectionAccepted() {
+		taskManager.getUserInfos(LoginActivity.this);
+	}
+
+	@Override
+	public void onConnectionRefused(final String reason) {
+		runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				displayError(reason);
+			}
+		});
+	}
+
+	@Override
+	public void OnUserInfo() {
 		runOnUiThread(new Runnable() {
 
 			@Override
@@ -221,7 +238,7 @@ public class LoginActivity extends SherlockActivity implements OnConnectListener
 	}
 
 	@Override
-	public void onConnectionRefused(final String reason) {
+	public void OnUserInfoFailed(final String reason) {
 		runOnUiThread(new Runnable() {
 
 			@Override

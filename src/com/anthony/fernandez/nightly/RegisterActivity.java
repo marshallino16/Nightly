@@ -41,13 +41,14 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.anthony.fernandez.nightly.adapter.InitPagerAdapter;
 import com.anthony.fernandez.nightly.fragment.RegisterPartOne;
 import com.anthony.fernandez.nightly.fragment.RegisterPartTwo;
+import com.anthony.fernandez.nightly.task.listener.OnAccountCreated;
 import com.anthony.fernandez.nightly.util.Utils;
 import com.anthony.fernandez.nightly.view.ScrollViewPager;
 import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.soundcloud.android.crop.Crop;
 
-public class RegisterActivity extends SherlockFragmentActivity implements CalendarDatePickerDialog.OnDateSetListener {
+public class RegisterActivity extends SherlockFragmentActivity implements CalendarDatePickerDialog.OnDateSetListener, OnAccountCreated {
 
 	private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
 
@@ -424,5 +425,17 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 		}
 		((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).connectionState.setBackgroundColor(getResources().getColor(R.color.connected));
 		((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).connectionState.setText(getResources().getString(errorID));
+	}
+
+	@Override
+	public void OnAccountCreatedSucced() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void OnAccountCreatedFailed(String reason) {
+		// TODO Auto-generated method stub
+		
 	}
 }

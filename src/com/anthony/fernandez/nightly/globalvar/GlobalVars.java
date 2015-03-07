@@ -15,10 +15,12 @@ public class GlobalVars {
 	 */
 	public static CurrentUserConnected currentUser = null;
 	
-	public class CurrentUserConnected{
+	public static class CurrentUserConnected{
 		public int _idLocal;
-		public int _idServer;
+		public String _idServer;
 		public String token;
+		public String email;
+		public String language;
 		public String firstname;
 		public String lastname;
 		/**

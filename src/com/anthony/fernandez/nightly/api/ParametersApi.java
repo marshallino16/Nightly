@@ -42,4 +42,13 @@ public interface ParametersApi {
 	public final static String LASTNAME = "lastname";
 	public final static String PHONE = "phone";
 	public final static String BORN = "born";
+	
+	/**
+	 * result
+	 */
+	public final static String ID = "_id";
+	public final static String EMAIL = "email";
+	public final static String BLACKLIST = "blacklist";
+	public final static String CLOCKS = "clocks";
+	public final static String CREATED = "created";
 }

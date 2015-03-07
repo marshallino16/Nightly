@@ -17,5 +17,4 @@ public interface UrlApi {
 	public final static String CREATE_USER = "/api/signup";
 	public final static String GET_USER_INFOS = "/api/user_info";
 	public final static String SET_USER_LANGUAGE = "/api/language";
-	
 }

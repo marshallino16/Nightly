@@ -125,6 +125,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		
 	}
 	
+	public void deleteUser(int _idUserServer){
+		
+	}
+	
+	public void updateUserToken(int _idUserServer, String newToken){
+		
+	}
+	
+	public void updateUserLastConnection(int _idUserServer){
+		//Date.now
+	}
+	
+	public void addConversation(){
+		
+	}
+	
+	public void addMessageToSend(){
+		
+	}
+	
+	public void resendMessage(){
+		
+	}
+	
+	public void addMessageToConversation(){
+		
+	}
+	
+	public void deleteConversation(){
+		
+	}
+	
 	public void initAlamrForUser(int _idUserLocal, int _idUserServer){
 		
 	}

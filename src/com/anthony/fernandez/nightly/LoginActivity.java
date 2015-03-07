@@ -3,6 +3,7 @@ package com.anthony.fernandez.nightly;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -19,13 +20,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.anthony.fernandez.nightly.task.TaskManager;
+import com.anthony.fernandez.nightly.task.listener.OnConnectListener;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-public class LoginActivity extends SherlockActivity {
-	
+public class LoginActivity extends SherlockActivity implements OnConnectListener {
+
 	private AutoCompleteTextView email;
 	private EditText password;
 	private TextView connectionState;
+
+	private TaskManager taskManager = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +46,9 @@ public class LoginActivity extends SherlockActivity {
 		tintManager.setStatusBarTintEnabled(true);
 		tintManager.setNavigationBarTintEnabled(true);
 		tintManager.setTintColor(getResources().getColor(R.color.blue_crepuscule));
-		
+
+		taskManager = new TaskManager(this);
+
 		email = (AutoCompleteTextView)findViewById(R.id.email);
 		password = (EditText)findViewById(R.id.password);
 		connectionState = (TextView)findViewById(R.id.connectionState);
@@ -82,7 +89,7 @@ public class LoginActivity extends SherlockActivity {
 		findViewById(R.id.connection).startAnimation(animationFromBottom);
 		super.onResume();
 	}
-	
+
 	@Override
 	protected void onPause() {
 		overridePendingTransition(R.anim.hold, R.anim.pull_out_to_left);
@@ -114,22 +121,57 @@ public class LoginActivity extends SherlockActivity {
 			displayError(R.string.password_to_short);
 			return;
 		}
-		
-		Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);
-		this.finish();
+
+		connecting();
+
+		new AsyncTask<Void, Void, Void>() {
+
+			@Override
+			protected Void doInBackground(Void... arg0) {
+				taskManager.connectNightly(email.getText().toString(), password.getText().toString(), LoginActivity.this);
+				return null;
+			}
+		}.execute();
+
+		//		Intent intent = new Intent(this, MainActivity.class);
+		//		startActivity(intent);
+		//		this.finish();
 	}
 
 	public void passwordLost(View v){
 
 	}
-	
+
 	public void displayError(int errorID){
 		if(View.GONE == connectionState.getVisibility()){
 			connectionState.setVisibility(View.VISIBLE);
 		}
 		connectionState.setBackgroundColor(getResources().getColor(R.color.not_connected));
 		connectionState.setText(getResources().getString(errorID));
+	}
+
+	public void displayError(String reason){
+		if(View.GONE == connectionState.getVisibility()){
+			connectionState.setVisibility(View.VISIBLE);
+		}
+		connectionState.setBackgroundColor(getResources().getColor(R.color.not_connected));
+		connectionState.setText(reason);
+	}
+
+	public void connecting(){
+		if(View.GONE == connectionState.getVisibility()){
+			connectionState.setVisibility(View.VISIBLE);
+		}
+		connectionState.setBackgroundColor(getResources().getColor(R.color.progress));
+		connectionState.setText(getResources().getString(R.string.connecting));
+	}
+
+	public void connected(){
+		if(View.GONE == connectionState.getVisibility()){
+			connectionState.setVisibility(View.VISIBLE);
+		}
+		connectionState.setBackgroundColor(getResources().getColor(R.color.connected));
+		connectionState.setText(getResources().getString(R.string.connected));
 	}
 
 	@TargetApi(19)  
@@ -143,5 +185,30 @@ public class LoginActivity extends SherlockActivity {
 			winParams.flags &= ~bits;
 		} 
 		win.setAttributes(winParams);
+	}
+
+	@Override
+	public void onConnectionAccepted() {
+		runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				connected();
+				Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+				startActivity(intent);
+				LoginActivity.this.finish();
+			}
+		});
+	}
+
+	@Override
+	public void onConnectionRefused(final String reason) {
+		runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				displayError(reason);
+			}
+		});
 	} 
 }

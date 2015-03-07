@@ -16,6 +16,8 @@ public class GlobalVars {
 	public static CurrentUserConnected currentUser = null;
 	
 	public class CurrentUserConnected{
+		public int _idLocal;
+		public int _idServer;
 		public String token;
 		public String firstname;
 		public String lastname;

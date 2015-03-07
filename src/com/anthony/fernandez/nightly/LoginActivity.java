@@ -14,12 +14,18 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class LoginActivity extends SherlockActivity {
+	
+	private AutoCompleteTextView email;
+	private EditText password;
+	private TextView connectionState;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,10 @@ public class LoginActivity extends SherlockActivity {
 		tintManager.setStatusBarTintEnabled(true);
 		tintManager.setNavigationBarTintEnabled(true);
 		tintManager.setTintColor(getResources().getColor(R.color.blue_crepuscule));
+		
+		email = (AutoCompleteTextView)findViewById(R.id.email);
+		password = (EditText)findViewById(R.id.password);
+		connectionState = (TextView)findViewById(R.id.connectionState);
 
 		((TextView)findViewById(R.id.textCluf)).setText(Html.fromHtml("<u>"+getResources().getString(R.string.cluf)+"</u>"));
 		findViewById(R.id.lostPassword).setOnTouchListener(new OnTouchListener() {
@@ -92,7 +102,18 @@ public class LoginActivity extends SherlockActivity {
 	}
 
 	public void loginNightly(View v){
-		
+		if(email.getText().toString().isEmpty()){
+			displayError(R.string.fill_all_fields);
+			return;
+		}
+		if(!com.anthony.fernandez.nightly.util.Utils.isValidEmail(email.getText().toString())){
+			displayError(R.string.email_invalid);
+			return;
+		}
+		if(password.getText().toString().isEmpty() || password.getText().toString().length() <6){
+			displayError(R.string.password_to_short);
+			return;
+		}
 		
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
@@ -101,6 +122,14 @@ public class LoginActivity extends SherlockActivity {
 
 	public void passwordLost(View v){
 
+	}
+	
+	public void displayError(int errorID){
+		if(View.GONE == connectionState.getVisibility()){
+			connectionState.setVisibility(View.VISIBLE);
+		}
+		connectionState.setBackgroundColor(getResources().getColor(R.color.not_connected));
+		connectionState.setText(getResources().getString(errorID));
 	}
 
 	@TargetApi(19)  

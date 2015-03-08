@@ -60,6 +60,7 @@ public class RequestSender {
 			is = entity.getContent();
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 
 		try {
@@ -74,6 +75,7 @@ public class RequestSender {
 			result = sb.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 		
 		return result;
@@ -108,6 +110,7 @@ public class RequestSender {
 			is = entity.getContent();
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 
 		try {
@@ -122,6 +125,7 @@ public class RequestSender {
 			result = sb.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 		
 		return result;

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,7 +26,7 @@ public class RegisterPartTwo extends SherlockFragment{
 	public EditText repassword;
 	public ImageView seenClear;
 	public ImageView reSeenClear;
-	
+	public CheckBox checkCluf;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +35,7 @@ public class RegisterPartTwo extends SherlockFragment{
 		
 		this.email = (AutoCompleteTextView)v.findViewById(R.id.email);
 		this.connectionState = (TextView)v.findViewById(R.id.connectionState);
+		this.checkCluf = (CheckBox)v.findViewById(R.id.checkCluf);
 		this.password = (EditText)v.findViewById(R.id.password);
 		this.seenClear = (ImageView)v.findViewById(R.id.seenClear);
 		this.seenClear.setOnTouchListener(new OnTouchListener() {

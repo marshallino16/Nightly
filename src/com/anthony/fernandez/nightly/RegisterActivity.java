@@ -386,6 +386,7 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 			displayErrorTwo(R.string.fill_all_fields);
 			return;
 		}
+		
 		if(((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).password.getText().toString().length() < 6 || ((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).repassword.getText().toString().length() < 6){
 			displayErrorTwo(R.string.password_to_short);
 			return;
@@ -397,6 +398,10 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 		}
 		if(!((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).password.getText().toString().equals(((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).repassword.getText().toString())){
 			displayErrorTwo(R.string.password_different);
+			return;
+		}
+		if(!((RegisterPartTwo)((InitPagerAdapter) pagerAdapter).getItem(1)).checkCluf.isChecked()){
+			displayErrorTwo(R.string.please_accept_cluf);
 			return;
 		}
 

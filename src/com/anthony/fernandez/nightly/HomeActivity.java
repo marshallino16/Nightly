@@ -12,10 +12,13 @@ import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -58,7 +61,31 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 		tintManager.setStatusBarTintEnabled(true);
 		tintManager.setNavigationBarTintEnabled(true);
 		tintManager.setTintColor(getResources().getColor(R.color.pink_circle));
-		((TextView)findViewById(R.id.textCluf)).setText(Html.fromHtml("<u>"+getResources().getString(R.string.cluf)+"</u>"));
+		
+		final TextView cluf = (TextView)findViewById(R.id.textCluf);
+		cluf.setText(Html.fromHtml("<u>"+getResources().getString(R.string.cluf)+"</u>"));
+		cluf.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View arg0, MotionEvent event) {
+				if(event.getAction() == MotionEvent.ACTION_DOWN){
+					cluf.setText(Html.fromHtml(getResources().getString(R.string.cluf)));
+				} else if (event.getAction() == MotionEvent.ACTION_UP){
+					cluf.setText(Html.fromHtml("<u>"+getResources().getString(R.string.cluf)+"</u>"));
+				} else if (event.getAction() == MotionEvent.ACTION_CANCEL){
+					cluf.setText(Html.fromHtml("<u>"+getResources().getString(R.string.cluf)+"</u>"));
+				}
+				return false;
+			}
+		});
+		cluf.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(HomeActivity.this, CGUActivity.class);
+				startActivity(intent);
+			}
+		});
 
 		inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		splashScreen = inflater.inflate(R.layout.splashscreen_wait, null);

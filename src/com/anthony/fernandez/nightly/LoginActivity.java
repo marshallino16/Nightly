@@ -61,10 +61,34 @@ public class LoginActivity extends SherlockActivity implements OnConnectListener
 		progressBar = (ProgressBar)findViewById(R.id.progressBar);
 		containerConnection = (LinearLayout)findViewById(R.id.connectionContainer);
 
-		((TextView)findViewById(R.id.textCluf)).setText(Html.fromHtml("<u>"+getResources().getString(R.string.cluf)+"</u>"));
+		final TextView cluf = (TextView)findViewById(R.id.textCluf);
+		cluf.setText(Html.fromHtml("<u>"+getResources().getString(R.string.cluf)+"</u>"));
+		cluf.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View arg0, MotionEvent event) {
+				if(event.getAction() == MotionEvent.ACTION_DOWN){
+					cluf.setText(Html.fromHtml(getResources().getString(R.string.cluf)));
+				} else if (event.getAction() == MotionEvent.ACTION_UP){
+					cluf.setText(Html.fromHtml("<u>"+getResources().getString(R.string.cluf)+"</u>"));
+				} else if (event.getAction() == MotionEvent.ACTION_CANCEL){
+					cluf.setText(Html.fromHtml("<u>"+getResources().getString(R.string.cluf)+"</u>"));
+				}
+				return false;
+			}
+		});
+		cluf.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(LoginActivity.this, CGUActivity.class);
+				startActivity(intent);
+			}
+		});
+		
+		
 		findViewById(R.id.lostPassword).setOnTouchListener(new OnTouchListener() {
 
-			@SuppressLint("ClickableViewAccessibility")
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				if(event.getAction() == MotionEvent.ACTION_DOWN){

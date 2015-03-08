@@ -40,6 +40,8 @@
     <string name="not_deletable_mail">merci de ne pas utiliser d\'emails jetables</string>
     <string name="upload_failed">une erreur est survenue, merci de réessayer</string>
     <string name="all_good">tous les champs sont valides</string>
+    <string name="error_occured">une erreur est survenue</string>
+    <string name="please_accept_cluf">vous devez accepter les conditions d\'utilisation</string>
 
     <!-- params -->
     <string name="create_shortcut">Raccourcis créé avec succès.</string>
@@ -76,6 +78,7 @@
     <string name="birthddayate">date de naissance</string>
     <string name="need_intel">Nous avons besoin de quelques informations</string>
     <string name="few_more">Encore quelques informations, vous y êtes presque</string>
+    <string name="accept_cluf">J\'ai lu et j\'accepte les termes des conditions</string>
 
     <!-- days of week -->
     <string name="monday">Lundi</string>

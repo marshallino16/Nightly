@@ -9,8 +9,6 @@
         android:id="@+id/containerConversation"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:background="@drawable/btn_panel_opening"
-        android:onClick="openConversation"
         android:orientation="horizontal" >
 
         <View
@@ -20,91 +18,110 @@
             android:background="@color/unread_counter" />
 
         <RelativeLayout
+            android:id="@+id/behind"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp" >
+            android:background="@color/unread_counter" >
 
-            <View
-                android:layout_width="2dp"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="Marqué comme lue"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white" />
+
+            <RelativeLayout
+                android:id="@+id/containerInfo"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:background="@color/separator_background_top_panel" />
+                android:background="@drawable/btn_panel_opening"
+                android:onClick="openConversation"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" >
 
-            <View
-                android:layout_width="20dp"
-                android:layout_height="2dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerInParent="true"
-                android:background="@color/separator_background_top_panel" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:background="@color/separator_background_top_panel" />
 
-            <Spinner
-                android:id="@+id/conversationMenu"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_centerInParent="true"
-                android:drawSelectorOnTop="true"
-                android:entries="@array/conversation_menu" />
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="2dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
+                    android:background="@color/separator_background_top_panel" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/imageContact"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/icone_unknown"
-                app:border_color="@color/blue_night_violet"
-                app:border_width="4dp" />
+                <Spinner
+                    android:id="@+id/conversationMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_centerInParent="true"
+                    android:drawSelectorOnTop="true"
+                    android:entries="@array/conversation_menu" />
 
-            <TextView
-                android:id="@+id/textReceive"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/imageContact"
-                android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@+id/imageContact"
-                android:lines="1"
-                android:text="Reçu"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/green_circle" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/imageContact"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/icone_unknown"
+                    app:border_color="@color/blue_night_violet"
+                    app:border_width="4dp" />
 
-            <TextView
-                android:id="@+id/dateReceive"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/textReceive"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_toLeftOf="@+id/imageContact"
-                android:text="il y a 2min."
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/grey_item_color"
-                android:textSize="11dp" />
+                <TextView
+                    android:id="@+id/textReceive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/imageContact"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/imageContact"
+                    android:lines="1"
+                    android:text="Reçu"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/green_circle" />
 
-            <TextView
-                android:id="@+id/textSend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/imageContact"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/imageContact"
-                android:lines="1"
-                android:text="Envoyé"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/blue_aciton_bar" />
+                <TextView
+                    android:id="@+id/dateReceive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/textReceive"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_toLeftOf="@+id/imageContact"
+                    android:text="il y a 2min."
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/grey_item_color"
+                    android:textSize="11dp" />
 
-            <TextView
-                android:id="@+id/dateSend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/textSend"
-                android:layout_marginBottom="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/imageContact"
-                android:text="il y a 2min."
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/grey_item_color"
-                android:textSize="11dp" />
+                <TextView
+                    android:id="@+id/textSend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/imageContact"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/imageContact"
+                    android:lines="1"
+                    android:text="Envoyé"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/blue_aciton_bar" />
+
+                <TextView
+                    android:id="@+id/dateSend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/textSend"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/imageContact"
+                    android:text="il y a 2min."
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/grey_item_color"
+                    android:textSize="11dp" />
+            </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
 

@@ -21,7 +21,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String KEY_ID_USER_LOCAL = "_ID_USER_LOCAL";
 	private static final String KEY_ID_USER_SERVER = "_ID_USER_SERVER";
 	private static final String KEY_TOKEN = "TOKEN";
+	private static final String KEY_GCM = "GCM";
 	private static final String KEY_LAST_CONNECTION = "LAST_CONNECTION"; //long - timestamp
+	private static final String KEY_FIRST_CO = "FIRST_CO";
 	
 	//CONVERSATION
 	private static final String KEY_ID_CONV_LOCAL = "_ID_CONV_LOCAL";
@@ -78,6 +80,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				+ KEY_ID_USER_LOCAL + " "
 				+ KEY_ID_USER_SERVER + " TEXT,"
 				+ KEY_TOKEN + " TEXT,"
+				+ KEY_GCM + " TEXT,"
+				+ KEY_FIRST_CO + " INTEGER DEFAULT 1,"
 				+ KEY_LAST_CONNECTION + " DATETIME DEFAULT CURRENT_TIMESTAMP )";
 		db.execSQL(CREATE_TABLE_USER);
 		

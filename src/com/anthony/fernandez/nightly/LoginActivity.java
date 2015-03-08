@@ -1,6 +1,5 @@
 package com.anthony.fernandez.nightly;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.AsyncTask;

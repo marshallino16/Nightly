@@ -52,8 +52,7 @@ public class MessagingActivity extends SherlockActivity {
 		SystemBarTintManager tintManager = new SystemBarTintManager(this);
 		tintManager.setStatusBarTintEnabled(true);
 		tintManager.setNavigationBarTintEnabled(true);
-		tintManager.setTintColor(getResources().getColor(
-				R.color.blue_aciton_bar));
+		tintManager.setTintColor(getResources().getColor(R.color.facebook));
 
 		messagesList = (ListView) findViewById(R.id.listMessages);
 		messageAdapter = new MessageAdapter(this);

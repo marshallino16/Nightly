@@ -121,11 +121,16 @@ public class TaskManager {
 		return false;
 	}
 
-	public boolean sendRegistrationID(String regID){
-		return false;
-	}
+	public boolean sendGCMRegistrationID(String regID){
+		if(null != GlobalVars.currentUser){
+			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+			nameValuePairs.add(new BasicNameValuePair(ParametersApi.GCM_DEVICE_ID, GlobalVars.currentUser.gmc));
 
-	public boolean updateRegistrationID(String regID){
+			if(null != requestSender){
+				String result = requestSender.sendRequestPost(UrlApi.URL_API_BASE, UrlApi.SET_GCM_ID, nameValuePairs, GlobalVars.currentUser.token);
+				Log.d("Nightly", "result = " +result);
+			}
+		}
 		return false;
 	}
 }

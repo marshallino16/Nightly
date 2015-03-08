@@ -55,7 +55,7 @@ public class ListConversationActivity extends SherlockActivity implements OnList
 		SystemBarTintManager tintManager = new SystemBarTintManager(this);
 		tintManager.setStatusBarTintEnabled(true);
 		tintManager.setNavigationBarTintEnabled(true);
-		tintManager.setTintColor(getResources().getColor(R.color.blue_aciton_bar));
+		tintManager.setTintColor(getResources().getColor(R.color.facebook));
 
 		listConversations = new ArrayList<Conversation>();
 		conversationAdapter = new ConversationsAdapter(this, R.layout.row_conversation, listConversations);

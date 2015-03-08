@@ -20,6 +20,7 @@ public class GlobalVars {
 		public String _idServer;
 		public String token;
 		public String email;
+		public String gmc;
 		public String language;
 		public String firstname;
 		public String lastname;

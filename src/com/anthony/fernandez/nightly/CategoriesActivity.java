@@ -63,7 +63,7 @@ public class CategoriesActivity extends SherlockActivity implements OnTouchListe
 		SystemBarTintManager tintManager = new SystemBarTintManager(this);
 		tintManager.setStatusBarTintEnabled(true);
 		tintManager.setNavigationBarTintEnabled(true);
-		tintManager.setTintColor(getResources().getColor(R.color.blue_aciton_bar));
+		tintManager.setTintColor(getResources().getColor(R.color.facebook));
 		
 		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/FlexDisplay-Thin.otf");
 		zoomIn = AnimationUtils.loadAnimation(this, R.anim.zoomin);

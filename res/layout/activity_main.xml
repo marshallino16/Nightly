@@ -41,7 +41,7 @@
                     android:gravity="center"
                     android:text="@string/sleep_walker"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/blue_background_dark" />
+                    android:textColor="@color/facebook" />
 
                 <ImageView
                     android:id="@+id/selectorCurrent"

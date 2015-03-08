@@ -14,6 +14,7 @@ public interface UrlApi {
 	public final static String LIKE_GOODNIGHT = "/api/like/goodnight/:id_goodnight";
 	public final static String SET_FACEBOOK_TOKEN = "/auth/facebook/token";
 	public final static String GET_OAUTH_TOKEN = "/oauth/token";
+	public final static String SET_GCM_ID = "/api/gcm_device_id";
 	public final static String CREATE_USER = "/api/signup";
 	public final static String GET_USER_INFOS = "/api/user_info";
 	public final static String SET_USER_LANGUAGE = "/api/language";

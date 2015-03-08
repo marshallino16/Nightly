@@ -1,5 +1,6 @@
 package com.anthony.fernandez.nightly;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +15,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.anthony.fernandez.nightly.gcm.GCMUtils;
+import com.anthony.fernandez.nightly.task.listener.OnFbAuthCompleted;
 import com.anthony.fernandez.nightly.util.Utils;
 import com.facebook.Request;
 import com.facebook.Response;
@@ -38,7 +40,7 @@ import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-public class HomeActivity extends SherlockFragmentActivity implements android.view.View.OnClickListener{
+public class HomeActivity extends SherlockFragmentActivity implements android.view.View.OnClickListener, OnFbAuthCompleted{
 
 	//views 
 	private RelativeLayout mainContainer;
@@ -240,9 +242,14 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 									String access_token = session.getAccessToken();
 									String firstName = user.getFirstName();
 									String fb_user_id = user.getId();
+									String birthday = user.getBirthday();
+									String gender = user.asMap().get("gender").toString();
+				                    String email = user.asMap().get("email").toString();
+				                   // URL image_value = new URL("http://graph.facebook.com/"+user.getId()+"/picture" );
 
 									System.out.println("Facebook Access token: "+ access_token);
 									System.out.println("First Name:"+ firstName);
+									System.out.println("birthday:"+ birthday);
 									System.out.println("FB USER ID: "+ fb_user_id);
 									
 									Utils.createToast(getApplicationContext(), "Firstname is " + firstName);
@@ -253,6 +260,17 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 				}
 			});
 		}
+	}
+
+	@Override
+	public void OnFacebookAuth() {
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+	}
+
+	@Override
+	public void OnFacebookAUthFailed(String reason) {
+		
 	}
 
 

@@ -45,7 +45,7 @@ public class SettingsActivity extends SherlockPreferenceActivity {
 		SystemBarTintManager tintManager = new SystemBarTintManager(this);
 		tintManager.setStatusBarTintEnabled(true);
 		tintManager.setNavigationBarTintEnabled(true);
-		tintManager.setTintColor(getResources().getColor(R.color.blue_aciton_bar));
+		tintManager.setTintColor(getResources().getColor(R.color.facebook));
 		
 //		Preference shortcut = (Preference) findPreference("button_shortcut");
 //		Preference cache = (Preference) findPreference("button_cache");

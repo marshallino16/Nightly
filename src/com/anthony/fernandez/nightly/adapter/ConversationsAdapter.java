@@ -6,10 +6,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -48,6 +48,7 @@ public class ConversationsAdapter extends ArrayAdapter<Conversation> {
 			holder.dateSend = (TextView) row.findViewById(R.id.dateSend);
 			holder.imageContact = (CircleImageView) row.findViewById(R.id.imageContact);
 			holder.container = (LinearLayout) row.findViewById(R.id.containerConversation);
+			holder.containerInfos = (RelativeLayout) row.findViewById(R.id.containerInfo);
 			holder.menu = (Spinner) row.findViewById(R.id.conversationMenu);
 			holder.isRead = (View) row.findViewById(R.id.hasBeenRead);
 
@@ -68,14 +69,14 @@ public class ConversationsAdapter extends ArrayAdapter<Conversation> {
 		}
 		holder.textReceive.setText(Conversation.getListMessages().get(totalMessageReceive).getMessage());
 		holder.textSend.setText(Conversation.getListMessagesSent().get(totalMessageSend).getMessage());
-		holder.container.setOnLongClickListener(new OnLongClickListener() {
-
-			@Override
-			public boolean onLongClick(View v) {
-				holder.menu.performClick();
-				return false;
-			}
-		});
+		//		holder.containerInfos.setOnLongClickListener(new OnLongClickListener() {
+		//
+		//			@Override
+		//			public boolean onLongClick(View v) {
+		//				holder.menu.performClick();
+		//				return false;
+		//			}
+		//		});
 
 		@SuppressWarnings("unused")
 		String timeLaspeReceive = ""; //new Date().getTime(),Conversation.getListMessages().get(totalMessageReceive).getDateSend()
@@ -92,5 +93,6 @@ public class ConversationsAdapter extends ArrayAdapter<Conversation> {
 		TextView dateReceive;
 		TextView dateSend;
 		CircleImageView imageContact;
+		RelativeLayout containerInfos;
 	}
 }

@@ -27,7 +27,7 @@ public class LeftPanel extends SherlockFragment {
 		if(null != getActivity()){
 			getActivity().findViewById(R.id.selectorCurrent).setVisibility(View.VISIBLE);
 			getActivity().findViewById(R.id.selectorCurrentAlarm).setVisibility(View.GONE);
-			((TextView)getActivity().findViewById(R.id.moonText)).setTextColor(getResources().getColor(R.color.blue_background_dark));
+			((TextView)getActivity().findViewById(R.id.moonText)).setTextColor(getResources().getColor(R.color.facebook));
 			((TextView)getActivity().findViewById(R.id.alarmText)).setTextColor(getResources().getColor(R.color.unpress_grey));
 			((ImageView)getActivity().findViewById(R.id.alarmIcon)).setImageResource(R.drawable.alarm);
 			((ImageView)getActivity().findViewById(R.id.moonIcon)).setImageResource(R.drawable.moon);

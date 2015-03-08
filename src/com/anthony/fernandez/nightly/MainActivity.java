@@ -32,11 +32,11 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.anthony.fernandez.nightly.adapter.InitPagerAdapter;
 import com.anthony.fernandez.nightly.api.GCMParams;
-import com.anthony.fernandez.nightly.enums.DaysOfWeek;
 import com.anthony.fernandez.nightly.fragment.LeftPanel;
-import com.anthony.fernandez.nightly.fragment.RegisterPartOne;
 import com.anthony.fernandez.nightly.fragment.RightPanel;
 import com.anthony.fernandez.nightly.gcm.GCMUtils;
+import com.anthony.fernandez.nightly.globalvar.GlobalVars;
+import com.anthony.fernandez.nightly.task.TaskManager;
 import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
 import com.doomonafireball.betterpickers.timepicker.TimePickerDialogFragment;
 import com.facebook.Session;
@@ -58,6 +58,8 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	SharedPreferences prefs;
 
 	String regid;
+	
+	private TaskManager taskManager = null;
 
 	//Views
 	private RelativeLayout mainContainer;
@@ -112,8 +114,9 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 		SystemBarTintManager tintManager = new SystemBarTintManager(this);
 		tintManager.setStatusBarTintEnabled(true);
 		tintManager.setNavigationBarTintEnabled(true);
-		tintManager.setTintColor(getResources().getColor(R.color.blue_aciton_bar));
+		tintManager.setTintColor(getResources().getColor(R.color.facebook));
 
+		taskManager = new TaskManager(getApplicationContext());
 		fragments = new Vector<Object>();
 
 		// Ajout des Fragments dans la liste
@@ -415,7 +418,9 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 					}
 					regid = gcm.register(SENDER_ID);
 					msg = "Device registered, registration ID=" + regid;
-					Log.w("Nightly", "msg = " +msg);
+					if(GlobalVars.currentUser != null){
+						GlobalVars.currentUser.gmc = regid;
+					}
 					if(regid != null)
 						addText(regid);
 
@@ -425,7 +430,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 					// is using accounts.
 					final SharedPreferences prefs = getGCMPreferences(MainActivity.this);
 					if(prefs.getString(PROPERTY_REG_ID, regid) != null){
-						sendRegistrationIdToBackend();
+						sendRegistrationIdToBackend(regid);
 					}
 
 					// Persist the registration ID - no need to register again.
@@ -453,8 +458,12 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	 * device sends upstream messages to a server that echoes back the message
 	 * using the 'from' address in the message.
 	 */
-	private void sendRegistrationIdToBackend() {
+	private void sendRegistrationIdToBackend(String regID) {
 		// Your implementation here.
+		//TODO if db -> getUser -> KEY_FIRST_CO = 1 so register
+		if(null != taskManager){
+			taskManager.sendGCMRegistrationID(regID);
+		}
 	}
 
 	/**
@@ -465,6 +474,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	 * @param regId registration ID
 	 */
 	private void storeRegistrationId(Context context, String regId) {
+		//TODO change to pick from database
 		final SharedPreferences prefs = getGCMPreferences(context);
 		int appVersion = getAppVersion(context);
 		Log.i("Nightly", "Saving regId on app version " + appVersion);

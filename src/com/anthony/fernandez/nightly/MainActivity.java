@@ -147,7 +147,18 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 				registerInBackground();
 			}
 			if(regid != null){
-				addText(regid);
+				if(!regid.equals(GlobalVars.currentUser.gmc)){
+					GlobalVars.currentUser.gmc = regid;
+					new AsyncTask<Void, Void, Void>() {
+
+						@Override
+						protected Void doInBackground(Void... arg0) {
+							taskManager.sendGCMRegistrationID(regid);
+							return null;
+						}
+					}.execute();
+				}
+//				addText(regid);
 			}
 		} else {
 			Log.i("NIghtly", "No valid Google Play Services APK found.");
@@ -458,11 +469,18 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	 * device sends upstream messages to a server that echoes back the message
 	 * using the 'from' address in the message.
 	 */
-	private void sendRegistrationIdToBackend(String regID) {
+	private void sendRegistrationIdToBackend(final String regID) {
 		// Your implementation here.
 		//TODO if db -> getUser -> KEY_FIRST_CO = 1 so register
 		if(null != taskManager){
-			taskManager.sendGCMRegistrationID(regID);
+			new AsyncTask<Void, Void, Void>() {
+
+				@Override
+				protected Void doInBackground(Void... arg0) {
+					taskManager.sendGCMRegistrationID(regID);
+					return null;
+				}
+			}.execute();
 		}
 	}
 

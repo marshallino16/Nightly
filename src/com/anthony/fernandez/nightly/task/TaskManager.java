@@ -100,6 +100,7 @@ public class TaskManager {
 						GlobalVars.currentUser._idServer = jsonData.getString(ParametersApi.ID);
 						GlobalVars.currentUser.email = jsonData.getString(ParametersApi.EMAIL);
 						GlobalVars.currentUser.language = jsonData.getString(ParametersApi.LANGUAGE);
+						GlobalVars.currentUser.gmc = jsonData.getString(ParametersApi.GCM_DEVICE_ID);
 						listener.OnUserInfo();
 					}
 				} catch (JSONException e) {
@@ -122,6 +123,7 @@ public class TaskManager {
 	}
 
 	public boolean sendGCMRegistrationID(String regID){
+		Log.w("Nightly", "sending reg id");
 		if(null != GlobalVars.currentUser){
 			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 			nameValuePairs.add(new BasicNameValuePair(ParametersApi.GCM_DEVICE_ID, GlobalVars.currentUser.gmc));

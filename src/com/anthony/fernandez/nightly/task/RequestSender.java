@@ -50,7 +50,7 @@ public class RequestSender {
 			if(null != accessToken){
 				httpPost = new HttpPost(url+ apiPoint);
 			} else {
-				httpPost = new HttpPost(url+ apiPoint + "?"+ParametersApi.ACCESS_TOKEN + accessToken);
+				httpPost = new HttpPost(url+ apiPoint + "?"+ParametersApi.ACCESS_TOKEN +"="+ accessToken);
 			}
 			httpPost.setHeader("CONTENT_TYPE", "application/x-www-form-urlencoded; charset=utf-8");
 			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));

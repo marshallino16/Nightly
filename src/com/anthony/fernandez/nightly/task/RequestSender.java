@@ -47,7 +47,7 @@ public class RequestSender {
 			// Set verifier     
 			HttpsURLConnection.setDefaultHostnameVerifier(hostnameVerifier);
 			HttpPost httpPost;
-			if(null != accessToken){
+			if(null == accessToken){
 				httpPost = new HttpPost(url+ apiPoint);
 			} else {
 				httpPost = new HttpPost(url+ apiPoint + "?"+ParametersApi.ACCESS_TOKEN +"="+ accessToken);

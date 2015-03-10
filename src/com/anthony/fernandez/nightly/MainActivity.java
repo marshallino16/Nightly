@@ -148,6 +148,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 			}
 			if(regid != null){
 				if(!regid.equals(GlobalVars.currentUser.gmc)){
+					Log.e("Nightly", "1 | GlobalVars.currentUser.token = " +GlobalVars.currentUser.token);
 					GlobalVars.currentUser.gmc = regid;
 					new AsyncTask<Void, Void, Void>() {
 

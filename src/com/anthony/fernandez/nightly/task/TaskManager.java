@@ -71,6 +71,7 @@ public class TaskManager {
 				} else {
 					GlobalVars.currentUser = new CurrentUserConnected();
 					GlobalVars.currentUser.token = jsonData.getString(ParametersApi.ACCESS_TOKEN);
+					Log.w("Nightly", "GlobalVars.currentUser.token = " +GlobalVars.currentUser.token);
 					listener.onConnectionAccepted();
 				}
 			} catch (JSONException e) {
@@ -82,6 +83,7 @@ public class TaskManager {
 	public void getUserInfos(OnGettingUserInfo listener){
 		if(null != GlobalVars.currentUser){
 			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+			Log.w("Nightly", "getUserInfos = " +GlobalVars.currentUser.token);
 			nameValuePairs.add(new BasicNameValuePair(ParametersApi.ACCESS_TOKEN, GlobalVars.currentUser.token));
 
 			if(null != requestSender){
@@ -96,7 +98,6 @@ public class TaskManager {
 					if(jsonData.has("error")){
 						listener.OnUserInfoFailed(jsonData.getString("error"));
 					} else {
-						GlobalVars.currentUser = new CurrentUserConnected();
 						GlobalVars.currentUser._idServer = jsonData.getString(ParametersApi.ID);
 						GlobalVars.currentUser.email = jsonData.getString(ParametersApi.EMAIL);
 						GlobalVars.currentUser.language = jsonData.getString(ParametersApi.LANGUAGE);
@@ -124,12 +125,16 @@ public class TaskManager {
 
 	public boolean sendGCMRegistrationID(String regID){
 		Log.w("Nightly", "sending reg id");
+		Log.w("Nightly", "2 | GlobalVars.currentUser.token = " +GlobalVars.currentUser.token);
 		if(null != GlobalVars.currentUser){
 			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 			nameValuePairs.add(new BasicNameValuePair(ParametersApi.GCM_DEVICE_ID, GlobalVars.currentUser.gmc));
 
 			if(null != requestSender){
 				String result = requestSender.sendRequestPost(UrlApi.URL_API_BASE, UrlApi.SET_GCM_ID, nameValuePairs, GlobalVars.currentUser.token);
+				if(result.isEmpty()){
+					//OK
+				}
 				Log.d("Nightly", "result = " +result);
 			}
 		}

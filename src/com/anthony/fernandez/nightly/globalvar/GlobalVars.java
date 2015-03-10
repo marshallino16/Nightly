@@ -3,10 +3,11 @@ package com.anthony.fernandez.nightly.globalvar;
 import com.anthony.fernandez.nightly.database.DatabaseHelper;
 import com.anthony.fernandez.nightly.imageUtils.ImageDownloaderTask;
 
+import android.app.Application;
 import android.graphics.Bitmap;
 
-public class GlobalVars {
-	
+public class GlobalVars extends Application {
+
 	/**
 	 * @see {@link DatabaseHelper} for token storage
 	 * This is use to avoid database IO during processes. 
@@ -14,7 +15,7 @@ public class GlobalVars {
 	 * during the disconnection. 
 	 */
 	public static CurrentUserConnected currentUser = null;
-	
+
 	public static class CurrentUserConnected{
 		public int _idLocal;
 		public String _idServer;

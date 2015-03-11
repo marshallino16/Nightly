@@ -22,6 +22,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -136,16 +137,21 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 	
 	
 	public void takePhoto(View v){
-		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  
-		intent.putExtra("android.intent.extras.CAMERA_FACING", 1);  
-        ContentValues values = new ContentValues(3);  
-        values.put(MediaStore.Images.Media.DISPLAY_NAME, "testing");  
-        values.put(MediaStore.Images.Media.DESCRIPTION, "this is description");  
-        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");  
-        imageFilePath = RegisterActivity.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);  
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFilePath); 
+		PackageManager packageManager = this.getPackageManager();
+	    if(packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA) == false){
+	    	Utils.createToast(RegisterActivity.this, R.string.no_camera_detected);
+	    } else {
+	    	Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  
+			intent.putExtra("android.intent.extras.CAMERA_FACING", 1);  
+	        ContentValues values = new ContentValues(3);  
+	        values.put(MediaStore.Images.Media.DISPLAY_NAME, "testing");  
+	        values.put(MediaStore.Images.Media.DESCRIPTION, "this is description");  
+	        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");  
+	        imageFilePath = RegisterActivity.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);  
+	        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFilePath); 
 
-        startActivityForResult(intent, CAMERA_REQUEST); 
+	        startActivityForResult(intent, CAMERA_REQUEST); 
+	    }
 	}
 	
 	public boolean hasImageCaptureBug() {

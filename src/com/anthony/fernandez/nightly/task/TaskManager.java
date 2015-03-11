@@ -13,9 +13,11 @@ import android.util.Log;
 import com.anthony.fernandez.nightly.R;
 import com.anthony.fernandez.nightly.api.ParametersApi;
 import com.anthony.fernandez.nightly.api.UrlApi;
+import com.anthony.fernandez.nightly.database.DatabaseManager;
 import com.anthony.fernandez.nightly.enums.DaysOfWeek;
 import com.anthony.fernandez.nightly.globalvar.GlobalVars;
 import com.anthony.fernandez.nightly.globalvar.GlobalVars.CurrentUserConnected;
+import com.anthony.fernandez.nightly.model.Category;
 import com.anthony.fernandez.nightly.model.RequestReturn;
 import com.anthony.fernandez.nightly.task.listener.OnConnectListener;
 import com.anthony.fernandez.nightly.task.listener.OnGCMRegistered;
@@ -29,6 +31,10 @@ public class TaskManager {
 	public TaskManager(Context ctx){
 		this.requestSender = new RequestSender();
 		this.context = ctx;
+	}
+	
+	private synchronized DatabaseManager getDBAccess() {
+		return DatabaseManager.getInstance(context);
 	}
 
 	public void sendMessage(String message, int conversationID){
@@ -105,6 +111,15 @@ public class TaskManager {
 						GlobalVars.currentUser.email = jsonData.getString(ParametersApi.EMAIL);
 						GlobalVars.currentUser.language = jsonData.getString(ParametersApi.LANGUAGE);
 						GlobalVars.currentUser.gmc = jsonData.getString(ParametersApi.GCM_DEVICE_ID);
+						
+						/**
+						 * TODO
+						 * uncomment when every field will be available
+						 * 
+						 */
+						if(!getDBAccess().isUserAlreadyStored(GlobalVars.currentUser._idServer)){
+							getDBAccess().createUser();
+						}
 						listener.OnUserInfo();
 					}
 				} catch (JSONException e) {
@@ -120,7 +135,8 @@ public class TaskManager {
 	public void updateProfil(String firstname, String lastname, String email, String password, byte[] profilPhoto, long birthDate, boolean sexe, String country, String phoneNumber){
 	}
 
-	public void updateClockAlarm(int hours, int minutes, DaysOfWeek dayOfWeek){
+	public void updateClockAlarm(int hours, int minutes, DaysOfWeek dayOfWeek, Category category, boolean isActive){
+		
 	}
 
 	public void sendGCMRegistrationID(String regID, OnGCMRegistered listener){
@@ -136,7 +152,6 @@ public class TaskManager {
 				}else{
 					listener.OnGCMRegister();
 				}
-				Log.d("Nightly", "result = " +retour.json);
 			}
 		}
 	}

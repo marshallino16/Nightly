@@ -1,9 +1,8 @@
 package com.anthony.fernandez.nightly.database;
 
-import com.anthony.fernandez.nightly.enums.DaysOfWeek;
-
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
+
+import com.anthony.fernandez.nightly.enums.DaysOfWeek;
 
 public class DatabaseManager {
 
@@ -11,7 +10,6 @@ public class DatabaseManager {
 
 	private static DatabaseManager mInstance = null;
 	private DatabaseHelper databaseHelper;
-	private SQLiteDatabase sqliteDatabase = null;
 
 	public static DatabaseManager getInstance(Context ctx) {
 		if (mInstance == null) {
@@ -31,7 +29,6 @@ public class DatabaseManager {
 	public void getAllAlarmClockByUser(int idUserServer) {
 		databaseHelper = getDBAccess();
 		try {
-			sqliteDatabase = databaseHelper.getWritableDatabase();
 			// db.getall...
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -40,9 +37,7 @@ public class DatabaseManager {
 				databaseHelper.close();
 			} catch (Exception ex) {
 				ex.printStackTrace();
-			} finally {
-				sqliteDatabase.close();
-			}
+			} 
 		}
 	}
 	
@@ -63,5 +58,44 @@ public class DatabaseManager {
 		case 1: //dimanche
 			break;
 		}
+	}
+	
+	public void createUser(){
+		databaseHelper = getDBAccess();
+		try {
+			databaseHelper.addUser();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				databaseHelper.close();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} 
+		}
+	}
+	
+	public void updateUser(String idUser, long connectionTime, String token){
+		
+	}
+	
+	public void updateUser(String idUser, long connectionTime){
+		
+	}
+	
+	public boolean isUserAlreadyStored(String _idUserServer){
+		databaseHelper = getDBAccess();
+		try {
+			return databaseHelper.isUserAlreadyStored(_idUserServer);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				databaseHelper.close();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} 
+		}
+		return false;
 	}
 }

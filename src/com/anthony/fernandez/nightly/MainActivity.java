@@ -36,6 +36,7 @@ import com.anthony.fernandez.nightly.fragment.RightPanel;
 import com.anthony.fernandez.nightly.gcm.GCMUtils;
 import com.anthony.fernandez.nightly.globalvar.GlobalVars;
 import com.anthony.fernandez.nightly.task.TaskManager;
+import com.anthony.fernandez.nightly.task.listener.OnAlarmClockAdded;
 import com.anthony.fernandez.nightly.task.listener.OnGCMRegistered;
 import com.anthony.fernandez.nightly.util.Utils;
 import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
@@ -45,7 +46,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.viewpagerindicator.CirclePageIndicator;
 
-public class MainActivity extends SherlockFragmentActivity implements TimePickerDialogFragment.TimePickerDialogHandler, OnGCMRegistered {
+public class MainActivity extends SherlockFragmentActivity implements TimePickerDialogFragment.TimePickerDialogHandler, OnGCMRegistered, OnAlarmClockAdded {
 
 	//GCM
 	public static final String EXTRA_MESSAGE = "message";
@@ -59,7 +60,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	SharedPreferences prefs;
 
 	String regid;
-	
+
 	private TaskManager taskManager = null;
 
 	//Views
@@ -226,7 +227,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 		.setStyleResId(R.style.BetterPickersDialogFragment_Light);
 		tpb.show();
 	}
-	
+
 	private void logoutAllServices(Context context){
 		prefs = getSharedPreferences("com.nightly", MODE_PRIVATE);
 		if (!prefs.getBoolean("firstrun", true)) {
@@ -302,37 +303,37 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);
 	}
-	
+
 	public void lundi(View v){
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).lundi;
 		pickSleepingTime();
 	}
-	
+
 	public void mardi(View v){
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).mardi;
 		pickSleepingTime();
 	}
-	
+
 	public void mercredi(View v){
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).mercredi;
 		pickSleepingTime();
 	}
-	
+
 	public void jeudi(View v){
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).jeudi;
 		pickSleepingTime();
 	}
-	
+
 	public void vendredi(View v){
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).vendredi;
 		pickSleepingTime();
 	}
-	
+
 	public void samedi(View v){
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).samedi;
 		pickSleepingTime();
 	}
-	
+
 	public void dimanche(View v){
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).dimanche;
 		pickSleepingTime();
@@ -510,16 +511,32 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 			//clear your preferences if saved
 		}
 	}
-	
+
 	@Override
 	public void OnGCMRegister() {
-		
+
 	}
 
 	@Override
 	public void OnGCMRegisterFailed(final String reason) {
 		runOnUiThread(new Runnable() {
-			
+
+			@Override
+			public void run() {
+				Utils.createToast(getApplicationContext(), reason);
+			}
+		});
+	}
+
+	@Override
+	public void OnAlarmClockAdd() {
+
+	}
+
+	@Override
+	public void OnAlarmClockAddFailed(final String reason) {
+		runOnUiThread(new Runnable() {
+
 			@Override
 			public void run() {
 				Utils.createToast(getApplicationContext(), reason);

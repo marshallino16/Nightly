@@ -80,6 +80,8 @@
     <string name="few_more">Encore quelques informations, vous y êtes presque</string>
     <string name="accept_cluf">J\'ai lu et j\'accepte les termes des conditions</string>
 
+    <!-- camera -->
+    <string name="no_camera_detected">Aucune camera disponible sur cet appareil.</string>
     <!-- days of week -->
     <string name="monday">Lundi</string>
     <string name="tuesday">Mardi</string>

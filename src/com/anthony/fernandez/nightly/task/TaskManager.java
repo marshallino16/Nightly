@@ -16,7 +16,9 @@ import com.anthony.fernandez.nightly.api.UrlApi;
 import com.anthony.fernandez.nightly.enums.DaysOfWeek;
 import com.anthony.fernandez.nightly.globalvar.GlobalVars;
 import com.anthony.fernandez.nightly.globalvar.GlobalVars.CurrentUserConnected;
+import com.anthony.fernandez.nightly.model.RequestReturn;
 import com.anthony.fernandez.nightly.task.listener.OnConnectListener;
+import com.anthony.fernandez.nightly.task.listener.OnGCMRegistered;
 import com.anthony.fernandez.nightly.task.listener.OnGettingUserInfo;
 
 public class TaskManager {
@@ -29,24 +31,19 @@ public class TaskManager {
 		this.context = ctx;
 	}
 
-	public boolean sendMessage(String message, int conversationID){
-		return false;
+	public void sendMessage(String message, int conversationID){
 	}
 
-	public boolean pickUpSomebody(long datetimeUTC){
-		return false;
+	public void pickUpSomebody(long datetimeUTC){
 	}
 
-	public boolean getListConversations(){
-		return false;
+	public void getListConversations(){
 	}
 
-	public boolean sendGoodNight(String message, int categorieID, int remoteUserID){
-		return false;
+	public void sendGoodNight(String message, int categorieID, int remoteUserID){
 	}
 
-	public boolean connectFacebook(String tokenFacebook){
-		return false;
+	public void connectFacebook(String tokenFacebook){
 	}
 
 	public void connectNightly(String username, String password, OnConnectListener listener){
@@ -58,14 +55,18 @@ public class TaskManager {
 		nameValuePairs.add(new BasicNameValuePair(ParametersApi.CLIENT_SECRET, "android"));
 
 		if(null != requestSender){
-			String result = requestSender.sendRequestPost(UrlApi.URL_API_BASE, UrlApi.GET_OAUTH_TOKEN, nameValuePairs, null);
-			if(null == result){
+			RequestReturn retour = requestSender.sendRequestPost(UrlApi.URL_API_BASE, UrlApi.GET_OAUTH_TOKEN, nameValuePairs, null);
+			if(200 != retour.code){
 				listener.onConnectionRefused(context.getResources().getString(R.string.error_occured));
 				return;
 			}
-			Log.d("Nightly", "result = " +result);
+			if(null == retour.json){
+				listener.onConnectionRefused(context.getResources().getString(R.string.error_occured));
+				return;
+			}
+			Log.d("Nightly", "result = " +retour.json);
 			try {
-				JSONObject jsonData = new JSONObject(result);
+				JSONObject jsonData = new JSONObject(retour.json);
 				if(jsonData.has("error_description")){
 					listener.onConnectionRefused(jsonData.getString("error_description"));
 				} else {
@@ -83,18 +84,20 @@ public class TaskManager {
 	public void getUserInfos(OnGettingUserInfo listener){
 		if(null != GlobalVars.currentUser){
 			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-			Log.w("Nightly", "getUserInfos = " +GlobalVars.currentUser.token);
 			nameValuePairs.add(new BasicNameValuePair(ParametersApi.ACCESS_TOKEN, GlobalVars.currentUser.token));
 
 			if(null != requestSender){
-				String result = requestSender.sendRequestGet(UrlApi.URL_API_BASE, UrlApi.GET_USER_INFOS, nameValuePairs);
-				if(null == result){
+				RequestReturn retour = requestSender.sendRequestGet(UrlApi.URL_API_BASE, UrlApi.GET_USER_INFOS, nameValuePairs);
+				if(200 != retour.code){
+					listener.OnUserInfoFailed(context.getResources().getString(R.string.error_occured));
+				}
+				if(null == retour.json){
 					listener.OnUserInfoFailed(context.getResources().getString(R.string.error_occured));
 					return;
 				}
-				Log.d("Nightly", "result = " +result);
+				Log.d("Nightly", "result = " +retour.json);
 				try {
-					JSONObject jsonData = new JSONObject(result);
+					JSONObject jsonData = new JSONObject(retour.json);
 					if(jsonData.has("error")){
 						listener.OnUserInfoFailed(jsonData.getString("error"));
 					} else {
@@ -111,33 +114,30 @@ public class TaskManager {
 		}
 	}
 
-	public boolean register(String firstname, String lastname, String email, String password, byte[] profilPhoto, long birthDate, boolean sexe, String country, String phoneNumber){
-		return false;
+	public void register(String firstname, String lastname, String email, String password, byte[] profilPhoto, long birthDate, boolean sexe, String country, String phoneNumber){
 	}
 
-	public boolean updateProfil(String firstname, String lastname, String email, String password, byte[] profilPhoto, long birthDate, boolean sexe, String country, String phoneNumber){
-		return false;
+	public void updateProfil(String firstname, String lastname, String email, String password, byte[] profilPhoto, long birthDate, boolean sexe, String country, String phoneNumber){
 	}
 
-	public boolean updateClockAlarm(int hours, int minutes, DaysOfWeek dayOfWeek){
-		return false;
+	public void updateClockAlarm(int hours, int minutes, DaysOfWeek dayOfWeek){
 	}
 
-	public boolean sendGCMRegistrationID(String regID){
+	public void sendGCMRegistrationID(String regID, OnGCMRegistered listener){
 		Log.w("Nightly", "sending reg id");
-		Log.w("Nightly", "2 | GlobalVars.currentUser.token = " +GlobalVars.currentUser.token);
 		if(null != GlobalVars.currentUser){
 			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 			nameValuePairs.add(new BasicNameValuePair(ParametersApi.GCM_DEVICE_ID, GlobalVars.currentUser.gmc));
 
 			if(null != requestSender){
-				String result = requestSender.sendRequestPost(UrlApi.URL_API_BASE, UrlApi.SET_GCM_ID, nameValuePairs, GlobalVars.currentUser.token);
-				if(result.isEmpty()){
-					//OK
+				RequestReturn retour = requestSender.sendRequestPost(UrlApi.URL_API_BASE, UrlApi.SET_GCM_ID, nameValuePairs, GlobalVars.currentUser.token);
+				if(200 != retour.code){
+					listener.OnGCMRegisterFailed(context.getResources().getString(R.string.error_occured));
+				}else{
+					listener.OnGCMRegister();
 				}
-				Log.d("Nightly", "result = " +result);
+				Log.d("Nightly", "result = " +retour.json);
 			}
 		}
-		return false;
 	}
 }

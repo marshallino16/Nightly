@@ -24,12 +24,14 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.SingleClientConnManager;
 
 import com.anthony.fernandez.nightly.api.ParametersApi;
+import com.anthony.fernandez.nightly.model.RequestReturn;
 
 
 public class RequestSender {
 
-	public synchronized String sendRequestPost(final String url, final String apiPoint, final ArrayList<NameValuePair> nameValuePairs, final String accessToken){
+	public synchronized RequestReturn sendRequestPost(final String url, final String apiPoint, final ArrayList<NameValuePair> nameValuePairs, final String accessToken){
 		String result = "";
+		int code = 0;
 		InputStream is = null;
 		
 		try {
@@ -57,6 +59,7 @@ public class RequestSender {
 
 			HttpResponse response = httpclient.execute(httpPost);
 			HttpEntity entity = response.getEntity();
+			code = response.getStatusLine().getStatusCode();
 			is = entity.getContent();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -78,12 +81,13 @@ public class RequestSender {
 			return null;
 		}
 		
-		return result;
+		return new RequestReturn(result, code);
 	}
 
 	
-	public synchronized String sendRequestGet(final String url, final String apiPoint, final ArrayList<NameValuePair> nameValuePairs){
+	public synchronized RequestReturn sendRequestGet(final String url, final String apiPoint, final ArrayList<NameValuePair> nameValuePairs){
 		String result = "";
+		int code = 0;
 		InputStream is = null;
 		
 		try {
@@ -107,6 +111,7 @@ public class RequestSender {
 
 			HttpResponse response = httpclient.execute(httpGet);
 			HttpEntity entity = response.getEntity();
+			code = response.getStatusLine().getStatusCode();
 			is = entity.getContent();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -128,6 +133,6 @@ public class RequestSender {
 			return null;
 		}
 		
-		return result;
+		return new RequestReturn(result, code);
 	}
 }

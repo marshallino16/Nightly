@@ -24,7 +24,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -37,6 +36,8 @@ import com.anthony.fernandez.nightly.fragment.RightPanel;
 import com.anthony.fernandez.nightly.gcm.GCMUtils;
 import com.anthony.fernandez.nightly.globalvar.GlobalVars;
 import com.anthony.fernandez.nightly.task.TaskManager;
+import com.anthony.fernandez.nightly.task.listener.OnGCMRegistered;
+import com.anthony.fernandez.nightly.util.Utils;
 import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
 import com.doomonafireball.betterpickers.timepicker.TimePickerDialogFragment;
 import com.facebook.Session;
@@ -44,7 +45,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.viewpagerindicator.CirclePageIndicator;
 
-public class MainActivity extends SherlockFragmentActivity implements TimePickerDialogFragment.TimePickerDialogHandler {
+public class MainActivity extends SherlockFragmentActivity implements TimePickerDialogFragment.TimePickerDialogHandler, OnGCMRegistered {
 
 	//GCM
 	public static final String EXTRA_MESSAGE = "message";
@@ -69,7 +70,6 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	private LayoutInflater inflater;
 	private View splashScreen;
 
-	private EditText registrationID;
 	private TextView currentDay = null;
 
 	@Override
@@ -137,8 +137,6 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 		indicator.setStrokeColor(getResources().getColor(android.R.color.white));
 		indicator.setViewPager(pager);
 
-		registrationID = (EditText)findViewById(R.id.dddd);
-
 		if (GCMUtils.checkPlayServices(this)) {
 			gcm = GoogleCloudMessaging.getInstance(this);
 			regid = getRegistrationId(this);
@@ -148,18 +146,16 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 			}
 			if(regid != null){
 				if(!regid.equals(GlobalVars.currentUser.gmc)){
-					Log.e("Nightly", "1 | GlobalVars.currentUser.token = " +GlobalVars.currentUser.token);
 					GlobalVars.currentUser.gmc = regid;
 					new AsyncTask<Void, Void, Void>() {
 
 						@Override
 						protected Void doInBackground(Void... arg0) {
-							taskManager.sendGCMRegistrationID(regid);
+							taskManager.sendGCMRegistrationID(regid, MainActivity.this);
 							return null;
 						}
 					}.execute();
 				}
-//				addText(regid);
 			}
 		} else {
 			Log.i("NIghtly", "No valid Google Play Services APK found.");
@@ -237,7 +233,6 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 			prefs.edit().putBoolean("firstrun", true).commit();
 		}
 		callFacebookLogout(context);
-		callGCMLogout();
 		this.finish();
 	}
 
@@ -374,7 +369,6 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 		String registrationId = prefs.getString(PROPERTY_REG_ID, "");
 		if (registrationId.isEmpty()) {
 			Log.i("NIghtly", "Registration not found.");
-			addText("Registration not found.");
 			return "";
 		}
 		// Check if app was updated; if so, it must clear the registration ID
@@ -384,7 +378,6 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 		int currentVersion = getAppVersion(context);
 		if (registeredVersion != currentVersion) {
 			Log.i("NIghtly", "App version changed.");
-			addText("App version changed.");
 			return "";
 		}
 		return registrationId;
@@ -433,8 +426,6 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 					if(GlobalVars.currentUser != null){
 						GlobalVars.currentUser.gmc = regid;
 					}
-					if(regid != null)
-						addText(regid);
 
 					// You should send the registration ID to your server over HTTP,
 					// so it can use GCM/HTTP or CCS to send messages to your app.
@@ -450,7 +441,6 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 				} catch (IOException ex) {
 					msg = "Error :" + ex.getMessage();
 					Log.w("Nightly", "msg error = " +msg);
-					addText(msg);
 					// If there is an error, don't just keep trying to register.
 					// Require the user to click a button again, or perform
 					// exponential back-off.
@@ -478,7 +468,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 
 				@Override
 				protected Void doInBackground(Void... arg0) {
-					taskManager.sendGCMRegistrationID(regID);
+					taskManager.sendGCMRegistrationID(regID, MainActivity.this);
 					return null;
 				}
 			}.execute();
@@ -497,17 +487,10 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 		final SharedPreferences prefs = getGCMPreferences(context);
 		int appVersion = getAppVersion(context);
 		Log.i("Nightly", "Saving regId on app version " + appVersion);
-		addText("Saving regId on app version " + appVersion);
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString(PROPERTY_REG_ID, regId);
 		editor.putInt(PROPERTY_APP_VERSION, appVersion);
 		editor.commit();
-	}
-
-	public void addText(String msg){
-		if(msg != null && registrationID != null){
-			registrationID.setText(registrationID.getText() + "\n" + msg);
-		}
 	}
 
 	/**
@@ -528,7 +511,19 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 		}
 	}
 	
-	private static void callGCMLogout(){
+	@Override
+	public void OnGCMRegister() {
 		
+	}
+
+	@Override
+	public void OnGCMRegisterFailed(final String reason) {
+		runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				Utils.createToast(getApplicationContext(), reason);
+			}
+		});
 	}
 }

@@ -9,6 +9,7 @@ import java.net.URLConnection;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -17,13 +18,17 @@ import java.util.Vector;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
@@ -47,10 +52,12 @@ import com.anthony.fernandez.nightly.view.ScrollViewPager;
 import com.doomonafireball.betterpickers.calendardatepicker.CalendarDatePickerDialog;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.soundcloud.android.crop.Crop;
+import com.soundcloud.android.crop.CropUtil;
 
 public class RegisterActivity extends SherlockFragmentActivity implements CalendarDatePickerDialog.OnDateSetListener, OnAccountCreated {
 
 	private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
+	private static final int CAMERA_REQUEST = 1888; 
 
 	private PagerAdapter pagerAdapter;
 	public static ScrollViewPager pager;
@@ -59,6 +66,9 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 	private int day = 0;
 	private int month = 0;
 	private int year = 0;
+	
+	private int photoMode = 0; //if 1 = pic else 2= take
+	private Uri imageFilePath;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +136,30 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 	
 	
 	public void takePhoto(View v){
-		
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  
+		intent.putExtra("android.intent.extras.CAMERA_FACING", 1);  
+        ContentValues values = new ContentValues(3);  
+        values.put(MediaStore.Images.Media.DISPLAY_NAME, "testing");  
+        values.put(MediaStore.Images.Media.DESCRIPTION, "this is description");  
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");  
+        imageFilePath = RegisterActivity.this.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);  
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageFilePath); 
+
+        startActivityForResult(intent, CAMERA_REQUEST); 
+	}
+	
+	public boolean hasImageCaptureBug() {
+	    // list of known devices that have the bug
+	    ArrayList<String> devices = new ArrayList<String>();
+	    devices.add("android-devphone1/dream_devphone/dream");
+	    devices.add("generic/sdk/generic");
+	    devices.add("vodafone/vfpioneer/sapphire");
+	    devices.add("tmobile/kila/dream");
+	    devices.add("verizon/voles/sholes");
+	    devices.add("google_ion/google_ion/sapphire");
+
+	    return devices.contains(android.os.Build.BRAND + "/" + android.os.Build.PRODUCT + "/"
+	            + android.os.Build.DEVICE);
 	}
 
 	
@@ -329,10 +362,14 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 	@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent result) {
         if (requestCode == Crop.REQUEST_PICK && resultCode == RESULT_OK) {
+        	photoMode = 1;
             beginCrop(result.getData());
         } else if (requestCode == Crop.REQUEST_CROP) {
             handleCrop(resultCode, result);
-        }
+        } else if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+        	photoMode = 2;
+        	beginCrop(imageFilePath);
+        } 
     }
 
     private void beginCrop(Uri source) {
@@ -350,6 +387,21 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
         }
     }
     
+    private Bitmap rotateImage(Context context,Bitmap img, Uri selectedImage) {
+
+        // Detect rotation
+        int rotation= CropUtil.getExifRotation(CropUtil.getFromMediaUri(RegisterActivity.this, getContentResolver(), selectedImage));
+        if(rotation!=0){
+            Matrix matrix = new Matrix();
+            matrix.postRotate(rotation);
+            Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
+            img.recycle();
+            return rotatedImg;        
+        }else{
+            return img;
+        }
+    }
+    
     private Bitmap getImageBitmap(String url) {
         Bitmap bm = null;
         try {
@@ -359,6 +411,11 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
             InputStream is = conn.getInputStream();
             BufferedInputStream bis = new BufferedInputStream(is);
             bm = BitmapFactory.decodeStream(bis);
+            
+            if(2 == photoMode){
+            	bm = rotateImage(getApplicationContext(), bm, imageFilePath);
+            }
+            
             bis.close();
             is.close();
        } catch (IOException e) {

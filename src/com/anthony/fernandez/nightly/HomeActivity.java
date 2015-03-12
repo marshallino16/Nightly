@@ -7,6 +7,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
@@ -26,7 +27,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.anthony.fernandez.nightly.database.DatabaseManager;
 import com.anthony.fernandez.nightly.gcm.GCMUtils;
+import com.anthony.fernandez.nightly.globalvar.GlobalVars;
+import com.anthony.fernandez.nightly.globalvar.GlobalVars.CurrentUserConnected;
+import com.anthony.fernandez.nightly.task.TaskManager;
+import com.anthony.fernandez.nightly.task.listener.OnConnectListener;
 import com.anthony.fernandez.nightly.task.listener.OnFbAuthCompleted;
 import com.anthony.fernandez.nightly.util.Utils;
 import com.facebook.Request;
@@ -39,7 +45,7 @@ import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-public class HomeActivity extends SherlockFragmentActivity implements android.view.View.OnClickListener, OnFbAuthCompleted{
+public class HomeActivity extends SherlockFragmentActivity implements android.view.View.OnClickListener, OnFbAuthCompleted, OnConnectListener{
 
 	//views 
 	private RelativeLayout mainContainer;
@@ -48,6 +54,9 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 
 	//facebook components
 	private Button loginBtn;
+	
+	private TaskManager taskManager = null;
+	private GlobalVars.CurrentUserConnected userSupposed;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +71,8 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 		tintManager.setStatusBarTintEnabled(true);
 		tintManager.setNavigationBarTintEnabled(true);
 		tintManager.setTintColor(getResources().getColor(R.color.pink_circle));
+		
+		taskManager = new TaskManager(this);
 		
 		final TextView cluf = (TextView)findViewById(R.id.textCluf);
 		cluf.setText(Html.fromHtml("<u>"+getResources().getString(R.string.cluf)+"</u>"));
@@ -100,23 +111,26 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 			// Otherwise, prompt user to get valid Play Services APK.
 		}
 	
-		// ONLY used to handle several client, not the case now, everything is sync from server 
-//		GlobalVars.CurrentUserConnected userSupposed = DatabaseManager.getInstance(getApplicationContext()).getLastConnectedUser();
-//		if(userSupposed != null){
-//			Long nowTime = System.currentTimeMillis()/1000;
-//			Long difference = nowTime - userSupposed.lastTokenUpdate;
-//			if(difference <= 3600){
-//				Intent intentContinue = new Intent(HomeActivity.this, ContinueAsActivity.class);
-//				intentContinue.putExtra("email", userSupposed.email);
-//				intentContinue.putExtra("firstname", userSupposed.firstname);
-//				intentContinue.putExtra("lastname", userSupposed.lastname);
-//				this.startActivity(intentContinue);
-//			} else {
-//				Intent intentLogin = new Intent(HomeActivity.this, LoginActivity.class);
-//				intentLogin.putExtra("email", userSupposed.email);
-//				this.startActivity(intentLogin);
-//			}
-//		} 
+		userSupposed = DatabaseManager.getInstance(getApplicationContext()).getLastConnectedUser();
+		if(userSupposed != null){
+			Long nowTime = System.currentTimeMillis()/1000;
+			Long difference = nowTime - userSupposed.lastTokenUpdate;
+			if(difference <= 259200){
+				GlobalVars.currentUser = new CurrentUserConnected();
+				DatabaseManager.getInstance(getApplicationContext()).getAllCurrentUserInfos(userSupposed.email);
+				Intent intentContinue = new Intent(HomeActivity.this, MainActivity.class);
+				this.startActivity(intentContinue);
+			} else {
+				new AsyncTask<Void, Void, Void>() {
+
+					@Override
+					protected Void doInBackground(Void... arg0) {
+						taskManager.connectNightly(userSupposed.email, userSupposed.password, HomeActivity.this);
+						return null;
+					}
+				}.execute();
+			}
+		} 
 	}
 
 	@Override
@@ -288,6 +302,32 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 	@Override
 	public void OnFacebookAUthFailed(String reason) {
 		
+	}
+
+	@Override
+	public void onConnectionAccepted() {
+		DatabaseManager.getInstance(getApplicationContext()).updateUserByEmail(userSupposed.email, GlobalVars.currentUser.token);
+		DatabaseManager.getInstance(getApplicationContext()).getAllCurrentUserInfos(userSupposed.email);
+		
+		runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+				startActivity(intent);
+			}
+		});
+	}
+
+	@Override
+	public void onConnectionRefused(final String reason) {
+		runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				Utils.createToast(getApplicationContext(), reason);
+			}
+		});
 	}
 
 

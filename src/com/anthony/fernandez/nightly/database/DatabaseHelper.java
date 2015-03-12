@@ -26,6 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String KEY_ID_USER_LOCAL = "_ID_USER_LOCAL";
 	private static final String KEY_ID_USER_SERVER = "_ID_USER_SERVER";
 	private static final String KEY_EMAIL = "EMAIL";
+	private static final String KEY_PASSWORD = "PASSWORD";
 	private static final String KEY_FIRSTNAME = "FIRSTNAME";
 	private static final String KEY_LASTNAME = "LASTNAME";
 	private static final String KEY_LANGUAGE = "LANGUAGE";
@@ -84,7 +85,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				+ KEY_LASTNAME + " TEXT,"
 				+ KEY_LANGUAGE + " TEXT,"
 				+ KEY_IMAGE_URL + " TEXT,"
-				+ KEY_LAST_TOKEN_UPDATE + " DATETIME DEFAULT CURRENT_TIMESTAMP )";
+				+ KEY_LAST_TOKEN_UPDATE + " DATETIME DEFAULT CURRENT_TIMESTAMP, "
+				+ KEY_PASSWORD + " TEXT)";
 		db.execSQL(CREATE_TABLE_USER);
 
 		String CREATE_TABLE_ALARM_CLOCK = "CREATE TABLE " 
@@ -124,12 +126,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		values.put(KEY_TOKEN, GlobalVars.currentUser.token);
 		values.put(KEY_GCM, GlobalVars.currentUser.gmc);
 		values.put(KEY_EMAIL, GlobalVars.currentUser.email);
-//		values.put(KEY_FIRSTNAME, GlobalVars.currentUser.firstname);
-//		values.put(KEY_LASTNAME, GlobalVars.currentUser.lastname);
-		values.put(KEY_FIRSTNAME, "anthony");
-		values.put(KEY_LASTNAME, "fernandez");
+		values.put(KEY_FIRSTNAME, GlobalVars.currentUser.firstname);
+		values.put(KEY_LASTNAME, GlobalVars.currentUser.lastname);
 		values.put(KEY_IMAGE_URL, GlobalVars.currentUser.imgURL);
 		values.put(KEY_LAST_TOKEN_UPDATE, connectionTime);
+		values.put(KEY_PASSWORD, GlobalVars.currentUser.password);
 
 		long idUser = db.insert(TABLE_CUSTOMER, null, values);
 
@@ -148,6 +149,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		Long connectionTime = System.currentTimeMillis()/1000;
 		SQLiteDatabase db = this.getWritableDatabase();
 		String strFilter = KEY_ID_USER_SERVER+"='" + _idUserServer+"'";
+		ContentValues values = new ContentValues();
+		values.put(KEY_LAST_TOKEN_UPDATE, connectionTime);
+		values.put(KEY_TOKEN, token);
+		db.update(TABLE_CUSTOMER, values, strFilter, null);
+		db.close();
+	}
+	
+	public void updateUserByEmail(String email, String token){
+		Long connectionTime = System.currentTimeMillis()/1000;
+		SQLiteDatabase db = this.getWritableDatabase();
+		String strFilter = KEY_EMAIL+"='" + email+"'";
 		ContentValues values = new ContentValues();
 		values.put(KEY_LAST_TOKEN_UPDATE, connectionTime);
 		values.put(KEY_TOKEN, token);
@@ -213,6 +225,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				GlobalVars.currentUser.imgURL = cursorItems.getString(8);
 				GlobalVars.currentUser.language = cursorItems.getString(7);
 				GlobalVars.currentUser.lastname = cursorItems.getString(6);
+				GlobalVars.currentUser.password = cursorItems.getString(10);
+				GlobalVars.currentUser.gmc = cursorItems.getString(3);
 			} while (cursorItems.moveToNext());
 		}
 		cursorItems.close();
@@ -223,13 +237,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public GlobalVars.CurrentUserConnected getLastConnectedUser(){
 		GlobalVars.CurrentUserConnected user = null;
 		SQLiteDatabase db = this.getWritableDatabase();
-		String selectQueryItems = "SELECT USERS."+KEY_EMAIL+", USERS."+KEY_FIRSTNAME+", USERS."+KEY_LASTNAME+", USERS."+KEY_LAST_TOKEN_UPDATE+" FROM " + TABLE_CUSTOMER
-				+" JOIN (SELECT "+KEY_EMAIL+", "+KEY_FIRSTNAME+", "+KEY_LASTNAME+", MAX("+KEY_LAST_TOKEN_UPDATE+") AS "+KEY_LAST_TOKEN_UPDATE+" FROM " 
+		String selectQueryItems = "SELECT USERS."+KEY_EMAIL+", USERS."+KEY_FIRSTNAME+", USERS."+KEY_LASTNAME+", USERS."+KEY_LAST_TOKEN_UPDATE+",  USERS."+KEY_PASSWORD+" FROM " + TABLE_CUSTOMER
+				+" JOIN (SELECT "+KEY_EMAIL+", "+KEY_FIRSTNAME+", "+KEY_LASTNAME+", MAX("+KEY_LAST_TOKEN_UPDATE+") AS "+KEY_LAST_TOKEN_UPDATE+", "+KEY_PASSWORD+" FROM " 
 				+TABLE_CUSTOMER+" GROUP BY " +KEY_EMAIL
 				+ ") T2 ON USERS."+KEY_EMAIL+"= T2."+KEY_EMAIL 
 				+" AND USERS."+ KEY_FIRSTNAME  + "= T2."+ KEY_FIRSTNAME 
 				+" AND USERS."+KEY_LASTNAME + "= T2."+KEY_LASTNAME
 				+" AND USERS."+ KEY_LAST_TOKEN_UPDATE + "= T2."+ KEY_LAST_TOKEN_UPDATE
+				+" AND USERS."+ KEY_PASSWORD + "= T2."+KEY_PASSWORD
 				+ ""; 
 		Cursor cursorItems = db.rawQuery(selectQueryItems, null);
 		if(cursorItems.moveToFirst()){
@@ -239,6 +254,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				user.firstname = cursorItems.getString(1);
 				user.lastname = cursorItems.getString(2);
 				user.lastTokenUpdate = cursorItems.getLong(3);
+				user.password = cursorItems.getString(4);
 				Log.d("Nightly", "user.lastTokenUpdate = " + user.lastTokenUpdate);
 				Log.d("Nightly", "user.email = " + user.email );
 			} while (cursorItems.moveToNext());

@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.anthony.fernandez.nightly.globalvar.GlobalVars;
 import com.anthony.fernandez.nightly.task.TaskManager;
 import com.anthony.fernandez.nightly.task.listener.OnConnectListener;
 import com.anthony.fernandez.nightly.task.listener.OnGettingUserInfo;
@@ -245,6 +246,7 @@ public class LoginActivity extends SherlockActivity implements OnConnectListener
 
 	@Override
 	public void onConnectionAccepted() {
+		GlobalVars.currentUser.password = password.getText().toString();
 		taskManager.getUserInfos(LoginActivity.this);
 	}
 

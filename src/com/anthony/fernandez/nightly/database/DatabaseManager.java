@@ -41,7 +41,7 @@ public class DatabaseManager {
 			} 
 		}
 	}
-	
+
 	public void getAlarmClock(DaysOfWeek day){
 		switch (day.numOfDay) {
 		case 2: //lundi
@@ -60,7 +60,7 @@ public class DatabaseManager {
 			break;
 		}
 	}
-	
+
 	public void createUser(){
 		databaseHelper = getDBAccess();
 		try {
@@ -75,15 +75,26 @@ public class DatabaseManager {
 			} 
 		}
 	}
-	
+
 	public void updateUser(String idUser, long connectionTime, String token){
-		
+
 	}
-	
-	public void updateUser(String idUser, long connectionTime){
-		
+
+	public void updateUserByEmail(String email, String token){
+		databaseHelper = getDBAccess();
+		try {
+			databaseHelper.updateUserByEmail(email, token);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				databaseHelper.close();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} 
+		}
 	}
-	
+
 	public boolean isUserAlreadyStored(String _idUserServer){
 		databaseHelper = getDBAccess();
 		try {
@@ -99,7 +110,7 @@ public class DatabaseManager {
 		}
 		return false;
 	}
-	
+
 	public void getAllCurrentUserInfos(String email){
 		databaseHelper = getDBAccess();
 		try {
@@ -114,7 +125,7 @@ public class DatabaseManager {
 			} 
 		}
 	}
-	
+
 	@Deprecated
 	public GlobalVars.CurrentUserConnected getLastConnectedUser(){
 		databaseHelper = getDBAccess();

@@ -31,6 +31,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.anthony.fernandez.nightly.adapter.InitPagerAdapter;
 import com.anthony.fernandez.nightly.api.GCMParams;
+import com.anthony.fernandez.nightly.database.DatabaseHelper;
 import com.anthony.fernandez.nightly.fragment.LeftPanel;
 import com.anthony.fernandez.nightly.fragment.RightPanel;
 import com.anthony.fernandez.nightly.gcm.GCMUtils;
@@ -145,7 +146,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 			if (regid.isEmpty()) {
 				registerInBackground();
 			}
-			if(regid != null){
+			if(regid != null && !regid.isEmpty()){
 				if(!regid.equals(GlobalVars.currentUser.gmc)){
 					GlobalVars.currentUser.gmc = regid;
 					new AsyncTask<Void, Void, Void>() {
@@ -233,6 +234,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 		if (!prefs.getBoolean("firstrun", true)) {
 			prefs.edit().putBoolean("firstrun", true).commit();
 		}
+		context.deleteDatabase(DatabaseHelper.DATABASE_NAME);
 		GlobalVars.currentUser = null;
 		callFacebookLogout(context);
 		this.finish();

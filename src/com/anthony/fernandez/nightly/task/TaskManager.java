@@ -113,12 +113,11 @@ public class TaskManager {
 						GlobalVars.currentUser.email = jsonData.getString(ParametersApi.EMAIL);
 						GlobalVars.currentUser.language = jsonData.getString(ParametersApi.LANGUAGE);
 						GlobalVars.currentUser.gmc = jsonData.getString(ParametersApi.GCM_DEVICE_ID);
+						GlobalVars.currentUser.firstname = jsonData.getString(ParametersApi.FIRSTNAME);
+						GlobalVars.currentUser.lastname = jsonData.getString(ParametersApi.LASTNAME);
+						//TODO gender
+						//TODO img profil
 						
-						/**
-						 * TODO
-						 * uncomment when every field will be available
-						 * 
-						 */
 						if(!getDBAccess().isUserAlreadyStored(GlobalVars.currentUser._idServer)){
 							context.deleteDatabase(DatabaseHelper.DATABASE_NAME);
 							getDBAccess().createUser();

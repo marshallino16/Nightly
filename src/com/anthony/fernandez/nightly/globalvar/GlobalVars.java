@@ -40,6 +40,9 @@ public class GlobalVars extends Application {
 		 * else reconnect with pre-filled fields
 		 */
 		public long lastTokenUpdate;
+		
+		// 
+		public String password;
 	}
 
 }

@@ -3,6 +3,7 @@ package com.anthony.fernandez.nightly.database;
 import android.content.Context;
 
 import com.anthony.fernandez.nightly.enums.DaysOfWeek;
+import com.anthony.fernandez.nightly.globalvar.GlobalVars;
 
 public class DatabaseManager {
 
@@ -97,5 +98,36 @@ public class DatabaseManager {
 			} 
 		}
 		return false;
+	}
+	
+	public void getAllCurrentUserInfos(String email){
+		databaseHelper = getDBAccess();
+		try {
+			databaseHelper.getAllCurrentUserInfos(email);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				databaseHelper.close();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} 
+		}
+	}
+	
+	public GlobalVars.CurrentUserConnected getLastConnectedUser(){
+		databaseHelper = getDBAccess();
+		try {
+			return databaseHelper.getLastConnectedUser();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				databaseHelper.close();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			} 
+		}
+		return null;
 	}
 }

@@ -59,6 +59,11 @@ public class LoginActivity extends SherlockActivity implements OnConnectListener
 		connectionState = (TextView)findViewById(R.id.connectionState);
 		progressBar = (ProgressBar)findViewById(R.id.progressBar);
 		containerConnection = (LinearLayout)findViewById(R.id.connectionContainer);
+		
+		if (this.getIntent().getExtras() != null && this.getIntent().getExtras().containsKey("email")) {
+			info();
+			email.setText(this.getIntent().getExtras().getString("email"));
+		}
 
 		final TextView cluf = (TextView)findViewById(R.id.textCluf);
 		cluf.setText(Html.fromHtml("<u>"+getResources().getString(R.string.cluf)+"</u>"));
@@ -204,6 +209,14 @@ public class LoginActivity extends SherlockActivity implements OnConnectListener
 		}
 		connectionState.setBackgroundColor(getResources().getColor(R.color.progress));
 		connectionState.setText(getResources().getString(R.string.connecting));
+	}
+	
+	public void info(){
+		if(View.GONE == containerConnection.getVisibility()){
+			containerConnection.setVisibility(View.VISIBLE);
+		}
+		connectionState.setBackgroundColor(getResources().getColor(R.color.violet_circle));
+		connectionState.setText(getResources().getString(R.string.re_connect));
 	}
 
 	public void connected(){

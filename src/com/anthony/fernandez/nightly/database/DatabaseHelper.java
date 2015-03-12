@@ -32,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String KEY_IMAGE_URL = "IMAGE";
 	private static final String KEY_TOKEN = "TOKEN";
 	private static final String KEY_GCM = "GCM";
-	private static final String KEY_LAST_CONNECTION = "LAST_CONNECTION"; //long - timestamp
+	private static final String KEY_LAST_TOKEN_UPDATE = "LAST_CONNECTION"; //long - timestamp
 
 	//CONVERSATION
 	private static final String KEY_ID_CONV_LOCAL = "_ID_CONV_LOCAL";
@@ -56,27 +56,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String KEY_REFERENCE_USER = "_REF_USER";
 	private static final String KEY_ID_ALARM_LOCAL = "_ID_ALARM_LOCAL";
 	private static final String KEY_ID_ALARM_SERVER = "_ID_ALAMR_SERVER";
-	private static final String KEY_TIME_LUNDI = "TIME_LUNDI";
-	private static final String KEY_CAT_LUNDI = "CAT_LUNDI";
-	private static final String KEY_ACTIVE_LUNDI = "ACTIVE_LUNDI";
-	private static final String KEY_TIME_MARDI = "TIME_MARDI";
-	private static final String KEY_CAT_MARDI = "CAT_MARDI";
-	private static final String KEY_ACTIVE_MARDI = "ACTIVE_MARDI";
-	private static final String KEY_TIME_MERCREDI = "TIME_MERCREDI";
-	private static final String KEY_CAT_MERCREDI = "CAT_MERCREDI";
-	private static final String KEY_ACTIVE_MERCREDI = "ACTIVE_MERCREDI";
-	private static final String KEY_TIME_JEUDI = "TIME_JEUDI";
-	private static final String KEY_CAT_JEUDI = "CAT_JEUDI";
-	private static final String KEY_ACTIVE_JEUDI = "ACTIVE_JEUDI";
-	private static final String KEY_TIME_VENDREDI = "TIME_VENDREDI";
-	private static final String KEY_CAT_VENDREDI = "CAT_VENDREDI";
-	private static final String KEY_ACTIVE_VENDREDI = "ACTIVE_VENDREDI";
-	private static final String KEY_TIME_SAMEDI = "TIME_SAMEDI";
-	private static final String KEY_CAT_SAMEDI = "CAT_SAMEDI";
-	private static final String KEY_ACTIVE_SAMEDI = "ACTIVE_SAMEDI";
-	private static final String KEY_TIME_DIMANCHE = "TIME_DIMANCHE";
-	private static final String KEY_CAT_DIMANCHE = "CAT_DIMANCHE";
-	private static final String KEY_ACTIVE_DIMANCHE = "ACTIVE_DIMANCHE";
+	private static final String KEY_TIME_TIME = "TIME_TIME";
+	private static final String KEY_CAT_TIME= "CAT_TIME";
+	private static final String KEY_ACTIVE_TIME = "ACTIVE_TIME";
 
 	public static DatabaseHelper getInstance(Context ctx) {
 		if (mInstance == null) {
@@ -102,7 +84,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				+ KEY_LASTNAME + " TEXT,"
 				+ KEY_LANGUAGE + " TEXT,"
 				+ KEY_IMAGE_URL + " TEXT,"
-				+ KEY_LAST_CONNECTION + " DATETIME DEFAULT CURRENT_TIMESTAMP )";
+				+ KEY_LAST_TOKEN_UPDATE + " DATETIME DEFAULT CURRENT_TIMESTAMP )";
 		db.execSQL(CREATE_TABLE_USER);
 
 		String CREATE_TABLE_ALARM_CLOCK = "CREATE TABLE " 
@@ -110,27 +92,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				+ KEY_ID_ALARM_LOCAL + " INTEGER PRIMARY KEY AUTOINCREMENT,"
 				+ KEY_ID_ALARM_SERVER + " TEXT,"
 				+ KEY_REFERENCE_USER + " INTEGER," 
-				+ KEY_TIME_LUNDI + " TEXT DEFAULT \'22:30\',"
-				+ KEY_CAT_LUNDI + " TEXT,"
-				+ KEY_ACTIVE_LUNDI + " INTEGER,"
-				+ KEY_TIME_MARDI + " TEXT DEFAULT \'22:30\',"
-				+ KEY_CAT_MARDI + " TEXT,"
-				+ KEY_ACTIVE_MARDI + " INTEGER,"
-				+ KEY_TIME_MERCREDI + " TEXT DEFAULT \'22:30\',"
-				+ KEY_CAT_MERCREDI + " TEXT,"
-				+ KEY_ACTIVE_MERCREDI + " INTEGER,"
-				+ KEY_TIME_JEUDI + " TEXT DEFAULT \'22:30\',"
-				+ KEY_CAT_JEUDI + " TEXT,"
-				+ KEY_ACTIVE_JEUDI + " INTEGER,"
-				+ KEY_TIME_VENDREDI + " TEXT DEFAULT \'23:30\',"
-				+ KEY_CAT_VENDREDI + " TEXT,"
-				+ KEY_ACTIVE_VENDREDI + " INTEGER,"
-				+ KEY_TIME_SAMEDI + " TEXT DEFAULT \'00:00\',"
-				+ KEY_CAT_SAMEDI + " TEXT,"
-				+ KEY_ACTIVE_SAMEDI + " INTEGER,"
-				+ KEY_TIME_DIMANCHE + " TEXT, "
-				+ KEY_CAT_DIMANCHE + " TEXT DEFAULT \'22:30\',"
-				+ KEY_ACTIVE_DIMANCHE + " INTEGER,"
+				+ KEY_TIME_TIME + " TEXT DEFAULT \'22:30\',"
+				+ KEY_CAT_TIME + " TEXT,"
+				+ KEY_ACTIVE_TIME + " INTEGER,"
 				+"FOREIGN KEY("+KEY_REFERENCE_USER+") REFERENCES "+TABLE_CUSTOMER+"("+KEY_ID_USER_SERVER+") "+")";	
 		db.execSQL(CREATE_TABLE_ALARM_CLOCK);
 	}
@@ -153,16 +117,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	public long addUser(){
+		Long connectionTime = System.currentTimeMillis()/1000;
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(KEY_ID_USER_SERVER, GlobalVars.currentUser._idServer);
 		values.put(KEY_TOKEN, GlobalVars.currentUser.token);
 		values.put(KEY_GCM, GlobalVars.currentUser.gmc);
 		values.put(KEY_EMAIL, GlobalVars.currentUser.email);
-		values.put(KEY_FIRSTNAME, GlobalVars.currentUser.firstname);
-		values.put(KEY_LASTNAME, GlobalVars.currentUser.lastname);
+//		values.put(KEY_FIRSTNAME, GlobalVars.currentUser.firstname);
+//		values.put(KEY_LASTNAME, GlobalVars.currentUser.lastname);
+		values.put(KEY_FIRSTNAME, "anthony");
+		values.put(KEY_LASTNAME, "fernandez");
 		values.put(KEY_IMAGE_URL, GlobalVars.currentUser.imgURL);
-		values.put(KEY_LAST_CONNECTION, System.currentTimeMillis());
+		values.put(KEY_LAST_TOKEN_UPDATE, connectionTime);
 
 		long idUser = db.insert(TABLE_CUSTOMER, null, values);
 
@@ -177,25 +144,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return retour;
 	}
 
-	public void updateUser(String _idUserServer, long connectionTime, String token){
+	public void updateUser(String _idUserServer, String token){
+		Long connectionTime = System.currentTimeMillis()/1000;
 		SQLiteDatabase db = this.getWritableDatabase();
 		String strFilter = KEY_ID_USER_SERVER+"='" + _idUserServer+"'";
 		ContentValues values = new ContentValues();
-		values.put(KEY_LAST_CONNECTION, connectionTime);
+		values.put(KEY_LAST_TOKEN_UPDATE, connectionTime);
 		values.put(KEY_TOKEN, token);
 		db.update(TABLE_CUSTOMER, values, strFilter, null);
 		db.close();
 	}
 
-	public void updateUser(String _idUserServer, long connectionTime){
-		SQLiteDatabase db = this.getWritableDatabase();
-		String strFilter = KEY_ID_USER_SERVER+"='" + _idUserServer+"'";
-		ContentValues values = new ContentValues();
-		values.put(KEY_LAST_CONNECTION, connectionTime);
-		db.update(TABLE_CUSTOMER, values, strFilter, null);
-		db.close();
-	}
-	
 	public boolean isUserAlreadyStored(String _idUserServer){
 		SQLiteDatabase db = this.getWritableDatabase();
 		String selectQueryItems = "SELECT COUNT("+KEY_ID_USER_LOCAL+") FROM " + TABLE_CUSTOMER+" WHERE " + KEY_ID_USER_SERVER + "='" + _idUserServer+"'";
@@ -203,10 +162,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		if(cursorItems.moveToFirst()){
 			if(cursorItems.getInt(0) == 0){
 				Log.d("Nightly", "isUserAlreadyStored return false");
+				cursorItems.close();
 				db.close();
 				return false;
 			} else {
 				Log.d("Nightly", "isUserAlreadyStored return true");
+				cursorItems.close();
 				db.close();
 				return true;
 			}
@@ -214,6 +175,76 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			Log.d("Nightly", "isUserAlreadyStored error");
 			return false;
 		}
+	}
+	
+	public boolean isUserAlreadyStoredByEmail(String email){
+		SQLiteDatabase db = this.getWritableDatabase();
+		String selectQueryItems = "SELECT COUNT("+KEY_ID_USER_LOCAL+") FROM " + TABLE_CUSTOMER+" WHERE " + KEY_EMAIL + "='" + email+"'";
+		Cursor cursorItems = db.rawQuery(selectQueryItems, null);
+		if(cursorItems.moveToFirst()){
+			if(cursorItems.getInt(0) == 0){
+				Log.d("Nightly", "isUserAlreadyStored return false");
+				cursorItems.close();
+				db.close();
+				return false;
+			} else {
+				Log.d("Nightly", "isUserAlreadyStored return true");
+				cursorItems.close();
+				db.close();
+				return true;
+			}
+		} else {
+			Log.d("Nightly", "isUserAlreadyStored error");
+			return false;
+		}
+	}
+	
+	public void getAllCurrentUserInfos(String email){
+		SQLiteDatabase db = this.getWritableDatabase();
+		String selectQueryItems = "SELECT * FROM " + TABLE_CUSTOMER+" WHERE " + KEY_EMAIL + "='" + email+"'";
+		Cursor cursorItems = db.rawQuery(selectQueryItems, null);
+		if(cursorItems.moveToFirst()){
+			do{
+				GlobalVars.currentUser._idLocal = cursorItems.getInt(0);
+				GlobalVars.currentUser._idServer = cursorItems.getString(1);
+				GlobalVars.currentUser.token = cursorItems.getString(2);
+				GlobalVars.currentUser.email = cursorItems.getString(4);
+				GlobalVars.currentUser.firstname = cursorItems.getString(5);
+				GlobalVars.currentUser.imgURL = cursorItems.getString(8);
+				GlobalVars.currentUser.language = cursorItems.getString(7);
+				GlobalVars.currentUser.lastname = cursorItems.getString(6);
+			} while (cursorItems.moveToNext());
+		}
+		cursorItems.close();
+		db.close();
+	}
+	
+	public GlobalVars.CurrentUserConnected getLastConnectedUser(){
+		GlobalVars.CurrentUserConnected user = null;
+		SQLiteDatabase db = this.getWritableDatabase();
+		String selectQueryItems = "SELECT USERS."+KEY_EMAIL+", USERS."+KEY_FIRSTNAME+", USERS."+KEY_LASTNAME+", USERS."+KEY_LAST_TOKEN_UPDATE+" FROM " + TABLE_CUSTOMER
+				+" JOIN (SELECT "+KEY_EMAIL+", "+KEY_FIRSTNAME+", "+KEY_LASTNAME+", MAX("+KEY_LAST_TOKEN_UPDATE+") AS "+KEY_LAST_TOKEN_UPDATE+" FROM " 
+				+TABLE_CUSTOMER+" GROUP BY " +KEY_EMAIL
+				+ ") T2 ON USERS."+KEY_EMAIL+"= T2."+KEY_EMAIL 
+				+" AND USERS."+ KEY_FIRSTNAME  + "= T2."+ KEY_FIRSTNAME 
+				+" AND USERS."+KEY_LASTNAME + "= T2."+KEY_LASTNAME
+				+" AND USERS."+ KEY_LAST_TOKEN_UPDATE + "= T2."+ KEY_LAST_TOKEN_UPDATE
+				+ ""; 
+		Cursor cursorItems = db.rawQuery(selectQueryItems, null);
+		if(cursorItems.moveToFirst()){
+			do{
+				user = new GlobalVars.CurrentUserConnected();
+				user.email = cursorItems.getString(0);
+				user.firstname = cursorItems.getString(1);
+				user.lastname = cursorItems.getString(2);
+				user.lastTokenUpdate = cursorItems.getLong(3);
+				Log.d("Nightly", "user.lastTokenUpdate = " + user.lastTokenUpdate);
+				Log.d("Nightly", "user.email = " + user.email );
+			} while (cursorItems.moveToNext());
+		}
+		cursorItems.close();
+		db.close();
+		return user;
 	}
 
 	public void addConversation(){
@@ -237,7 +268,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	public void initAlamrForUser(int _idUserLocal, int _idUserServer){
-
+		
 	}
 
 	public void setTimeLundi(String time){

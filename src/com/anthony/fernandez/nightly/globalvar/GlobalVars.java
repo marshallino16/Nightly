@@ -33,6 +33,13 @@ public class GlobalVars extends Application {
 		public String imgURL;
 		public Bitmap pofilImg;
 		public boolean gender;
+		
+		//Only use to reconnect user 
+		/**
+		 * if timestamp valid -> continue as
+		 * else reconnect with pre-filled fields
+		 */
+		public long lastTokenUpdate;
 	}
 
 }

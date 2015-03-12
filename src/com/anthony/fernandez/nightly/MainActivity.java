@@ -233,6 +233,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 		if (!prefs.getBoolean("firstrun", true)) {
 			prefs.edit().putBoolean("firstrun", true).commit();
 		}
+		GlobalVars.currentUser = null;
 		callFacebookLogout(context);
 		this.finish();
 	}

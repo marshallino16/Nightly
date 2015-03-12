@@ -115,6 +115,7 @@ public class DatabaseManager {
 		}
 	}
 	
+	@Deprecated
 	public GlobalVars.CurrentUserConnected getLastConnectedUser(){
 		databaseHelper = getDBAccess();
 		try {

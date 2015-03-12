@@ -13,6 +13,7 @@ import android.util.Log;
 import com.anthony.fernandez.nightly.R;
 import com.anthony.fernandez.nightly.api.ParametersApi;
 import com.anthony.fernandez.nightly.api.UrlApi;
+import com.anthony.fernandez.nightly.database.DatabaseHelper;
 import com.anthony.fernandez.nightly.database.DatabaseManager;
 import com.anthony.fernandez.nightly.enums.DaysOfWeek;
 import com.anthony.fernandez.nightly.globalvar.GlobalVars;
@@ -78,7 +79,6 @@ public class TaskManager {
 				} else {
 					GlobalVars.currentUser = new CurrentUserConnected();
 					GlobalVars.currentUser.token = jsonData.getString(ParametersApi.ACCESS_TOKEN);
-					Log.w("Nightly", "GlobalVars.currentUser.token = " +GlobalVars.currentUser.token);
 					listener.onConnectionAccepted();
 				}
 			} catch (JSONException e) {
@@ -118,6 +118,7 @@ public class TaskManager {
 						 * 
 						 */
 						if(!getDBAccess().isUserAlreadyStored(GlobalVars.currentUser._idServer)){
+							context.deleteDatabase(DatabaseHelper.DATABASE_NAME);
 							getDBAccess().createUser();
 						}
 						listener.OnUserInfo();
@@ -130,6 +131,7 @@ public class TaskManager {
 	}
 
 	public void register(String firstname, String lastname, String email, String password, byte[] profilPhoto, long birthDate, boolean sexe, String country, String phoneNumber){
+		context.deleteDatabase(DatabaseHelper.DATABASE_NAME);
 	}
 
 	public void updateProfil(String firstname, String lastname, String email, String password, byte[] profilPhoto, long birthDate, boolean sexe, String country, String phoneNumber){

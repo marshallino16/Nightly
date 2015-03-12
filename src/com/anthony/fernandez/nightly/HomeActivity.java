@@ -26,9 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.anthony.fernandez.nightly.database.DatabaseManager;
 import com.anthony.fernandez.nightly.gcm.GCMUtils;
-import com.anthony.fernandez.nightly.globalvar.GlobalVars;
 import com.anthony.fernandez.nightly.task.listener.OnFbAuthCompleted;
 import com.anthony.fernandez.nightly.util.Utils;
 import com.facebook.Request;
@@ -102,33 +100,23 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 			// Otherwise, prompt user to get valid Play Services APK.
 		}
 	
-		GlobalVars.CurrentUserConnected userSupposed = DatabaseManager.getInstance(getApplicationContext()).getLastConnectedUser();
-		if(userSupposed != null){
-			Long nowTime = System.currentTimeMillis()/1000;
-			Long difference = nowTime - userSupposed.lastTokenUpdate;
-			if(difference <= 3600){
-				Intent intentContinue = new Intent(HomeActivity.this, ContinueAsActivity.class);
-				intentContinue.putExtra("email", userSupposed.email);
-				intentContinue.putExtra("firstname", userSupposed.firstname);
-				intentContinue.putExtra("lastname", userSupposed.lastname);
-				this.startActivity(intentContinue);
-			} else {
-				Intent intentLogin = new Intent(HomeActivity.this, LoginActivity.class);
-				intentLogin.putExtra("email", userSupposed.email);
-				this.startActivity(intentLogin);
-			}
-		} 
+		// ONLY used to handle several client, not the case now, everything is sync from server 
+//		GlobalVars.CurrentUserConnected userSupposed = DatabaseManager.getInstance(getApplicationContext()).getLastConnectedUser();
 //		if(userSupposed != null){
 //			Long nowTime = System.currentTimeMillis()/1000;
 //			Long difference = nowTime - userSupposed.lastTokenUpdate;
 //			if(difference <= 3600){
+//				Intent intentContinue = new Intent(HomeActivity.this, ContinueAsActivity.class);
+//				intentContinue.putExtra("email", userSupposed.email);
+//				intentContinue.putExtra("firstname", userSupposed.firstname);
+//				intentContinue.putExtra("lastname", userSupposed.lastname);
+//				this.startActivity(intentContinue);
+//			} else {
 //				Intent intentLogin = new Intent(HomeActivity.this, LoginActivity.class);
 //				intentLogin.putExtra("email", userSupposed.email);
-//				intentLogin.putExtra("firstname", userSupposed.firstname);
-//				intentLogin.putExtra("lastname", userSupposed.lastname);
 //				this.startActivity(intentLogin);
 //			}
-//		}
+//		} 
 	}
 
 	@Override

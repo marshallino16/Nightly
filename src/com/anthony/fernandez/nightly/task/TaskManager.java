@@ -23,6 +23,8 @@ import com.anthony.fernandez.nightly.model.RequestReturn;
 import com.anthony.fernandez.nightly.task.listener.OnConnectListener;
 import com.anthony.fernandez.nightly.task.listener.OnGCMRegistered;
 import com.anthony.fernandez.nightly.task.listener.OnGettingUserInfo;
+import com.anthony.fernandez.nightly.task.listener.OnUserClockSet;
+import com.anthony.fernandez.nightly.task.listener.OnUserLanguageSet;
 
 public class TaskManager {
 
@@ -129,6 +131,62 @@ public class TaskManager {
 			}
 		}
 	}
+	
+	public void setLanguage(String language, OnUserLanguageSet listener){
+		if(null != GlobalVars.currentUser){
+			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+			nameValuePairs.add(new BasicNameValuePair(ParametersApi.LANGUAGE, language));
+
+			if(null != requestSender){
+				RequestReturn retour = requestSender.sendRequestPost(UrlApi.URL_API_BASE, UrlApi.SET_USER_LANGUAGE, nameValuePairs, GlobalVars.currentUser.token);
+				if(200 != retour.code){
+					Log.d("Nightly", "result = " +retour.json);
+					try {
+						JSONObject jsonData = new JSONObject(retour.json);
+						if(jsonData.has("error")){
+							listener.OnLanguageSetFailed(jsonData.getString("error"));
+						} else {
+							listener.OnLanguageSetFailed(context.getResources().getString(R.string.error_occured));
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}else{
+					listener.OnLanguageSet();
+				}
+			}
+		}
+	}
+	
+	public void setClock(DaysOfWeek day, int hour, int minutes, boolean active, String category, OnUserClockSet listener){
+		if(null != GlobalVars.currentUser){
+			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+			nameValuePairs.add(new BasicNameValuePair(ParametersApi.DAY, String.valueOf(day.numOfDay)));
+			nameValuePairs.add(new BasicNameValuePair(ParametersApi.HOUR, String.valueOf(hour)));
+			nameValuePairs.add(new BasicNameValuePair(ParametersApi.MINUTE, String.valueOf(minutes)));
+			nameValuePairs.add(new BasicNameValuePair(ParametersApi.ACTIVE, String.valueOf(active)));
+			nameValuePairs.add(new BasicNameValuePair(ParametersApi.CATEGORIE, category));
+
+			if(null != requestSender){
+				RequestReturn retour = requestSender.sendRequestPost(UrlApi.URL_API_BASE, UrlApi.ADD_USER_CLOCK, nameValuePairs, GlobalVars.currentUser.token);
+				if(200 != retour.code){
+					Log.d("Nightly", "result = " +retour.json);
+					try {
+						JSONObject jsonData = new JSONObject(retour.json);
+						if(jsonData.has("error")){
+							listener.OnClockSetFailed(jsonData.getString("error"));
+						} else {
+							listener.OnClockSetFailed(context.getResources().getString(R.string.error_occured));
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}else{
+					listener.OnClockSet();
+				}
+			}
+		}
+	}
 
 	public void register(String firstname, String lastname, String email, String password, byte[] profilPhoto, long birthDate, boolean sexe, String country, String phoneNumber){
 		context.deleteDatabase(DatabaseHelper.DATABASE_NAME);
@@ -150,7 +208,17 @@ public class TaskManager {
 			if(null != requestSender){
 				RequestReturn retour = requestSender.sendRequestPost(UrlApi.URL_API_BASE, UrlApi.SET_GCM_ID, nameValuePairs, GlobalVars.currentUser.token);
 				if(200 != retour.code){
-					listener.OnGCMRegisterFailed(context.getResources().getString(R.string.error_occured));
+					Log.d("Nightly", "result = " +retour.json);
+					try {
+						JSONObject jsonData = new JSONObject(retour.json);
+						if(jsonData.has("error")){
+							listener.OnGCMRegisterFailed(jsonData.getString("error"));
+						} else {
+							listener.OnGCMRegisterFailed(context.getResources().getString(R.string.error_occured));
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
 				}else{
 					listener.OnGCMRegister();
 				}

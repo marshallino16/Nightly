@@ -6,8 +6,9 @@ public class Message {
 
 	private long _id;
 	private long dateSend;
-	private int numberLove;
-	private boolean isPending = false; //0 = false, 1 = true IF true MUST BE RESENT
+	private long dateReceived;
+	private boolean isReceived;
+	private boolean isPending = false; //0 = false, 1 = true IF true MUST BE RESENT, ONLY USE IN LOCAL
 	private String message;
 	private MessageDirection direction;
 	
@@ -49,18 +50,6 @@ public class Message {
 		this.dateSend = dateSend;
 	}
 	/**
-	 * @return the numberLove
-	 */
-	public int getNumberLove() {
-		return numberLove;
-	}
-	/**
-	 * @param numberLove the numberLove to set
-	 */
-	public void setNumberLove(int numberLove) {
-		this.numberLove = numberLove;
-	}
-	/**
 	 * @return the message
 	 */
 	public String getMessage() {
@@ -87,5 +76,33 @@ public class Message {
 
 	public void setPending(boolean isPending) {
 		this.isPending = isPending;
+	}
+
+	/**
+	 * @return the dateReceived
+	 */
+	public long getDateReceived() {
+		return dateReceived;
+	}
+
+	/**
+	 * @param dateReceived the dateReceived to set
+	 */
+	public void setDateReceived(long dateReceived) {
+		this.dateReceived = dateReceived;
+	}
+
+	/**
+	 * @return the isReceived
+	 */
+	public boolean isReceived() {
+		return isReceived;
+	}
+
+	/**
+	 * @param isReceived the isReceived to set
+	 */
+	public void setReceived(boolean isReceived) {
+		this.isReceived = isReceived;
 	}
 }

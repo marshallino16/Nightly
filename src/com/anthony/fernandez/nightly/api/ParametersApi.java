@@ -4,7 +4,7 @@ public interface ParametersApi {
 	
 	public final static String GCM_DEVICE_ID = "gcm_device_id";
 	public final static String AUTHORIZATION = "authorization";
-	public final static String CATEGORIE = "categorie";
+	public final static String CATEGORIE = "category";
 	public final static String HOUR = "hour";
 	public final static String MINUTE = "minute";
 	public final static String DAY = "day";

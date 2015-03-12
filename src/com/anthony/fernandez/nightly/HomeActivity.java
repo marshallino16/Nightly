@@ -122,6 +122,10 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 				this.startActivity(intentContinue);
 			} else {
 				new AsyncTask<Void, Void, Void>() {
+					
+					protected void onPostExecute(Void result) {
+						enableSplashScreen();
+					};
 
 					@Override
 					protected Void doInBackground(Void... arg0) {
@@ -158,11 +162,13 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 	public void enableSplashScreen(){
 		if(mainContainer.findViewById(R.id.splashContainer) == null){
 			enableDisableView(mainContainer, false);
+			((TextView)mainContainer.findViewById(R.id.messageWait)).setText(getResources().getString(R.string.connecting));
+			mainContainer.findViewById(R.id.stop).setVisibility(View.GONE);
 			mainContainer.addView(splashScreen, mainContainer.getChildCount());
 		}
 	}
 
-	public void disableSplashScreen(View v){
+	public void disableSplashScreen(){
 		runOnUiThread(new Runnable() {
 
 			@Override
@@ -313,6 +319,7 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 			
 			@Override
 			public void run() {
+				disableSplashScreen();
 				Intent intent = new Intent(HomeActivity.this, MainActivity.class);
 				startActivity(intent);
 			}
@@ -325,6 +332,7 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 			
 			@Override
 			public void run() {
+				disableSplashScreen();
 				Utils.createToast(getApplicationContext(), reason);
 			}
 		});

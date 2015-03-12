@@ -3,7 +3,6 @@ package com.anthony.fernandez.nightly;
 import java.io.IOException;
 import java.util.List;
 import java.util.Vector;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -32,6 +31,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.anthony.fernandez.nightly.adapter.InitPagerAdapter;
 import com.anthony.fernandez.nightly.api.GCMParams;
 import com.anthony.fernandez.nightly.database.DatabaseHelper;
+import com.anthony.fernandez.nightly.enums.DaysOfWeek;
 import com.anthony.fernandez.nightly.fragment.LeftPanel;
 import com.anthony.fernandez.nightly.fragment.RightPanel;
 import com.anthony.fernandez.nightly.gcm.GCMUtils;
@@ -54,14 +54,12 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	public static final String PROPERTY_REG_ID = "registration_id";
 	private static final String PROPERTY_APP_VERSION = "appVersion";
 
-	String SENDER_ID = "926014171825";
+	private String SENDER_ID = "926014171825";
+	private GoogleCloudMessaging gcm;
+	private SharedPreferences prefs;
+	private String regid;
 
-	GoogleCloudMessaging gcm;
-	AtomicInteger msgId = new AtomicInteger();
-	SharedPreferences prefs;
-
-	String regid;
-
+	//task
 	private TaskManager taskManager = null;
 
 	//Views
@@ -72,7 +70,9 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	private LayoutInflater inflater;
 	private View splashScreen;
 
+	//clock
 	private TextView currentDay = null;
+	private DaysOfWeek dayOfWeek = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -216,10 +216,20 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	}
 
 	@Override
-	public void onDialogTimeSet(int reference, int hourOfDay, int minute) {
+	public void onDialogTimeSet(final int reference, final int hourOfDay, final int minute) {
 		Log.w("Nightly" , "" + hourOfDay + ":" + minute);
 		currentDay.setText(""+hourOfDay+":"+minute);
-		currentDay = null;
+		
+		new AsyncTask<Void, Void, Void>() {
+			
+			//waitBar
+			
+			@Override
+			protected Void doInBackground(Void... arg0) {
+				taskManager.setClock(dayOfWeek, hourOfDay, minute, true, "54dd06a2839e17a314eee65e", MainActivity.this);
+				return null;
+			}
+		}.execute();
 	}
 
 	private void pickSleepingTime(){
@@ -309,36 +319,43 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 
 	public void lundi(View v){
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).lundi;
+		dayOfWeek = DaysOfWeek.LUNDI;
 		pickSleepingTime();
 	}
 
 	public void mardi(View v){
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).mardi;
+		dayOfWeek = DaysOfWeek.MARDI;
 		pickSleepingTime();
 	}
 
 	public void mercredi(View v){
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).mercredi;
+		dayOfWeek = DaysOfWeek.MERCREDI;
 		pickSleepingTime();
 	}
 
 	public void jeudi(View v){
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).jeudi;
+		dayOfWeek = DaysOfWeek.JEUDI;
 		pickSleepingTime();
 	}
 
 	public void vendredi(View v){
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).vendredi;
+		dayOfWeek = DaysOfWeek.VENDREDI;
 		pickSleepingTime();
 	}
 
 	public void samedi(View v){
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).samedi;
+		dayOfWeek = DaysOfWeek.SAMEDI;
 		pickSleepingTime();
 	}
 
 	public void dimanche(View v){
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).dimanche;
+		dayOfWeek = DaysOfWeek.DIMANCHE;
 		pickSleepingTime();
 	}
 
@@ -533,11 +550,21 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 
 	@Override
 	public void OnAlarmClockAdd() {
+		dayOfWeek = null;
+		currentDay = null;
+		runOnUiThread(new Runnable() {
 
+			@Override
+			public void run() {
+				Utils.createToast(getApplicationContext(), "Alarm set successfuly");
+			}
+		});
 	}
 
 	@Override
 	public void OnAlarmClockAddFailed(final String reason) {
+		dayOfWeek = null;
+		currentDay = null;
 		runOnUiThread(new Runnable() {
 
 			@Override

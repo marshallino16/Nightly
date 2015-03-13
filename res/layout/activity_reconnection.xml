@@ -24,7 +24,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:padding="10dp"
-        android:text="@string/picking_up"
+        android:text="@string/re_connect"
+        android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/white" />
 
@@ -35,28 +36,10 @@
         android:layout_below="@+id/messageWait"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
-        android:gravity="center"
         android:padding="10dp"
+        android:gravity="center"
         android:text="@string/wait_please"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@android:color/white" />
-
-    <Button
-        android:id="@+id/stop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:alpha="0.8"
-        android:background="@drawable/btn_facebook"
-        android:gravity="center"
-        android:onClick="disableSplashScreen"
-        android:padding="10dp"
-        android:text="@string/cancel"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/white" />
 
 </RelativeLayout>

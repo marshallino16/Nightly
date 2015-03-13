@@ -20,14 +20,14 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.anthony.fernandez.nightly.globalvar.GlobalVars;
 import com.anthony.fernandez.nightly.task.TaskManager;
 import com.anthony.fernandez.nightly.task.listener.OnConnectListener;
 import com.anthony.fernandez.nightly.task.listener.OnGettingUserInfo;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-public class LoginActivity extends SherlockActivity implements OnConnectListener, OnGettingUserInfo {
+public class LoginActivity extends SherlockFragmentActivity implements OnConnectListener, OnGettingUserInfo {
 
 	private AutoCompleteTextView email;
 	private EditText password;
@@ -53,7 +53,7 @@ public class LoginActivity extends SherlockActivity implements OnConnectListener
 		tintManager.setNavigationBarTintEnabled(true);
 		tintManager.setTintColor(getResources().getColor(R.color.blue_crepuscule));
 
-		taskManager = new TaskManager(this);
+		taskManager = new TaskManager(LoginActivity.this);
 
 		email = (AutoCompleteTextView)findViewById(R.id.email);
 		password = (EditText)findViewById(R.id.password);

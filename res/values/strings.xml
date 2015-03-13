@@ -29,7 +29,7 @@
     <string name="connected">connecté</string>
     <string name="continue_as">continué en tant que \n <i> %1$s %2$s </i></string>
     <string name="not_you">- ce n\'est pas vous ?</string>
-    <string name="re_connect">la connexion était innactive, veuillez vous reconnecter</string>
+    <string name="re_connect">la connexion était innactive,\nreconnexion en cours</string>
 
     <!-- errors -->
     <string name="bad_email">adresse email invalide</string>
@@ -130,5 +130,6 @@
 
     <string name="title_activity_tutorial">TutorialActivity</string>
     <string name="title_activity_continue_as">ContinueAsActivity</string>
+    <string name="title_activity_reconnection">ReconnectionActivity</string>
 
 </resources>

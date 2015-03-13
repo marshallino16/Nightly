@@ -52,4 +52,9 @@ public interface ParametersApi {
 	public final static String BLACKLIST = "blacklist";
 	public final static String CLOCKS = "clocks";
 	public final static String CREATED = "created";
+	
+	/**
+	 * error code
+	 */
+	public final static String BAD_TOKEN = "Bad Token";
 }

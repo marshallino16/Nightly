@@ -118,7 +118,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 		tintManager.setNavigationBarTintEnabled(true);
 		tintManager.setTintColor(getResources().getColor(R.color.facebook));
 
-		taskManager = new TaskManager(getApplicationContext());
+		taskManager = new TaskManager(MainActivity.this);
 		fragments = new Vector<Object>();
 
 		// Ajout des Fragments dans la liste

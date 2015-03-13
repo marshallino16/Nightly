@@ -8,9 +8,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.anthony.fernandez.nightly.R;
+import com.anthony.fernandez.nightly.ReconnectionActivity;
 import com.anthony.fernandez.nightly.api.ParametersApi;
 import com.anthony.fernandez.nightly.api.UrlApi;
 import com.anthony.fernandez.nightly.database.DatabaseHelper;
@@ -35,7 +39,7 @@ public class TaskManager {
 		this.requestSender = new RequestSender();
 		this.context = ctx;
 	}
-	
+
 	private synchronized DatabaseManager getDBAccess() {
 		return DatabaseManager.getInstance(context);
 	}
@@ -96,6 +100,7 @@ public class TaskManager {
 
 			if(null != requestSender){
 				RequestReturn retour = requestSender.sendRequestGet(UrlApi.URL_API_BASE, UrlApi.GET_USER_INFOS, nameValuePairs);
+				//TODO handle error code
 				if(200 != retour.code){
 					listener.OnUserInfoFailed(context.getResources().getString(R.string.error_occured));
 				}
@@ -117,7 +122,7 @@ public class TaskManager {
 						GlobalVars.currentUser.lastname = jsonData.getString(ParametersApi.LASTNAME);
 						//TODO gender
 						//TODO img profil
-						
+
 						if(!getDBAccess().isUserAlreadyStored(GlobalVars.currentUser._idServer)){
 							context.deleteDatabase(DatabaseHelper.DATABASE_NAME);
 							getDBAccess().createUser();
@@ -130,7 +135,7 @@ public class TaskManager {
 			}
 		}
 	}
-	
+
 	@Deprecated 
 	/**
 	 * Api level 0.1 include this into edit user 
@@ -149,7 +154,11 @@ public class TaskManager {
 					try {
 						JSONObject jsonData = new JSONObject(retour.json);
 						if(jsonData.has("error")){
-							listener.OnLanguageSetFailed(jsonData.getString("error"));
+							if(jsonData.getString("error").equals(ParametersApi.BAD_TOKEN)){
+								launchReconnectActivity();
+							} else{
+								listener.OnLanguageSetFailed(jsonData.getString("error"));
+							}
 						} else {
 							listener.OnLanguageSetFailed(context.getResources().getString(R.string.error_occured));
 						}
@@ -162,7 +171,7 @@ public class TaskManager {
 			}
 		}
 	}
-	
+
 	public void setClock(DaysOfWeek day, int hour, int minutes, boolean active, String category, OnAlarmClockAdded listener){
 		if(null != GlobalVars.currentUser){
 			int activeInteger = (active) ? 1 : 0;
@@ -180,7 +189,11 @@ public class TaskManager {
 					try {
 						JSONObject jsonData = new JSONObject(retour.json);
 						if(jsonData.has("error")){
-							listener.OnAlarmClockAddFailed(jsonData.getString("error"));
+							if(jsonData.getString("error").equals(ParametersApi.BAD_TOKEN)){
+								launchReconnectActivity();
+							} else{
+								listener.OnAlarmClockAddFailed(jsonData.getString("error"));
+							}
 						} else {
 							listener.OnAlarmClockAddFailed(context.getResources().getString(R.string.error_occured));
 						}
@@ -202,7 +215,7 @@ public class TaskManager {
 	}
 
 	public void updateClockAlarm(int hours, int minutes, DaysOfWeek dayOfWeek, Category category, boolean isActive){
-		
+
 	}
 
 	public void sendGCMRegistrationID(String regID, OnGCMRegistered listener){
@@ -218,7 +231,11 @@ public class TaskManager {
 					try {
 						JSONObject jsonData = new JSONObject(retour.json);
 						if(jsonData.has("error")){
-							listener.OnGCMRegisterFailed(jsonData.getString("error"));
+							if(jsonData.getString("error").equals(ParametersApi.BAD_TOKEN)){
+								launchReconnectActivity();
+							} else{
+								listener.OnGCMRegisterFailed(jsonData.getString("error"));
+							}
 						} else {
 							listener.OnGCMRegisterFailed(context.getResources().getString(R.string.error_occured));
 						}
@@ -230,5 +247,16 @@ public class TaskManager {
 				}
 			}
 		}
+	}
+	
+	private void launchReconnectActivity(){
+		((SherlockFragmentActivity)context).runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				Intent intent = new Intent(context, ReconnectionActivity.class);
+				context.startActivity(intent);
+			}
+		});
 	}
 }

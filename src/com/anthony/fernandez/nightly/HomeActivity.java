@@ -72,7 +72,7 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 		tintManager.setNavigationBarTintEnabled(true);
 		tintManager.setTintColor(getResources().getColor(R.color.pink_circle));
 		
-		taskManager = new TaskManager(this);
+		taskManager = new TaskManager(HomeActivity.this);
 		
 		final TextView cluf = (TextView)findViewById(R.id.textCluf);
 		cluf.setText(Html.fromHtml("<u>"+getResources().getString(R.string.cluf)+"</u>"));

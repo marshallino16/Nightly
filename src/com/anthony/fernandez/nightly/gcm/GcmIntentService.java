@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.anthony.fernandez.nightly.MainActivity;
+import com.anthony.fernandez.nightly.HomeActivity;
 import com.anthony.fernandez.nightly.R;
 import com.anthony.fernandez.nightly.api.GCMParams;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -67,16 +67,17 @@ public class GcmIntentService extends IntentService {
 		mNotificationManager = (NotificationManager)
 				this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-		Intent intent = new Intent(this, MainActivity.class);
+		Intent intent = new Intent(this, HomeActivity.class);
 		intent.putExtra(GCMParams.CATEGORY, extras.getString(GCMParams.CATEGORY));
 		intent.putExtra(GCMParams.MESSAGE, extras.getString(GCMParams.MESSAGE));
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,intent, 0);
 
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
 		.setAutoCancel(true)
 		.setSmallIcon(R.drawable.ic_launcher)
-		.addAction(R.drawable.ic_see, "Marqué comme lu", contentIntent)
+		.addAction(R.drawable.ic_action_accept, "marquer comme lu", contentIntent)
+		.addAction(R.drawable.ic_action_new_blank, "bonsoir...", contentIntent)
 		.setContentTitle(this.getResources().getString(R.string.title_good_night))
 		.setStyle(new NotificationCompat.BigTextStyle()
 		.bigText(extras.getString(GCMParams.CATEGORY) + " \n" + extras.getString(GCMParams.MESSAGE)))

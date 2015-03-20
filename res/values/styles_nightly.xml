@@ -33,6 +33,7 @@
         <item name="windowContentOverlay">@null</item>
         <!-- Light.DarkActionBar specific -->
         <item name="actionBarWidgetTheme">@style/Theme.Nightly.Widget</item>
+        <item name="switchStyle">@style/switch_light</item>
     </style>
 
     <style name="ActionBar.Solid.Nightly" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">

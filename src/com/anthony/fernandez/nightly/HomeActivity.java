@@ -136,6 +136,13 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 			}
 		} 
 	}
+	
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		this.setIntent(intent);
+	}
 
 	@Override
 	protected void onResume() {

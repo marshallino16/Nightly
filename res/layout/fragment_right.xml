@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -60,7 +61,7 @@
                 android:layout_centerInParent="true"
                 android:background="@drawable/pillow_pink"
                 android:gravity="center"
-                android:text="11:40"
+                android:text="22:30"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/blue_background_dark"
                 android:textSize="28sp" />
@@ -123,7 +124,7 @@
                 android:layout_centerInParent="true"
                 android:background="@drawable/pillow_green"
                 android:gravity="center"
-                android:text="11:40"
+                android:text="22:30"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/blue_background_dark"
                 android:textSize="28sp" />
@@ -186,7 +187,7 @@
                 android:layout_centerInParent="true"
                 android:background="@drawable/pillow_blue"
                 android:gravity="center"
-                android:text="11:40"
+                android:text="22:30"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/blue_background_dark"
                 android:textSize="28sp" />
@@ -249,7 +250,7 @@
                 android:layout_centerInParent="true"
                 android:background="@drawable/pillow_yellow"
                 android:gravity="center"
-                android:text="11:40"
+                android:text="22:30"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/blue_background_dark"
                 android:textSize="28sp" />
@@ -312,7 +313,7 @@
                 android:layout_centerInParent="true"
                 android:background="@drawable/pillow_violet"
                 android:gravity="center"
-                android:text="11:40"
+                android:text="22:30"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/blue_background_dark"
                 android:textSize="28sp" />
@@ -375,7 +376,7 @@
                 android:layout_centerInParent="true"
                 android:background="@drawable/pillow_grey"
                 android:gravity="center"
-                android:text="11:40"
+                android:text="22:30"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/blue_background_dark"
                 android:textSize="28sp" />
@@ -437,7 +438,7 @@
                 android:layout_centerInParent="true"
                 android:background="@drawable/pillow_red"
                 android:gravity="center"
-                android:text="11:40"
+                android:text="22:30"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/blue_background_dark"
                 android:textSize="28sp" />

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.anthony.fernandez.nightly.enums.DaysOfWeek;
 import com.anthony.fernandez.nightly.globalvar.GlobalVars;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -59,6 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String KEY_ID_ALARM_SERVER = "_ID_ALAMR_SERVER";
 	private static final String KEY_TIME_TIME = "TIME_TIME";
 	private static final String KEY_CAT_TIME= "CAT_TIME";
+	private static final String KEY_DAY_WEEK = "DAY_WEEK";
 	private static final String KEY_ACTIVE_TIME = "ACTIVE_TIME";
 
 	public static DatabaseHelper getInstance(Context ctx) {
@@ -96,6 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				+ KEY_REFERENCE_USER + " INTEGER," 
 				+ KEY_TIME_TIME + " TEXT DEFAULT \'22:30\',"
 				+ KEY_CAT_TIME + " TEXT,"
+				+ KEY_DAY_WEEK + " INTEGER,"
 				+ KEY_ACTIVE_TIME + " INTEGER,"
 				+"FOREIGN KEY("+KEY_REFERENCE_USER+") REFERENCES "+TABLE_CUSTOMER+"("+KEY_ID_USER_SERVER+") "+")";	
 		db.execSQL(CREATE_TABLE_ALARM_CLOCK);
@@ -117,6 +120,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_ALARM);
 		onCreate(db);
 	}
+	
+	public void initAlarmClock(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		for(int i=0 ; i<7 ; ++i){
+			ContentValues values = new ContentValues();
+			values.put(KEY_REFERENCE_USER, GlobalVars.currentUser._idServer);
+			values.put(KEY_TIME_TIME, "22:30");
+			values.put(KEY_CAT_TIME, "54dd06a2839e17a314eee65e");
+			values.put(KEY_DAY_WEEK, i);
+			values.put(KEY_ACTIVE_TIME, 1);
+			db.insert(TABLE_ALARM, null, values);
+		}
+
+		db.close();
+	}
 
 	public long addUser(){
 		Long connectionTime = System.currentTimeMillis()/1000;
@@ -137,7 +155,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.close();
 		return idUser;
 	}
-
+	
 	public boolean deleteUser(String _idUserServer){
 		SQLiteDatabase db = this.getWritableDatabase();
 		boolean retour = db.delete(TABLE_CUSTOMER, KEY_ID_USER_SERVER + "='" + _idUserServer+"'", null) > 0;
@@ -284,63 +302,220 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	}
 
-	public void initAlamrForUser(int _idUserLocal, int _idUserServer){
-		
+	/**
+	 * 
+	 * @param time, can be @null 
+	 * @param active always seted
+	 * @param category can be @null
+	 */
+	public void setTimeLundi(String time, boolean active, String category){
+		SQLiteDatabase db = this.getWritableDatabase();
+		String strFilter = KEY_DAY_WEEK+"=" + DaysOfWeek.LUNDI.numOfDay+"";
+		ContentValues values = new ContentValues();
+		if(null != time){
+			values.put(KEY_TIME_TIME, time);
+		}
+		if(null != category){
+			values.put(KEY_ACTIVE_TIME, active);
+		}
+		values.put(KEY_CAT_TIME, category);
+		db.update(TABLE_ALARM, values, strFilter, null);
+		db.close();
 	}
 
-	public void setTimeLundi(String time){
-
+	public void setTimeMardi(String time, boolean active, String category){
+		SQLiteDatabase db = this.getWritableDatabase();
+		String strFilter = KEY_DAY_WEEK+"=" + DaysOfWeek.MARDI.numOfDay+"";
+		ContentValues values = new ContentValues();
+		if(null != time){
+			values.put(KEY_TIME_TIME, time);
+		}
+		if(null != category){
+			values.put(KEY_CAT_TIME, category);
+		}
+		int activeInteger = (active) ? 1 : 0;
+		values.put(KEY_ACTIVE_TIME, activeInteger);
+		db.update(TABLE_ALARM, values, strFilter, null);
+		db.close();
 	}
 
-	public void setTimeMardi(String time){
-
+	public void setTimeMercredi(String time, boolean active, String category){
+		SQLiteDatabase db = this.getWritableDatabase();
+		String strFilter = KEY_DAY_WEEK+"=" + DaysOfWeek.MERCREDI.numOfDay+"";
+		ContentValues values = new ContentValues();
+		if(null != time){
+			values.put(KEY_TIME_TIME, time);
+		}
+		if(null != category){
+			values.put(KEY_ACTIVE_TIME, active);
+		}
+		values.put(KEY_CAT_TIME, category);
+		db.update(TABLE_ALARM, values, strFilter, null);
+		db.close();
 	}
 
-	public void setTimeMercredi(String time){
-
+	public void setTimeJeudi(String time, boolean active, String category){
+		SQLiteDatabase db = this.getWritableDatabase();
+		String strFilter = KEY_DAY_WEEK+"=" + DaysOfWeek.JEUDI.numOfDay+"";
+		ContentValues values = new ContentValues();
+		if(null != time){
+			values.put(KEY_TIME_TIME, time);
+		}
+		if(null != category){
+			values.put(KEY_ACTIVE_TIME, active);
+		}
+		values.put(KEY_CAT_TIME, category);
+		db.update(TABLE_ALARM, values, strFilter, null);
+		db.close();
 	}
 
-	public void setTimeJeudi(String time){
-
+	public void setTimeVendredi(String time, boolean active, String category){
+		SQLiteDatabase db = this.getWritableDatabase();
+		String strFilter = KEY_DAY_WEEK+"=" + DaysOfWeek.VENDREDI.numOfDay+"";
+		ContentValues values = new ContentValues();
+		if(null != time){
+			values.put(KEY_TIME_TIME, time);
+		}
+		if(null != category){
+			values.put(KEY_ACTIVE_TIME, active);
+		}
+		values.put(KEY_CAT_TIME, category);
+		db.update(TABLE_ALARM, values, strFilter, null);
+		db.close();
 	}
 
-	public void setTimeVendredi(String time){
-
+	public void setTimeSamedi(String time, boolean active, String category){
+		SQLiteDatabase db = this.getWritableDatabase();
+		String strFilter = KEY_DAY_WEEK+"=" + DaysOfWeek.SAMEDI.numOfDay+"";
+		ContentValues values = new ContentValues();
+		if(null != time){
+			values.put(KEY_TIME_TIME, time);
+		}
+		if(null != category){
+			values.put(KEY_ACTIVE_TIME, active);
+		}
+		values.put(KEY_CAT_TIME, category);
+		db.update(TABLE_ALARM, values, strFilter, null);
+		db.close();
 	}
 
-	public void setTimeSamedi(String time){
-
-	}
-
-	public void setTimeDimanche(String time){
-
+	public void setTimeDimanche(String time, boolean active, String category){
+		SQLiteDatabase db = this.getWritableDatabase();
+		String strFilter = KEY_DAY_WEEK+"=" + DaysOfWeek.DIMANCHE.numOfDay+"";
+		ContentValues values = new ContentValues();
+		if(null != time){
+			values.put(KEY_TIME_TIME, time);
+		}
+		if(null != category){
+			values.put(KEY_ACTIVE_TIME, active);
+		}
+		values.put(KEY_CAT_TIME, category);
+		db.update(TABLE_ALARM, values, strFilter, null);
+		db.close();
 	}
 
 	public String getTimeLundi(){
-		return null;
+		String time = null;
+		SQLiteDatabase db = this.getWritableDatabase();
+		String selectQueryItems = "SELECT "+KEY_TIME_TIME+" FROM " + TABLE_ALARM+" WHERE " + KEY_DAY_WEEK + "='" + DaysOfWeek.LUNDI.numOfDay+"'";
+		Cursor cursorItems = db.rawQuery(selectQueryItems, null);
+		if(cursorItems.moveToFirst()){
+			do{
+				time = cursorItems.getString(0);
+			} while (cursorItems.moveToNext());
+		}
+		cursorItems.close();
+		db.close();
+		return time;
 	}
 
 	public String getTimeMardi(){
-		return null;
+		String time = null;
+		SQLiteDatabase db = this.getWritableDatabase();
+		String selectQueryItems = "SELECT "+KEY_TIME_TIME+" FROM " + TABLE_ALARM+" WHERE " + KEY_DAY_WEEK + "='" + DaysOfWeek.MARDI.numOfDay+"'";
+		Cursor cursorItems = db.rawQuery(selectQueryItems, null);
+		if(cursorItems.moveToFirst()){
+			do{
+				time = cursorItems.getString(0);
+			} while (cursorItems.moveToNext());
+		}
+		cursorItems.close();
+		db.close();
+		return time;
 	}
 
 	public String getTimeMercredi(){
-		return null;
+		String time = null;
+		SQLiteDatabase db = this.getWritableDatabase();
+		String selectQueryItems = "SELECT "+KEY_TIME_TIME+" FROM " + TABLE_ALARM+" WHERE " + KEY_DAY_WEEK + "='" + DaysOfWeek.MERCREDI.numOfDay+"'";
+		Cursor cursorItems = db.rawQuery(selectQueryItems, null);
+		if(cursorItems.moveToFirst()){
+			do{
+				time = cursorItems.getString(0);
+			} while (cursorItems.moveToNext());
+		}
+		cursorItems.close();
+		db.close();
+		return time;
 	}
 
 	public String getTimeJeudi(){
-		return null;
+		String time = null;
+		SQLiteDatabase db = this.getWritableDatabase();
+		String selectQueryItems = "SELECT "+KEY_TIME_TIME+" FROM " + TABLE_ALARM+" WHERE " + KEY_DAY_WEEK + "='" + DaysOfWeek.JEUDI.numOfDay+"'";
+		Cursor cursorItems = db.rawQuery(selectQueryItems, null);
+		if(cursorItems.moveToFirst()){
+			do{
+				time = cursorItems.getString(0);
+			} while (cursorItems.moveToNext());
+		}
+		cursorItems.close();
+		db.close();
+		return time;
 	}
 
 	public String getTimeVendredi(){
-		return null;
+		String time = null;
+		SQLiteDatabase db = this.getWritableDatabase();
+		String selectQueryItems = "SELECT "+KEY_TIME_TIME+" FROM " + TABLE_ALARM+" WHERE " + KEY_DAY_WEEK + "='" + DaysOfWeek.VENDREDI.numOfDay+"'";
+		Cursor cursorItems = db.rawQuery(selectQueryItems, null);
+		if(cursorItems.moveToFirst()){
+			do{
+				time = cursorItems.getString(0);
+			} while (cursorItems.moveToNext());
+		}
+		cursorItems.close();
+		db.close();
+		return time;
 	}
 
 	public String getTimeSamedi(){
-		return null;
+		String time = null;
+		SQLiteDatabase db = this.getWritableDatabase();
+		String selectQueryItems = "SELECT "+KEY_TIME_TIME+" FROM " + TABLE_ALARM+" WHERE " + KEY_DAY_WEEK + "='" + DaysOfWeek.SAMEDI.numOfDay+"'";
+		Cursor cursorItems = db.rawQuery(selectQueryItems, null);
+		if(cursorItems.moveToFirst()){
+			do{
+				time = cursorItems.getString(0);
+			} while (cursorItems.moveToNext());
+		}
+		cursorItems.close();
+		db.close();
+		return time;
 	}
 
 	public String getTimeDimanche(){
-		return null;
+		String time = null;
+		SQLiteDatabase db = this.getWritableDatabase();
+		String selectQueryItems = "SELECT "+KEY_TIME_TIME+" FROM " + TABLE_ALARM+" WHERE " + KEY_DAY_WEEK + "='" + DaysOfWeek.DIMANCHE.numOfDay+"'";
+		Cursor cursorItems = db.rawQuery(selectQueryItems, null);
+		if(cursorItems.moveToFirst()){
+			do{
+				time = cursorItems.getString(0);
+			} while (cursorItems.moveToNext());
+		}
+		cursorItems.close();
+		db.close();
+		return time;
 	}
 }

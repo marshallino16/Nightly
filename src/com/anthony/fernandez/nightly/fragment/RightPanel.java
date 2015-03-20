@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.anthony.fernandez.nightly.R;
+import com.anthony.fernandez.nightly.database.DatabaseManager;
+import com.anthony.fernandez.nightly.enums.DaysOfWeek;
 
 public class RightPanel extends SherlockFragment{
 	
@@ -40,7 +42,19 @@ public class RightPanel extends SherlockFragment{
 		samedi = (TextView)v.findViewById(R.id.pillowSamedi);
 		dimanche = (TextView)v.findViewById(R.id.pillowDimanche);
 		
+		lundi.setText(getDBAccess().getAlarmClock(DaysOfWeek.LUNDI));
+		mardi.setText(getDBAccess().getAlarmClock(DaysOfWeek.MARDI));
+		mercredi.setText(getDBAccess().getAlarmClock(DaysOfWeek.MERCREDI));
+		jeudi.setText(getDBAccess().getAlarmClock(DaysOfWeek.JEUDI));
+		vendredi.setText(getDBAccess().getAlarmClock(DaysOfWeek.VENDREDI));
+		samedi.setText(getDBAccess().getAlarmClock(DaysOfWeek.SAMEDI));
+		dimanche.setText(getDBAccess().getAlarmClock(DaysOfWeek.DIMANCHE));
+		
 		return v;
+	}
+	
+	private synchronized DatabaseManager getDBAccess() {
+		return DatabaseManager.getInstance(getActivity());
 	}
 	
 	@Override

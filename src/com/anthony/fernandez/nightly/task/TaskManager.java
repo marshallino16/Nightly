@@ -4,14 +4,15 @@ import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.anthony.fernandez.nightly.R;
 import com.anthony.fernandez.nightly.ReconnectionActivity;
@@ -120,12 +121,19 @@ public class TaskManager {
 						GlobalVars.currentUser.gmc = jsonData.getString(ParametersApi.GCM_DEVICE_ID);
 						GlobalVars.currentUser.firstname = jsonData.getString(ParametersApi.FIRSTNAME);
 						GlobalVars.currentUser.lastname = jsonData.getString(ParametersApi.LASTNAME);
+
+						JSONArray clocks = jsonData.getJSONArray(ParametersApi.CLOCKS);
+						for(int i=0 ; i<clocks.length() ; ++i){
+							JSONObject clock = (JSONObject) clocks.get(i);
+							Log.d("Nightly", "clock day = " + clock.get(ParametersApi.DAY));
+						}
 						//TODO gender
 						//TODO img profil
 
 						if(!getDBAccess().isUserAlreadyStored(GlobalVars.currentUser._idServer)){
 							context.deleteDatabase(DatabaseHelper.DATABASE_NAME);
 							getDBAccess().createUser();
+							getDBAccess().initAlarmClock();
 						}
 						listener.OnUserInfo();
 					}
@@ -172,7 +180,8 @@ public class TaskManager {
 		}
 	}
 
-	public void setClock(DaysOfWeek day, int hour, int minutes, boolean active, String category, OnAlarmClockAdded listener){
+	public void setClock(final DaysOfWeek day, int hour, int minutes, boolean active, String category, OnAlarmClockAdded listener, final TextView view){
+
 		if(null != GlobalVars.currentUser){
 			int activeInteger = (active) ? 1 : 0;
 			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -191,17 +200,39 @@ public class TaskManager {
 						if(jsonData.has("error")){
 							if(jsonData.getString("error").equals(ParametersApi.BAD_TOKEN)){
 								launchReconnectActivity();
+								((SherlockFragmentActivity)listener).runOnUiThread(new Runnable() {
+
+									@Override
+									public void run() {
+										view.setText(getDBAccess().getAlarmClock(day));
+									}
+								});
 							} else{
 								listener.OnAlarmClockAddFailed(jsonData.getString("error"));
+								((SherlockFragmentActivity)listener).runOnUiThread(new Runnable() {
+
+									@Override
+									public void run() {
+										view.setText(getDBAccess().getAlarmClock(day));
+									}
+								});
 							}
 						} else {
 							listener.OnAlarmClockAddFailed(context.getResources().getString(R.string.error_occured));
+							((SherlockFragmentActivity)listener).runOnUiThread(new Runnable() {
+
+								@Override
+								public void run() {
+									view.setText(getDBAccess().getAlarmClock(day));
+								}
+							});
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
 				}else{
 					listener.OnAlarmClockAdd();
+					getDBAccess().setAlarmClock(day, hour, minutes, category, active);
 				}
 			}
 		}
@@ -248,10 +279,10 @@ public class TaskManager {
 			}
 		}
 	}
-	
+
 	private void launchReconnectActivity(){
 		((SherlockFragmentActivity)context).runOnUiThread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				Intent intent = new Intent(context, ReconnectionActivity.class);

@@ -21,6 +21,10 @@ public class ReconnectionActivity extends SherlockFragmentActivity implements On
 		setContentView(R.layout.activity_reconnection);
 		
 		taskManager = new TaskManager(ReconnectionActivity.this);
+		reconnect();
+	}
+	
+	private void reconnect(){
 		new AsyncTask<Void, Void, Void>() {
 
 			@Override
@@ -53,7 +57,7 @@ public class ReconnectionActivity extends SherlockFragmentActivity implements On
 		overridePendingTransition(R.anim.hold, R.anim.push_down_out);
 		super.onDestroy();
 	}
-
+	
 	@Override
 	public void onConnectionAccepted() {
 		DatabaseManager.getInstance(getApplicationContext()).updateUserByEmail(GlobalVars.currentUser.email, GlobalVars.currentUser.token);
@@ -73,6 +77,7 @@ public class ReconnectionActivity extends SherlockFragmentActivity implements On
 			@Override
 			public void run() {
 				Utils.createToast(getApplicationContext(), "reco failed");
+				reconnect();
 			}
 		});
 	}

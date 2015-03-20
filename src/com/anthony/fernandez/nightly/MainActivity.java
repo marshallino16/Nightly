@@ -226,7 +226,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 			
 			@Override
 			protected Void doInBackground(Void... arg0) {
-				taskManager.setClock(dayOfWeek, hourOfDay, minute, true, "54dd06a2839e17a314eee65e", MainActivity.this);
+				taskManager.setClock(dayOfWeek, hourOfDay, minute, true, "54dd06a2839e17a314eee65e", MainActivity.this, currentDay);
 				return null;
 			}
 		}.execute();

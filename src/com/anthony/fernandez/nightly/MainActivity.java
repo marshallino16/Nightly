@@ -23,12 +23,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.anthony.fernandez.nightly.adapter.InitPagerAdapter;
+import com.anthony.fernandez.nightly.animation.ExpandCollapse;
 import com.anthony.fernandez.nightly.api.GCMParams;
 import com.anthony.fernandez.nightly.database.DatabaseHelper;
 import com.anthony.fernandez.nightly.enums.DaysOfWeek;
@@ -73,6 +75,9 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	//clock
 	private TextView currentDay = null;
 	private DaysOfWeek dayOfWeek = null;
+
+	//error
+	private LinearLayout error;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +133,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 		this.pagerAdapter = new InitPagerAdapter(super.getSupportFragmentManager(), fragments);
 		this.inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		splashScreen = inflater.inflate(R.layout.splashscreen_wait, null);
-
+		error = (LinearLayout)findViewById(R.id.message);
 		mainContainer = (RelativeLayout)findViewById(R.id.containerMain);
 		pager = (ViewPager) findViewById(R.id.viewpager);
 		// Affectation de l'adapter au ViewPager
@@ -219,11 +224,11 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	public void onDialogTimeSet(final int reference, final int hourOfDay, final int minute) {
 		Log.w("Nightly" , "" + hourOfDay + ":" + minute);
 		currentDay.setText(""+hourOfDay+":"+minute);
-		
+
 		new AsyncTask<Void, Void, Void>() {
-			
+
 			//waitBar
-			
+
 			@Override
 			protected Void doInBackground(Void... arg0) {
 				taskManager.setClock(dayOfWeek, hourOfDay, minute, true, "54dd06a2839e17a314eee65e", MainActivity.this, currentDay);
@@ -310,6 +315,17 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	}
 
 	public void profil(View v){
+		if(View.GONE == error.getVisibility()){
+			ExpandCollapse.expand(error);
+		} else {
+			ExpandCollapse.collapse(error);
+		}
+	}
+	
+	public void collapse(View v){
+		if(View.VISIBLE == error.getVisibility()){
+			ExpandCollapse.collapse(error);
+		}
 	}
 
 	private void settings(){

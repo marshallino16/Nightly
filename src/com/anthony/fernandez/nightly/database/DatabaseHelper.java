@@ -308,7 +308,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 * @param active always seted
 	 * @param category can be @null
 	 */
-	public void setTimeLundi(String time, boolean active, String category){
+	public void setTimeLundi(String time, boolean active, String category, String idServ){
 		SQLiteDatabase db = this.getWritableDatabase();
 		String strFilter = KEY_DAY_WEEK+"=" + DaysOfWeek.LUNDI.numOfDay+"";
 		ContentValues values = new ContentValues();
@@ -318,12 +318,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		if(null != category){
 			values.put(KEY_ACTIVE_TIME, active);
 		}
+		if(null != idServ){
+			values.put(KEY_ID_ALARM_SERVER, idServ);
+		}
 		values.put(KEY_CAT_TIME, category);
 		db.update(TABLE_ALARM, values, strFilter, null);
 		db.close();
 	}
 
-	public void setTimeMardi(String time, boolean active, String category){
+	public void setTimeMardi(String time, boolean active, String category, String idServ){
 		SQLiteDatabase db = this.getWritableDatabase();
 		String strFilter = KEY_DAY_WEEK+"=" + DaysOfWeek.MARDI.numOfDay+"";
 		ContentValues values = new ContentValues();
@@ -333,13 +336,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		if(null != category){
 			values.put(KEY_CAT_TIME, category);
 		}
+		if(null != idServ){
+			values.put(KEY_ID_ALARM_SERVER, idServ);
+		}
 		int activeInteger = (active) ? 1 : 0;
 		values.put(KEY_ACTIVE_TIME, activeInteger);
 		db.update(TABLE_ALARM, values, strFilter, null);
 		db.close();
 	}
 
-	public void setTimeMercredi(String time, boolean active, String category){
+	public void setTimeMercredi(String time, boolean active, String category, String idServ){
 		SQLiteDatabase db = this.getWritableDatabase();
 		String strFilter = KEY_DAY_WEEK+"=" + DaysOfWeek.MERCREDI.numOfDay+"";
 		ContentValues values = new ContentValues();
@@ -349,12 +355,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		if(null != category){
 			values.put(KEY_ACTIVE_TIME, active);
 		}
+		if(null != idServ){
+			values.put(KEY_ID_ALARM_SERVER, idServ);
+		}
 		values.put(KEY_CAT_TIME, category);
 		db.update(TABLE_ALARM, values, strFilter, null);
 		db.close();
 	}
 
-	public void setTimeJeudi(String time, boolean active, String category){
+	public void setTimeJeudi(String time, boolean active, String category, String idServ){
 		SQLiteDatabase db = this.getWritableDatabase();
 		String strFilter = KEY_DAY_WEEK+"=" + DaysOfWeek.JEUDI.numOfDay+"";
 		ContentValues values = new ContentValues();
@@ -364,12 +373,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		if(null != category){
 			values.put(KEY_ACTIVE_TIME, active);
 		}
+		if(null != idServ){
+			values.put(KEY_ID_ALARM_SERVER, idServ);
+		}
 		values.put(KEY_CAT_TIME, category);
 		db.update(TABLE_ALARM, values, strFilter, null);
 		db.close();
 	}
 
-	public void setTimeVendredi(String time, boolean active, String category){
+	public void setTimeVendredi(String time, boolean active, String category, String idServ){
 		SQLiteDatabase db = this.getWritableDatabase();
 		String strFilter = KEY_DAY_WEEK+"=" + DaysOfWeek.VENDREDI.numOfDay+"";
 		ContentValues values = new ContentValues();
@@ -379,12 +391,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		if(null != category){
 			values.put(KEY_ACTIVE_TIME, active);
 		}
+		if(null != idServ){
+			values.put(KEY_ID_ALARM_SERVER, idServ);
+		}
 		values.put(KEY_CAT_TIME, category);
 		db.update(TABLE_ALARM, values, strFilter, null);
 		db.close();
 	}
 
-	public void setTimeSamedi(String time, boolean active, String category){
+	public void setTimeSamedi(String time, boolean active, String category, String idServ){
 		SQLiteDatabase db = this.getWritableDatabase();
 		String strFilter = KEY_DAY_WEEK+"=" + DaysOfWeek.SAMEDI.numOfDay+"";
 		ContentValues values = new ContentValues();
@@ -394,12 +409,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		if(null != category){
 			values.put(KEY_ACTIVE_TIME, active);
 		}
+		if(null != idServ){
+			values.put(KEY_ID_ALARM_SERVER, idServ);
+		}
 		values.put(KEY_CAT_TIME, category);
 		db.update(TABLE_ALARM, values, strFilter, null);
 		db.close();
 	}
 
-	public void setTimeDimanche(String time, boolean active, String category){
+	public void setTimeDimanche(String time, boolean active, String category, String idServ){
 		SQLiteDatabase db = this.getWritableDatabase();
 		String strFilter = KEY_DAY_WEEK+"=" + DaysOfWeek.DIMANCHE.numOfDay+"";
 		ContentValues values = new ContentValues();
@@ -408,6 +426,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		}
 		if(null != category){
 			values.put(KEY_ACTIVE_TIME, active);
+		}
+		if(null != idServ){
+			values.put(KEY_ID_ALARM_SERVER, idServ);
 		}
 		values.put(KEY_CAT_TIME, category);
 		db.update(TABLE_ALARM, values, strFilter, null);

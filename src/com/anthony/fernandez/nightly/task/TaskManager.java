@@ -121,20 +121,53 @@ public class TaskManager {
 						GlobalVars.currentUser.gmc = jsonData.getString(ParametersApi.GCM_DEVICE_ID);
 						GlobalVars.currentUser.firstname = jsonData.getString(ParametersApi.FIRSTNAME);
 						GlobalVars.currentUser.lastname = jsonData.getString(ParametersApi.LASTNAME);
-
-						JSONArray clocks = jsonData.getJSONArray(ParametersApi.CLOCKS);
-						for(int i=0 ; i<clocks.length() ; ++i){
-							JSONObject clock = (JSONObject) clocks.get(i);
-							Log.d("Nightly", "clock day = " + clock.get(ParametersApi.DAY));
-						}
 						//TODO gender
 						//TODO img profil
-
+						
 						if(!getDBAccess().isUserAlreadyStored(GlobalVars.currentUser._idServer)){
 							context.deleteDatabase(DatabaseHelper.DATABASE_NAME);
 							getDBAccess().createUser();
 							getDBAccess().initAlarmClock();
 						}
+
+						JSONArray clocks = jsonData.getJSONArray(ParametersApi.CLOCKS);
+						for(int i=0 ; i<clocks.length() ; ++i){
+							JSONObject clock = (JSONObject) clocks.get(i);
+							String time = String.format("%02d", clock.getInt(ParametersApi.HOUR)) + ":" + String.format("%02d", clock.getInt(ParametersApi.MINUTE));
+							String category = clock.getString(ParametersApi.CATEGORIE);
+							String idServ = clock.getString(ParametersApi.ID);
+							boolean active = false;
+							if(1 == clock.getInt(ParametersApi.ACTIVE)){
+								active = true;
+							} 
+							
+							if(null != clock){
+								switch (clock.getInt(ParametersApi.DAY)) {
+								case 2:
+									getDBAccess().getDBAccess().setTimeLundi(time, active, category, idServ);
+									break;
+								case 3:
+									getDBAccess().getDBAccess().setTimeMardi(time, active, category, idServ);
+									break;
+								case 4:
+									getDBAccess().getDBAccess().setTimeMercredi(time, active, category, idServ);
+									break;
+								case 5:
+									getDBAccess().getDBAccess().setTimeJeudi(time, active, category, idServ);
+									break;
+								case 6:
+									getDBAccess().getDBAccess().setTimeVendredi(time, active, category, idServ);
+									break;
+								case 0:
+									getDBAccess().getDBAccess().setTimeSamedi(time, active, category, idServ);
+									break;
+								case 1:
+									getDBAccess().getDBAccess().setTimeDimanche(time, active, category, idServ);
+									break;
+								}
+							}
+						}
+
 						listener.OnUserInfo();
 					}
 				} catch (JSONException e) {

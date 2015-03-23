@@ -23,6 +23,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -64,6 +67,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	private TaskManager taskManager = null;
 
 	//Views
+	private RelativeLayout containerClock;
 	private RelativeLayout mainContainer;
 	private PagerAdapter pagerAdapter;
 	public static ViewPager pager;
@@ -78,7 +82,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	//error
 	private LinearLayout error;
 	private TextView message_error;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -136,6 +140,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 		error = (LinearLayout)findViewById(R.id.message);
 		message_error = (TextView)findViewById(R.id.message_error);
 		mainContainer = (RelativeLayout)findViewById(R.id.containerMain);
+		containerClock = (RelativeLayout)findViewById(R.id.containerMenuClock);
 		pager = (ViewPager) findViewById(R.id.viewpager);
 		// Affectation de l'adapter au ViewPager
 		pager.setAdapter(this.pagerAdapter);
@@ -339,47 +344,111 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);
 	}
+	
+	public void openClockMenu(){
+		if(containerClock.getVisibility() == View.GONE){
+			containerClock.setVisibility(View.GONE);
+			Animation animation = new TranslateAnimation(0, 0, -pager.getHeight(), 0);
+			animation.setStartOffset(0L);
+			animation.setFillAfter(true);
+			animation.setFillBefore(true);
+            animation.setDuration(600);
+            animation.setAnimationListener(new AnimationListener() {
+
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animatiofillAftern) {
+                	containerClock.setVisibility(View.VISIBLE);
+                }
+            });
+
+            containerClock.startAnimation(animation);
+		}
+	}
+
+	
+	public void quitClockMenu(View v){
+		if(containerClock.getVisibility() == View.VISIBLE){
+			containerClock.setVisibility(View.VISIBLE);
+			Animation animation=new TranslateAnimation(0, 0, 0, -pager.getHeight());
+			animation.setStartOffset(0L);
+            animation.setDuration(600);
+            animation.setAnimationListener(new AnimationListener() {
+
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animatiofillAftern) {
+                	containerClock.setVisibility(View.GONE);
+                }
+            });
+
+            containerClock.startAnimation(animation);
+		}
+	}
+	
+	public void changeCategory(View v){
+		quitClockMenu(null);
+	}
+	
+	public void changeHour(View v){
+		pickSleepingTime();
+		quitClockMenu(null);
+	}
 
 	public void lundi(View v){
+		openClockMenu();
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).lundi;
 		dayOfWeek = DaysOfWeek.LUNDI;
-		pickSleepingTime();
 	}
 
 	public void mardi(View v){
+		openClockMenu();
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).mardi;
 		dayOfWeek = DaysOfWeek.MARDI;
-		pickSleepingTime();
 	}
 
 	public void mercredi(View v){
+		openClockMenu();
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).mercredi;
 		dayOfWeek = DaysOfWeek.MERCREDI;
-		pickSleepingTime();
 	}
 
 	public void jeudi(View v){
+		openClockMenu();
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).jeudi;
 		dayOfWeek = DaysOfWeek.JEUDI;
-		pickSleepingTime();
 	}
 
 	public void vendredi(View v){
+		openClockMenu();
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).vendredi;
 		dayOfWeek = DaysOfWeek.VENDREDI;
-		pickSleepingTime();
 	}
 
 	public void samedi(View v){
+		openClockMenu();
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).samedi;
 		dayOfWeek = DaysOfWeek.SAMEDI;
-		pickSleepingTime();
 	}
 
 	public void dimanche(View v){
+		openClockMenu();
 		currentDay = ((RightPanel)((InitPagerAdapter) pagerAdapter).getItem(1)).dimanche;
 		dayOfWeek = DaysOfWeek.DIMANCHE;
-		pickSleepingTime();
 	}
 
 	@TargetApi(19)  

@@ -23,7 +23,7 @@ public class DatabaseManager {
 		this.context = context;
 	}
 
-	private synchronized DatabaseHelper getDBAccess() {
+	public synchronized DatabaseHelper getDBAccess() {
 		return DatabaseHelper.getInstance(context);
 	}
 	
@@ -94,25 +94,25 @@ public class DatabaseManager {
 		try {
 			switch (day.numOfDay) {
 			case 2: //lundi
-				databaseHelper.setTimeLundi(time, active, category);
+				databaseHelper.setTimeLundi(time, active, category, null);
 				break;
 			case 3: //mardi
-				databaseHelper.setTimeMardi(time, active, category);
+				databaseHelper.setTimeMardi(time, active, category, null);
 				break;
 			case 4: //mercredi
-				databaseHelper.setTimeMercredi(time, active, category);
+				databaseHelper.setTimeMercredi(time, active, category, null);
 				break;
 			case 5: //jeudi
-				databaseHelper.setTimeJeudi(time, active, category);
+				databaseHelper.setTimeJeudi(time, active, category, null);
 				break;
 			case 6: //vendredi
-				databaseHelper.setTimeVendredi(time, active, category);
+				databaseHelper.setTimeVendredi(time, active, category, null);
 				break;
 			case 0: //samedi
-				databaseHelper.setTimeSamedi(time, active, category);
+				databaseHelper.setTimeSamedi(time, active, category, null);
 				break;
 			case 1: //dimanche
-				databaseHelper.setTimeDimanche(time, active, category);
+				databaseHelper.setTimeDimanche(time, active, category, null);
 				break;
 			}
 		} catch (Exception ex) {

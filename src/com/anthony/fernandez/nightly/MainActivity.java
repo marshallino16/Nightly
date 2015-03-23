@@ -41,7 +41,6 @@ import com.anthony.fernandez.nightly.globalvar.GlobalVars;
 import com.anthony.fernandez.nightly.task.TaskManager;
 import com.anthony.fernandez.nightly.task.listener.OnAlarmClockAdded;
 import com.anthony.fernandez.nightly.task.listener.OnGCMRegistered;
-import com.anthony.fernandez.nightly.util.Utils;
 import com.doomonafireball.betterpickers.timepicker.TimePickerBuilder;
 import com.doomonafireball.betterpickers.timepicker.TimePickerDialogFragment;
 import com.facebook.Session;
@@ -78,6 +77,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 
 	//error
 	private LinearLayout error;
+	private TextView message_error;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +134,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 		this.inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		splashScreen = inflater.inflate(R.layout.splashscreen_wait, null);
 		error = (LinearLayout)findViewById(R.id.message);
+		message_error = (TextView)findViewById(R.id.message_error);
 		mainContainer = (RelativeLayout)findViewById(R.id.containerMain);
 		pager = (ViewPager) findViewById(R.id.viewpager);
 		// Affectation de l'adapter au ViewPager
@@ -222,11 +223,10 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 
 	@Override
 	public void onDialogTimeSet(final int reference, final int hourOfDay, final int minute) {
-		Log.w("Nightly" , "" + hourOfDay + ":" + minute);
-		currentDay.setText(""+hourOfDay+":"+minute);
+		String time = String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute);
+		currentDay.setText(time);
 
 		new AsyncTask<Void, Void, Void>() {
-
 			//waitBar
 
 			@Override
@@ -315,16 +315,23 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	}
 
 	public void profil(View v){
-		if(View.GONE == error.getVisibility()){
-			ExpandCollapse.expand(error);
-		} else {
-			ExpandCollapse.collapse(error);
-		}
+		
 	}
 	
 	public void collapse(View v){
-		if(View.VISIBLE == error.getVisibility()){
-			ExpandCollapse.collapse(error);
+		expandOrCollapseView(false);
+	}
+	
+	private void expandOrCollapseView(boolean condition){
+		if(condition){ //true == expand
+			if(View.GONE == error.getVisibility()){
+				ExpandCollapse.expand(error);
+				autoClose();
+			} 
+		} else {
+			if(View.VISIBLE == error.getVisibility()){
+				ExpandCollapse.collapse(error);
+			} 
 		}
 	}
 
@@ -559,7 +566,9 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 
 			@Override
 			public void run() {
-				Utils.createToast(getApplicationContext(), reason);
+				expandOrCollapseView(true);
+				message_error.setText(reason);
+//				Utils.createToast(getApplicationContext(), reason);
 			}
 		});
 	}
@@ -572,7 +581,9 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 
 			@Override
 			public void run() {
-				Utils.createToast(getApplicationContext(), "Alarm set successfuly");
+				expandOrCollapseView(true);
+				message_error.setText("Alarm set successfuly");
+//				Utils.createToast(getApplicationContext(), "Alarm set successfuly");
 			}
 		});
 	}
@@ -585,8 +596,32 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 
 			@Override
 			public void run() {
-				Utils.createToast(getApplicationContext(), reason);
+				expandOrCollapseView(true);
+				message_error.setText(reason);
+//				Utils.createToast(getApplicationContext(), reason);
 			}
 		});
+	}
+	
+	private void autoClose(){
+		new AsyncTask<Void, Void, Void>() {
+
+			@Override
+			protected Void doInBackground(Void... arg0) {
+				try {
+					Thread.sleep(2500);
+					runOnUiThread(new Runnable() {
+						
+						@Override
+						public void run() {
+							expandOrCollapseView(false);
+						}
+					});
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				return null;
+			}
+		}.execute();
 	}
 }

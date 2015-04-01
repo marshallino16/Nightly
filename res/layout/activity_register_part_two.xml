@@ -196,13 +196,14 @@
                     android:textColor="@android:color/white" />
 
                 <View
+                    android:id="@+id/separator"
                     android:layout_width="1dp"
                     android:layout_height="fill_parent"
                     android:alpha="0.8"
                     android:background="@android:color/white" />
 
                 <Button
-                    android:id="@+id/next"
+                    android:id="@+id/nextTwo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"

@@ -85,7 +85,7 @@ public class RequestSender {
 	}
 
 	
-	public synchronized RequestReturn sendRequestGet(final String url, final String apiPoint, final ArrayList<NameValuePair> nameValuePairs){
+	public synchronized RequestReturn sendRequestGet(final String url, final String apiPoint, final ArrayList<NameValuePair> nameValuePairs, final String token){
 		String result = "";
 		int code = 0;
 		InputStream is = null;
@@ -106,7 +106,12 @@ public class RequestSender {
 			HttpsURLConnection.setDefaultHostnameVerifier(hostnameVerifier);
 			
 			String paramsString = URLEncodedUtils.format(nameValuePairs, "UTF-8");
-			HttpGet httpGet = new HttpGet(url+ apiPoint+ "?" + paramsString);
+			HttpGet httpGet;
+			if(null == token){
+				httpGet = new HttpGet(url+ apiPoint+ "?" + paramsString);
+			} else {
+				httpGet = new HttpGet(url+ apiPoint+ "?" + ParametersApi.ACCESS_TOKEN + "=" +token + "&"+paramsString);
+			}
 			httpGet.setHeader("CONTENT_TYPE", "application/x-www-form-urlencoded; charset=utf-8");
 
 			HttpResponse response = httpclient.execute(httpGet);

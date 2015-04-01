@@ -26,6 +26,7 @@
     <string name="account">mon\nprofil</string>
     <string name="conversations">chats</string>
     <string name="cancel">annuler</string>
+    <string name="save_changes">mettre à jour</string>
 
     <!-- connection / register -->
     <string name="not_connected">non connecté</string>
@@ -49,6 +50,7 @@
     <string name="all_good">tous les champs sont valides</string>
     <string name="error_occured">une erreur est survenue</string>
     <string name="please_accept_cluf">vous devez accepter les conditions d\'utilisation</string>
+    <string name="change_image_profil">merci de renseigner une image de profil</string>
 
     <!-- params -->
     <string name="create_shortcut">Raccourcis créé avec succès.</string>

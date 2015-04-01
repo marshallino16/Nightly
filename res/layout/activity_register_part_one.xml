@@ -25,6 +25,7 @@
                 android:layout_height="match_parent"
                 android:onClick="definePhoto"
                 android:src="@drawable/cat_laught"
+                android:tag="@string/content_description"
                 app:border_color="@color/green_circle"
                 app:border_width="2dp" />
 

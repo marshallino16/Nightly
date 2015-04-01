@@ -226,6 +226,10 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
 
 	@SuppressLint("SimpleDateFormat")
 	public void next(View v){
+		if(((RegisterPartOne)((InitPagerAdapter) pagerAdapter).getItem(0)).profilPicture.getTag().toString().equals(getResources().getString(R.string.content_description))){
+			displayError(R.string.change_image_profil);
+			return;
+		}
 		if(!((RegisterPartOne)((InitPagerAdapter) pagerAdapter).getItem(0)).male.isSelected() && !((RegisterPartOne)((InitPagerAdapter) pagerAdapter).getItem(0)).female.isSelected()){
 			displayError(R.string.fill_all_fields);
 			return;
@@ -387,6 +391,7 @@ public class RegisterActivity extends SherlockFragmentActivity implements Calend
         if (resultCode == RESULT_OK) {
         	((RegisterPartOne)((InitPagerAdapter) pagerAdapter).getItem(0)).profilPicture.setImageBitmap(getImageBitmap(Crop.getOutput(result).toString()));
         	((RegisterPartOne)((InitPagerAdapter) pagerAdapter).getItem(0)).stateProfil.setImageResource(R.drawable.ic_action_accept);
+        	((RegisterPartOne)((InitPagerAdapter) pagerAdapter).getItem(0)).profilPicture.setTag("done");
             quit(null);
         } else if (resultCode == Crop.RESULT_ERROR) {
             Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();

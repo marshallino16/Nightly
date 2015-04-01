@@ -23,12 +23,12 @@ import com.anthony.fernandez.nightly.database.DatabaseManager;
 import com.anthony.fernandez.nightly.enums.DaysOfWeek;
 import com.anthony.fernandez.nightly.globalvar.GlobalVars;
 import com.anthony.fernandez.nightly.globalvar.GlobalVars.CurrentUserConnected;
-import com.anthony.fernandez.nightly.model.Category;
 import com.anthony.fernandez.nightly.model.RequestReturn;
 import com.anthony.fernandez.nightly.task.listener.OnAlarmClockAdded;
 import com.anthony.fernandez.nightly.task.listener.OnConnectListener;
 import com.anthony.fernandez.nightly.task.listener.OnGCMRegistered;
 import com.anthony.fernandez.nightly.task.listener.OnGettingUserInfo;
+import com.anthony.fernandez.nightly.task.listener.OnListCategoriesGet;
 import com.anthony.fernandez.nightly.task.listener.OnUserLanguageSet;
 
 public class TaskManager {
@@ -100,7 +100,7 @@ public class TaskManager {
 			nameValuePairs.add(new BasicNameValuePair(ParametersApi.ACCESS_TOKEN, GlobalVars.currentUser.token));
 
 			if(null != requestSender){
-				RequestReturn retour = requestSender.sendRequestGet(UrlApi.URL_API_BASE, UrlApi.GET_USER_INFOS, nameValuePairs);
+				RequestReturn retour = requestSender.sendRequestGet(UrlApi.URL_API_BASE, UrlApi.GET_USER_INFOS, nameValuePairs, null);
 				//TODO handle error code
 				if(200 != retour.code){
 					listener.OnUserInfoFailed(context.getResources().getString(R.string.error_occured));
@@ -278,10 +278,6 @@ public class TaskManager {
 	public void updateProfil(String firstname, String lastname, String email, String password, byte[] profilPhoto, long birthDate, boolean sexe, String country, String phoneNumber){
 	}
 
-	public void updateClockAlarm(int hours, int minutes, DaysOfWeek dayOfWeek, Category category, boolean isActive){
-
-	}
-
 	public void sendGCMRegistrationID(String regID, OnGCMRegistered listener){
 		Log.w("Nightly", "sending reg id");
 		if(null != GlobalVars.currentUser){
@@ -308,6 +304,35 @@ public class TaskManager {
 					}
 				}else{
 					listener.OnGCMRegister();
+				}
+			}
+		}
+	}
+	
+	public void getListCategories(OnListCategoriesGet listener){
+		if(null != GlobalVars.currentUser){
+			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+
+			if(null != requestSender){
+				RequestReturn retour = requestSender.sendRequestGet(UrlApi.URL_API_BASE, UrlApi.GET_CATEGORIES, nameValuePairs, GlobalVars.currentUser.token);
+				if(200 != retour.code){
+					Log.d("Nightly", "result = " +retour.json);
+					try {
+						JSONObject jsonData = new JSONObject(retour.json);
+						if(jsonData.has("error")){
+							if(jsonData.getString("error").equals(ParametersApi.BAD_TOKEN)){
+								launchReconnectActivity();
+							} else{
+								listener.OnGetListCategoriesFailed(jsonData.getString("error"));
+							}
+						} else {
+							listener.OnGetListCategoriesFailed(context.getResources().getString(R.string.error_occured));
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}else{
+//					listener.OnGetListCategories();
 				}
 			}
 		}

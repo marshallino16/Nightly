@@ -1,5 +1,7 @@
 package com.anthony.fernandez.nightly;
 
+import java.util.ArrayList;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -19,9 +21,11 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.anthony.fernandez.nightly.model.Category;
+import com.anthony.fernandez.nightly.task.listener.OnListCategoriesGet;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-public class CategoriesActivity extends SherlockActivity implements OnTouchListener{
+public class CategoriesActivity extends SherlockActivity implements OnTouchListener, OnListCategoriesGet{
 	
 	//views
 	private ImageView imageHumour;
@@ -139,5 +143,16 @@ public class CategoriesActivity extends SherlockActivity implements OnTouchListe
 			previousTouch.startAnimation(zoomOut);
 			previousTouch = null;
 		}
+	}
+
+	@Override
+	public void OnGetListCategories(ArrayList<Category> listCategories) {
+		
+	}
+
+	@Override
+	public void OnGetListCategoriesFailed(String reason) {
+		// TODO Auto-generated method stub
+		
 	}
 }

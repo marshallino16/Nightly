@@ -125,7 +125,8 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 		SystemBarTintManager tintManager = new SystemBarTintManager(this);
 		tintManager.setStatusBarTintEnabled(true);
 		tintManager.setNavigationBarTintEnabled(true);
-		tintManager.setTintColor(getResources().getColor(R.color.facebook));
+		tintManager.setNavigationBarTintColor(getResources().getColor(R.color.blue_background_dark));
+		tintManager.setStatusBarTintColor(getResources().getColor(R.color.facebook));
 
 		taskManager = new TaskManager(MainActivity.this);
 		fragments = new Vector<Object>();
@@ -158,7 +159,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 				registerInBackground();
 			}
 			if(regid != null && !regid.isEmpty()){
-				if(!regid.equals(GlobalVars.currentUser.gmc)){
+				if(null!= GlobalVars.currentUser && !regid.equals(GlobalVars.currentUser.gmc)){
 					GlobalVars.currentUser.gmc = regid;
 					new AsyncTask<Void, Void, Void>() {
 
@@ -320,7 +321,8 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	}
 
 	public void profil(View v){
-		
+		Intent intent = new Intent(this, ProfilActivity.class);
+		startActivity(intent);
 	}
 	
 	public void collapse(View v){
@@ -455,7 +457,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	private void setTranslucentStatus(boolean on) {
 		Window win = getWindow();
 		WindowManager.LayoutParams winParams = win.getAttributes();
-		final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+		final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
 		if (on) {
 			winParams.flags |= bits;
 		} else { 

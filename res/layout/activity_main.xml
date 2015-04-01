@@ -99,8 +99,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="83"
-            android:background="@color/blue_background_dark"
             android:visibility="visible" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/blue_background_dark"
+                android:contentDescription="@string/content_description"
+                android:src="@drawable/cat_sneezing" />
 
             <android.support.v4.view.ViewPager
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -139,8 +145,8 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:background="@drawable/btn_red"
-                        android:text="catégorie"
                         android:onClick="changeCategory"
+                        android:text="catégorie"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@android:color/white" />
 
@@ -149,8 +155,8 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:background="@drawable/btn_violet"
-                        android:text="heure"
                         android:onClick="changeHour"
+                        android:text="heure"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@android:color/white" />
                 </LinearLayout>

@@ -25,10 +25,12 @@ import com.anthony.fernandez.nightly.globalvar.GlobalVars;
 import com.anthony.fernandez.nightly.globalvar.GlobalVars.CurrentUserConnected;
 import com.anthony.fernandez.nightly.model.RequestReturn;
 import com.anthony.fernandez.nightly.task.listener.OnAlarmClockAdded;
+import com.anthony.fernandez.nightly.task.listener.OnAlarmClockGetting;
 import com.anthony.fernandez.nightly.task.listener.OnConnectListener;
 import com.anthony.fernandez.nightly.task.listener.OnGCMRegistered;
 import com.anthony.fernandez.nightly.task.listener.OnGettingUserInfo;
 import com.anthony.fernandez.nightly.task.listener.OnListCategoriesGet;
+import com.anthony.fernandez.nightly.task.listener.OnSomebodyPicked;
 import com.anthony.fernandez.nightly.task.listener.OnUserLanguageSet;
 
 public class TaskManager {
@@ -48,13 +50,49 @@ public class TaskManager {
 	public void sendMessage(String message, int conversationID){
 	}
 
-	public void pickUpSomebody(long datetimeUTC){
+	public void pickUpSomebody(OnSomebodyPicked listener, String gender){
+		if(null != GlobalVars.currentUser){
+			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+			if(null != gender){
+				nameValuePairs.add(new BasicNameValuePair(ParametersApi.GENRE, gender));
+			}
+
+			if(null != requestSender){
+				RequestReturn retour = requestSender.sendRequestGet(UrlApi.URL_API_BASE, UrlApi.GET_CATEGORIES, nameValuePairs, GlobalVars.currentUser.token);
+				if(200 != retour.code){
+					Log.d("Nightly", "result = " +retour.json);
+					try {
+						JSONObject jsonData = new JSONObject(retour.json);
+						if(jsonData.has("error")){
+							if(jsonData.getString("error").equals(ParametersApi.BAD_TOKEN)){
+								launchReconnectActivity();
+							} else{
+								listener.OnSomebodyPickFailed(jsonData.getString("error"));
+							}
+						} else {
+							listener.OnSomebodyPickFailed(context.getResources().getString(R.string.error_occured));
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}else{
+					try {
+						JSONObject jsonData = new JSONObject(retour.json);
+						JSONObject category = jsonData.getJSONObject(ParametersApi.CATEGORIE);
+						//TODO add category name
+						//listener.OnSomebodyPick(jsonData.getString(ParametersApi.ID), jsonData.getInt(ParametersApi.HOUR), jsonData.getString(ParametersApi.MINUTE), null);
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
 	}
 
 	public void getListConversations(){
 	}
 
-	public void sendGoodNight(String message, int categorieID, int remoteUserID){
+	public void sendGoodNight(String content, String _idClock){
 	}
 
 	public void connectFacebook(String tokenFacebook){
@@ -212,6 +250,42 @@ public class TaskManager {
 			}
 		}
 	}
+	
+	
+	
+	public void getClocks(OnAlarmClockGetting listener){
+		if(null != GlobalVars.currentUser){
+			ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+
+			if(null != requestSender){
+				RequestReturn retour = requestSender.sendRequestGet(UrlApi.URL_API_BASE, UrlApi.GET_USER_CLOCKS, nameValuePairs, GlobalVars.currentUser.token);
+				if(200 != retour.code){
+					Log.d("Nightly", "result = " +retour.json);
+					try {
+						JSONObject jsonData = new JSONObject(retour.json);
+						if(jsonData.has("error")){
+							if(jsonData.getString("error").equals(ParametersApi.BAD_TOKEN)){
+								launchReconnectActivity();
+							} else{
+								listener.OnGettingAlarmClocksFailed(jsonData.getString("error"));
+							}
+						} else {
+							listener.OnGettingAlarmClocksFailed(context.getResources().getString(R.string.error_occured));
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}else{
+					try {
+						JSONObject jsonData = new JSONObject(retour.json);
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}//TODO
+					listener.OnGettingAlarmClocks();
+				}
+			}
+		}
+	}
 
 	public void setClock(final DaysOfWeek day, int hour, int minutes, boolean active, String category, OnAlarmClockAdded listener, final TextView view){
 
@@ -332,6 +406,11 @@ public class TaskManager {
 						e.printStackTrace();
 					}
 				}else{
+					try {
+						JSONObject jsonData = new JSONObject(retour.json);
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
 //					listener.OnGetListCategories();
 				}
 			}

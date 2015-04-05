@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.anthony.fernandez.nightly.model.Category;
+import com.anthony.fernandez.nightly.task.TaskManager;
 import com.anthony.fernandez.nightly.task.listener.OnListCategoriesGet;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -42,6 +44,9 @@ public class CategoriesActivity extends SherlockActivity implements OnTouchListe
 	private Animation zoomOut;
 	
 	private ImageView previousTouch = null;
+	
+	//task
+	private TaskManager taskManager = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +74,8 @@ public class CategoriesActivity extends SherlockActivity implements OnTouchListe
 		tintManager.setNavigationBarTintEnabled(true);
 		tintManager.setTintColor(getResources().getColor(R.color.facebook));
 		
+		taskManager = new TaskManager(CategoriesActivity.this);
+		
 		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/FlexDisplay-Thin.otf");
 		zoomIn = AnimationUtils.loadAnimation(this, R.anim.zoomin);
 		zoomOut = AnimationUtils.loadAnimation(this, R.anim.zoomout);
@@ -89,6 +96,15 @@ public class CategoriesActivity extends SherlockActivity implements OnTouchListe
 		
 		imageAmour = (ImageView)findViewById(R.id.imageAmour);
 		imageAmour.setOnTouchListener(this);
+		
+		new AsyncTask<Void, Void, Void>() {
+
+			@Override
+			protected Void doInBackground(Void... arg0) {
+				taskManager.getListCategories(CategoriesActivity.this);
+				return null;
+			}
+		}.execute();
 	}
 
 	@Override

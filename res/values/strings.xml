@@ -35,6 +35,9 @@
     <string name="continue_as">continué en tant que \n <i> %1$s %2$s </i></string>
     <string name="not_you">- ce n\'est pas vous ?</string>
     <string name="re_connect">la connexion était innactive,\nreconnexion en cours</string>
+    <string name="registering">création du compte en cours</string>
+    <string name="registering_part_one">enregistrement de vos informations</string>
+    <string name="registering_part_two">envoi de votre photo de profil</string>
 
     <!-- errors -->
     <string name="bad_email">adresse email invalide</string>

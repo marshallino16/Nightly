@@ -1,12 +1,14 @@
 package com.anthony.fernandez.nightly.util;
 
-import com.anthony.fernandez.nightly.R;
+import java.util.Locale;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.anthony.fernandez.nightly.R;
 
 public class Utils {
 	
@@ -35,5 +37,14 @@ public class Utils {
 		v.setTextColor(Color.WHITE);
 		toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 20);
 		toast.show();
+	}
+	
+	public final static String getPhoneLanguage(){
+		String locale = Locale.getDefault().getLanguage();
+		if(locale.equals("fr")){
+			return "fr";
+		} else {
+			return "en";
+		}
 	}
 }

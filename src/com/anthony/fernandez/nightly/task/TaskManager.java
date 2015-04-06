@@ -32,6 +32,7 @@ import com.anthony.fernandez.nightly.task.listener.OnGettingUserInfo;
 import com.anthony.fernandez.nightly.task.listener.OnListCategoriesGet;
 import com.anthony.fernandez.nightly.task.listener.OnSomebodyPicked;
 import com.anthony.fernandez.nightly.task.listener.OnUserLanguageSet;
+import com.anthony.fernandez.nightly.util.Utils;
 
 public class TaskManager {
 
@@ -58,7 +59,7 @@ public class TaskManager {
 			}
 
 			if(null != requestSender){
-				RequestReturn retour = requestSender.sendRequestGet(UrlApi.URL_API_BASE, UrlApi.GET_CATEGORIES, nameValuePairs, GlobalVars.currentUser.token);
+				RequestReturn retour = requestSender.sendRequestGet(UrlApi.URL_API_BASE, UrlApi.GET_RANDOM_CLOCK, nameValuePairs, GlobalVars.currentUser.token);
 				if(200 != retour.code){
 					Log.d("Nightly", "result = " +retour.json);
 					try {
@@ -76,13 +77,19 @@ public class TaskManager {
 						e.printStackTrace();
 					}
 				}else{
-					try {
-						JSONObject jsonData = new JSONObject(retour.json);
-						JSONObject category = jsonData.getJSONObject(ParametersApi.CATEGORIE);
-						//TODO add category name
-						//listener.OnSomebodyPick(jsonData.getString(ParametersApi.ID), jsonData.getInt(ParametersApi.HOUR), jsonData.getString(ParametersApi.MINUTE), null);
-					} catch (JSONException e) {
-						e.printStackTrace();
+					Log.d("Nightly", "result = " +retour.json);
+					if(retour.json.isEmpty()){
+						listener.OnSomebodyPickFailed(context.getResources().getString(R.string.nobody_available));
+					} else {
+						try {
+							JSONObject jsonData = new JSONObject(retour.json);
+							JSONObject category = jsonData.getJSONObject(ParametersApi.CATEGORIE);
+							String locale = Utils.getPhoneLanguage();
+							JSONObject categoryDetails = category.getJSONObject(locale);
+							listener.OnSomebodyPick(jsonData.getString(ParametersApi.ID), jsonData.getInt(ParametersApi.HOUR), jsonData.getInt(ParametersApi.MINUTE), categoryDetails.getString(ParametersApi.DESCRIPTION));
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}

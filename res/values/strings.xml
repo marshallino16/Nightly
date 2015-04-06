@@ -115,6 +115,9 @@
     <string name="title_activity_categories">CategoriesActivity</string>
     <string name="title_activity_message_received">MessageReceivedActivity</string>
 
+    <!-- picking up -->
+    <string name="nobody_available">personne ne se couche dans les 45 prochaines minutes</string>
+    
     <!-- chat -->
     <string name="message_elipses">bonjour...</string>
     <string name="send">envoyer</string>

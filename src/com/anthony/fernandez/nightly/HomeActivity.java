@@ -169,9 +169,9 @@ public class HomeActivity extends SherlockFragmentActivity implements android.vi
 	public void enableSplashScreen(){
 		if(mainContainer.findViewById(R.id.splashContainer) == null){
 			enableDisableView(mainContainer, false);
-			((TextView)mainContainer.findViewById(R.id.messageWait)).setText(getResources().getString(R.string.connecting));
-			mainContainer.findViewById(R.id.stop).setVisibility(View.GONE);
 			mainContainer.addView(splashScreen, mainContainer.getChildCount()-1);
+			((TextView)findViewById(R.id.messageWait)).setText(getResources().getString(R.string.connecting));
+			findViewById(R.id.stop).setVisibility(View.GONE);
 		}
 	}
 

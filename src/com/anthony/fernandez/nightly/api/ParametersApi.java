@@ -13,7 +13,7 @@ public interface ParametersApi {
 	public final static String ID_CLOCK = "id_clock";
 	public final static String CONTENT = "content";
 	public final static String ID_GOODNIGHT = "id_goodnight";
-	
+	public final static String DESCRIPTION = "description";
 	/**
 	 * @value = boolean
 	 */

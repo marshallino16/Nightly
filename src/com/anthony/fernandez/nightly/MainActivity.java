@@ -385,7 +385,10 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 			containerClock.startAnimation(animation);
 		}
 	}
-
+	
+	public void quitClockMenu(View v){
+		quitClockMenu(null, false);
+	}
 
 	public void quitClockMenu(View v, final boolean action){
 		if(containerClock.getVisibility() == View.VISIBLE){

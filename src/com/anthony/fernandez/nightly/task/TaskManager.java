@@ -414,7 +414,7 @@ public class TaskManager {
 					}
 				}else{
 					try {
-						JSONObject jsonData = new JSONObject(retour.json);
+						JSONArray jsonData = new JSONArray(retour.json);
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}

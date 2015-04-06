@@ -10,24 +10,21 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
-import com.readystatesoftware.systembartint.SystemBarTintManager.SystemBarConfig;
 
 public class ProfilActivity extends SherlockFragmentActivity {
-	
-	private LinearLayout map;
+
+//	private LinearLayout map;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		overridePendingTransition(R.anim.pull_in_from_left, R.anim.hold);
 		setContentView(R.layout.activity_profil);
-		
+
 		getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		getSupportActionBar().setCustomView(R.layout.action_bar_menu);
 		getSupportActionBar().setHomeButtonEnabled(true);
@@ -47,8 +44,8 @@ public class ProfilActivity extends SherlockFragmentActivity {
 		});
 		getSupportActionBar().getCustomView().findViewById(R.id.logout).setVisibility(View.VISIBLE);
 		((ImageView)getSupportActionBar().getCustomView().findViewById(R.id.logout)).setImageResource(R.drawable.ic_action_back);
-		
-		map = (LinearLayout)findViewById(R.id.message);
+
+//		map = (LinearLayout)findViewById(R.id.message);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			setTranslucentStatus(true); 
@@ -57,18 +54,18 @@ public class ProfilActivity extends SherlockFragmentActivity {
 		SystemBarTintManager tintManager = new SystemBarTintManager(this);
 		tintManager.setStatusBarTintEnabled(true);
 		tintManager.setNavigationBarTintEnabled(true);
-		tintManager.setNavigationBarTintColor(getResources().getColor(android.R.color.transparent));
+		tintManager.setNavigationBarTintColor(getResources().getColor(R.color.blue_dark));
 		tintManager.setStatusBarTintColor(getResources().getColor(R.color.facebook));
-		
-		
-		SystemBarConfig config = tintManager.getConfig();
 
-		int marginTop = config.getActionBarHeight()+config.getStatusBarHeight();
-		RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams)map.getLayoutParams();
-		lp.setMargins(0, marginTop, 0, 0);
-		map.setLayoutParams(lp);
-		findViewById(R.id.imageCloud).setLayoutParams(lp);
-		
+
+		//		SystemBarConfig config = tintManager.getConfig();
+
+		//		int marginTop = config.getActionBarHeight()+config.getStatusBarHeight();
+		//		RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams)map.getLayoutParams();
+		//		lp.setMargins(0, marginTop, 0, 0);
+		//		map.setLayoutParams(lp);
+		//		findViewById(R.id.imageCloud).setLayoutParams(lp);
+
 		//hide some view 
 		findViewById(R.id.next).setVisibility(View.GONE);
 		findViewById(R.id.separator).setVisibility(View.GONE);
@@ -76,7 +73,7 @@ public class ProfilActivity extends SherlockFragmentActivity {
 		((Button)findViewById(R.id.nextTwo)).setText(getResources().getString(R.string.save_changes));
 		((Button)findViewById(R.id.nextTwo)).setBackgroundResource(R.drawable.btn_violet);
 	}
-	
+
 	@Override
 	protected void onPause() {
 		overridePendingTransition(R.anim.hold, R.anim.pull_out_to_left);
@@ -94,12 +91,12 @@ public class ProfilActivity extends SherlockFragmentActivity {
 		overridePendingTransition(R.anim.hold, R.anim.pull_out_to_left);
 		super.onDestroy();
 	}
-	
+
 	private void settings(){
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);
 	}
-	
+
 	@TargetApi(19)  
 	private void setTranslucentStatus(boolean on) {
 		Window win = getWindow();

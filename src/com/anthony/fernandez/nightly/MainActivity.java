@@ -387,7 +387,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	}
 
 
-	public void quitClockMenu(View v){
+	public void quitClockMenu(View v, final boolean action){
 		if(containerClock.getVisibility() == View.VISIBLE){
 			containerClock.setVisibility(View.VISIBLE);
 			Animation animation=new TranslateAnimation(0, 0, 0, -pager.getHeight());
@@ -406,6 +406,10 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 				@Override
 				public void onAnimationEnd(Animation animatiofillAftern) {
 					containerClock.setVisibility(View.GONE);
+					if(action){
+						Intent intent = new Intent(MainActivity.this, ListCategoriesActivity.class);
+						startActivity(intent);
+					}
 				}
 			});
 
@@ -414,12 +418,12 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 	}
 
 	public void changeCategory(View v){
-		quitClockMenu(null);
+		quitClockMenu(null, true);
 	}
 
 	public void changeHour(View v){
 		pickSleepingTime();
-		quitClockMenu(null);
+		quitClockMenu(null, false);
 	}
 
 	public void lundi(View v){

@@ -14,7 +14,7 @@
     <string name="picking_up">Recherche d\'une personne en cours...</string>
     <string name="saving">Application en cours...</string>
     <string name="sending">envoi en cours</string>
-    
+
     <!-- toggle -->
     <string name="turn_on">on</string>
     <string name="turn_off">off</string>
@@ -117,7 +117,7 @@
 
     <!-- picking up -->
     <string name="nobody_available">personne ne se couche dans les 45 prochaines minutes</string>
-    
+
     <!-- chat -->
     <string name="message_elipses">bonjour...</string>
     <string name="send">envoyer</string>
@@ -143,5 +143,6 @@
     <string name="title_activity_tutorial">TutorialActivity</string>
     <string name="title_activity_continue_as">ContinueAsActivity</string>
     <string name="title_activity_reconnection">ReconnectionActivity</string>
+    <string name="title_activity_list_categories">ListCategoriesActivity</string>
 
 </resources>

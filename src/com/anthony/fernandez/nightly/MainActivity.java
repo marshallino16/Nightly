@@ -99,6 +99,7 @@ public class MainActivity extends SherlockFragmentActivity implements TimePicker
 				settings();
 			}
 		});
+		
 		getSupportActionBar().getCustomView().findViewById(R.id.logout).setOnClickListener(new OnClickListener() {
 
 			@Override

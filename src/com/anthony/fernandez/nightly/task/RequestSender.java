@@ -42,6 +42,7 @@ public class RequestSender {
 			SchemeRegistry registry = new SchemeRegistry();
 			SSLSocketFactory socketFactory = SSLSocketFactory.getSocketFactory();
 			socketFactory.setHostnameVerifier((X509HostnameVerifier) hostnameVerifier);
+			registry.register(new Scheme("http", socketFactory, 80));
 			registry.register(new Scheme("https", socketFactory, 443));
 			SingleClientConnManager mgr = new SingleClientConnManager(client.getParams(), registry);
 			DefaultHttpClient httpclient = new DefaultHttpClient(mgr, client.getParams());
@@ -98,6 +99,7 @@ public class RequestSender {
 			SchemeRegistry registry = new SchemeRegistry();
 			SSLSocketFactory socketFactory = SSLSocketFactory.getSocketFactory();
 			socketFactory.setHostnameVerifier((X509HostnameVerifier) hostnameVerifier);
+			registry.register(new Scheme("http", socketFactory, 80));
 			registry.register(new Scheme("https", socketFactory, 443));
 			SingleClientConnManager mgr = new SingleClientConnManager(client.getParams(), registry);
 			DefaultHttpClient httpclient = new DefaultHttpClient(mgr, client.getParams());

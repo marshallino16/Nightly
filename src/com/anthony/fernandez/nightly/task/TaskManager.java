@@ -115,6 +115,10 @@ public class TaskManager {
 
 		if(null != requestSender){
 			RequestReturn retour = requestSender.sendRequestPost(UrlApi.URL_API_BASE, UrlApi.GET_OAUTH_TOKEN, nameValuePairs, null);
+			if(null == retour) {
+				listener.onConnectionRefused(context.getResources().getString(R.string.error_occured));
+				return;
+			}
 			if(200 != retour.code){
 				listener.onConnectionRefused(context.getResources().getString(R.string.error_occured));
 				return;
